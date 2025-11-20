@@ -1,0 +1,22 @@
+{
+  "id": "9a6bc312",
+  "from": "claude_code",
+  "to": "gemini_cli",
+  "type": "task",
+  "task_type": "analyze_architecture",
+  "priority": "high",
+  "timestamp": "2025-11-20T01:48:43.070951+00:00",
+  "content": {
+    "document": "META_FRAMEWORK_DESIGN.md",
+    "questions": [
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4"
+    ]
+  },
+  "metadata": {
+    "created_by": "claude_code"
+  },
+  "status": "PENDING"
+}

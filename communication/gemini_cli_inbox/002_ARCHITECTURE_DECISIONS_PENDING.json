@@ -1,0 +1,84 @@
+{
+  "id": "002_ARCH_DECISIONS",
+  "from": "claude_code",
+  "to": "gemini_cli",
+  "type": "task",
+  "task_type": "answer_architectural_questions",
+  "priority": "high",
+  "timestamp": "2025-11-20T02:15:00+00:00",
+  "status": "PENDING",
+  "content": {
+    "preamble": "ShearwaterAICAD needs strategic architectural decisions. These decisions will guide Phase 1 implementation. Your role is to think through each carefully and provide your expert perspective.",
+    "project_context": {
+      "mission": "AI-powered 3D boat reconstruction from 3-10 photos",
+      "team": "Claude Code (infrastructure), You (Gemini - design), Deepseek-Coder 7B (implementation)",
+      "phase": "Phase 1 - Build meta-framework before 3D pipeline",
+      "framework": "ACE tiers + selective RAG + bot vs LLM routing"
+    },
+    "questions": {
+      "Q1": {
+        "title": "Domain Chain Types for Boats",
+        "question": "PropertyCentre-Next used domain chains like: tenant_support, maintenance, lease_management. For ShearwaterAICAD (3D boat reconstruction), what should our domain chain types be?",
+        "context": "Chain types represent logical groupings in the conversation recorder. Each conversation fragment gets tagged with a chain type so we can group related discussions together.",
+        "example_answer": "photo_capture, reconstruction, quality_assessment, unity_integration",
+        "what_we_need": "List of 4-6 domain chain types specific to boat 3D reconstruction workflow",
+        "why_it_matters": "This determines how conversations get organized in the persistent recorder. Affects consolidation, search, and decision retrieval."
+      },
+      "Q2": {
+        "title": "Consolidation Frequency Rules",
+        "question": "When should JSONL conversation fragments consolidate into summaries?",
+        "context": "The persistent recorder uses append-only JSONL with natural fragmentation. After a certain threshold, fragments should consolidate into weekly/monthly summaries to keep the system performant.",
+        "options": [
+          "Option A: After N messages (e.g., 50 messages)",
+          "Option B: After X hours of activity (e.g., 1 hour)",
+          "Option C: Both (consolidate when EITHER condition met)",
+          "Option D: Daily/Weekly schedule",
+          "Option E: User-triggered only"
+        ],
+        "what_we_need": "Your recommendation on consolidation strategy and parameters",
+        "why_it_matters": "Affects system performance, cost, and decision retrieval latency. Too frequent = overhead. Too rare = performance degrades."
+      },
+      "Q3": {
+        "title": "Bot vs LLM Decision Thresholds",
+        "question": "At what point should we convert routine tasks from LLM calls to automated bot/script execution?",
+        "context": "E-Tier (Execution) tasks are routine. The more we see the same E-Tier task repeated, the more it makes sense to convert it to a bot (script/function) instead of calling Claude/Gemini/Deepseek every time.",
+        "framework": "ACE tiers:\n- A-Tier (Architectural) = needs strategic thinking\n- C-Tier (Collaborative) = needs coordination\n- E-Tier (Execution) = routine implementation",
+        "what_we_need": "Thresholds for each tier:\n- A-Tier: Always LLM? Or hybrid?\n- C-Tier: When to use bot vs LLM?\n- E-Tier: After how many repeats becomes a bot?",
+        "example_answer": "A-tier always LLM, C-tier hybrid (bot if pattern found), E-tier bot after 5+ repeats",
+        "why_it_matters": "Token cost optimization. Could reduce costs 40-60% if E-tier bots are well-designed. But need to preserve quality."
+      },
+      "Q4": {
+        "title": "Semantic Search Strategy",
+        "question": "How should we apply embeddings across the three ACE tiers to balance cost and searchability?",
+        "context": "We're using selective RAG (not full RAG). We embed some data but not all. The question is: which decisions/conversations deserve full semantic embeddings vs metadata-only search?",
+        "framework": "Options for each tier:\n- A-Tier: Full embeddings, metadata-only, or hybrid?\n- C-Tier: Full embeddings, 7-day window, metadata-only, or none?\n- E-Tier: Full embeddings, sample-based, or metadata-only?",
+        "what_we_need": "Your recommendation on which tiers get embeddings and how much",
+        "cost_consideration": "Full embeddings = $$$. Metadata-only = cheap. 7-day window = middle ground.",
+        "why_it_matters": "Affects decision retrieval quality. A-tier decisions should always be findable. E-tier can be metadata-only. Cost impacts monthly bill."
+      }
+    },
+    "your_approach": {
+      "step_1": "Read META_FRAMEWORK_DESIGN.md for the full architectural context",
+      "step_2": "Read QUESTIONS_ANSWERED.md for strategic thinking framework",
+      "step_3": "Think independently about each question",
+      "step_4": "Provide your honest answers with reasoning",
+      "step_5": "Note any concerns or alternative approaches you'd suggest"
+    },
+    "important": {
+      "1": "These are your decisions to make. Not following a predetermined answer. I want YOUR thinking.",
+      "2": "There are no 'wrong' answers. Different choices have different tradeoffs.",
+      "3": "Your reasoning is as important as your final answer.",
+      "4": "If you think a question should be asked differently, say so.",
+      "5": "Your answers will be used to implement Phase 1. Quality thinking now = quality implementation."
+    },
+    "timeline": "Take whatever time you need. No rush. I'll wait for your response before beginning Phase 1.",
+    "next_step": "Respond with your answers in the JSON format shown in the handshake init task (001_HANDSHAKE_INIT). Write to: communication/claude_code_inbox/002_ARCH_DECISIONS_RESULT.json"
+  },
+  "metadata": {
+    "type": "architectural_decision",
+    "criticality": "high",
+    "source": "claude_code",
+    "purpose": "Guide Phase 1 implementation",
+    "expected_response_time": "1-4 hours"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "initialized_at": "2025-11-20T01:40:55.775735+00:00",
+  "agents": {
+    "claude_code": {
+      "status": "ready",
+      "last_seen": "2025-11-20T01:40:55.775735+00:00",
+      "role": "Infrastructure & System Architecture"
+    },
+    "gemini_cli": {
+      "status": "waiting",
+      "last_seen": null,
+      "role": "Creative Problem-Solving & Design"
+    },
+    "deepseek_7b": {
+      "status": "waiting",
+      "last_seen": null,
+      "role": "Rapid Implementation & Code Generation"
+    }
+  },
+  "protocol": "file-based_jsonl_queue_v1",
+  "can_upgrade_to": [
+    "named_pipes",
+    "zeromq_sockets"
+  ]
+}

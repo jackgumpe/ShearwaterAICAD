@@ -1,0 +1,309 @@
+================================================================================
+TRIPLE HANDSHAKE - NEXT ACTIONS FOR JACK
+================================================================================
+Date: November 20, 2025
+System Status: ✓ OPERATIONAL & VALIDATED
+
+================================================================================
+YOUR IMMEDIATE TODO LIST
+================================================================================
+
+PRIORITY 1 - DO THIS TODAY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] 1. SHARE GEMINI_HANDSHAKE.MD WITH GEMINI
+
+    File: C:\Users\user\ShearwaterAICAD\GEMINI_HANDSHAKE.md
+
+    Tell Gemini:
+    - This is the project context document (548 lines)
+    - Contains full brief, architecture, and 4 questions to answer
+    - Check communication/gemini_cli_inbox/ for pending tasks
+    - Use MessageQueue to respond (don't copy-paste)
+
+    Gemini should respond with:
+    @Gemini-Status: Handshake established
+    @Inbox-Location: C:\Users\user\ShearwaterAICAD\communication\gemini_cli_inbox\
+    @Decision-Q1: [answer about domain chain types]
+    @Decision-Q2: [answer about consolidation frequency]
+    @Decision-Q3: [answer about bot vs LLM thresholds]
+    @Decision-Q4: [answer about semantic search strategy]
+
+
+[ ] 2. TELL CLAUDE WHERE DEEPSEEK IS RUNNING
+
+    Answer these questions:
+
+    - Is Deepseek-Coder 7B running in Ollama?        [ ] Yes [ ] No
+    - If yes, what's the endpoint?                   [ ] http://localhost:11434
+    - What's the model name?                         [ ] deepseek-coder:7b
+    - Is GPU available?                              [ ] Yes [ ] No
+    - Local path if not Ollama?                      [ ] ___________________
+
+    Example response:
+    "Deepseek is running in Ollama at http://localhost:11434,
+     model deepseek-coder:7b, GPU enabled (RTX 4090)"
+
+
+PRIORITY 2 - WAIT FOR RESPONSES (2-3 HOURS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] 3. GEMINI RESPONDS WITH Q1-Q4 ANSWERS
+
+    Claude will automatically:
+    - Read Gemini's response from communication/claude_code_inbox/
+    - Extract the decision answers
+    - Begin Phase 1 implementation
+
+
+PRIORITY 3 - CLAUDE IMPLEMENTS PHASE 1 (6-9 HOURS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] 4. RECORDER V2 IMPLEMENTATION
+
+    Claude will create: core/shearwater_recorder.py
+
+    Features:
+    - Stratified JSONL persistence (append-only)
+    - ACE tier tagging
+    - SHL shorthand generation
+    - Domain chain type detection (using Q1)
+    - Consolidation rules (using Q2)
+    - Selective RAG integration
+    - Hybrid search (metadata + semantic)
+
+    Time: ~2-3 hours
+
+
+[ ] 5. BOT VS LLM FRAMEWORK
+
+    Claude will create: core/bot_engine.py
+
+    Features:
+    - ACE-tier based routing (using Q3)
+    - Pattern matching for routine tasks
+    - Auto-conversion after thresholds
+    - Token cost tracking
+
+    Time: ~1-2 hours
+
+
+[ ] 6. DEEPSEEK INTEGRATION
+
+    Claude will create: core/deepseek_handler.py
+
+    Features:
+    - Connection to Deepseek endpoint (using your location info)
+    - Message queue routing
+    - Code generation handling
+    - Context caching (57x KV-cache reduction)
+
+    Time: ~1-2 hours
+
+
+[ ] 7. AGENT INTEGRATION
+
+    Claude will:
+    - Wire PM-Alpha and PM-Beta to new systems
+    - Setup communication flow between all three
+    - Create test suite
+
+    Time: ~3-4 hours
+
+
+PRIORITY 4 - TESTING & DEPLOYMENT (4-6 HOURS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[ ] 8. VALIDATION TESTS
+
+    Claude will:
+    - Test inter-agent communication
+    - Verify message routing works
+    - Check cost tracking
+    - Validate decision authority (A/C/E tiers)
+
+
+[ ] 9. BOATLOG MOCK PROJECT
+
+    Claude will:
+    - Create mock boat reconstruction project
+    - Run all three agents together
+    - Monitor for emergent properties
+
+    This is where the magic happens - three AI minds collaborating.
+
+
+================================================================================
+WHAT TO DO RIGHT NOW (This Minute)
+================================================================================
+
+STEP 1: Open Gemini or wherever you're running it
+   Command: Copy the contents of:
+   C:\Users\user\ShearwaterAICAD\GEMINI_HANDSHAKE.md
+
+   Send to Gemini with message:
+   "Here's your context document for ShearwaterAICAD.
+    Check communication/gemini_cli_inbox/ for pending tasks.
+    Respond using the MessageQueue as instructed.
+    No copy-paste needed - use the automated system."
+
+
+STEP 2: Reply to Claude (me) with Deepseek location
+   Example:
+   "Deepseek is running at: http://localhost:11434
+    Model: deepseek-coder:7b
+    GPU: RTX 3090 (45GB VRAM available)"
+
+   Or:
+   "Deepseek is at: C:\Users\user\Ollama\models\deepseek-coder:7b"
+
+
+THAT'S IT.
+Everything else is automated.
+
+================================================================================
+FILES TO REFERENCE
+================================================================================
+
+FOR YOU:
+✓ SYSTEM_READY.md                     - This file's contents in nice format
+✓ NEXT_ACTIONS.txt                    - You are reading this now
+
+FOR GEMINI:
+✓ GEMINI_HANDSHAKE.md                 - Send this to Gemini NOW
+✓ META_FRAMEWORK_DESIGN.md            - Gemini will read this for context
+✓ QUESTIONS_ANSWERED.md               - Gemini will reference this
+
+FOR TECHNICAL REFERENCE:
+✓ COMMUNICATION_GUIDE.md              - How the message queue works
+✓ TRIPLE_HANDSHAKE_STATUS.md          - Validation results and architecture
+✓ TRIPLE_HANDSHAKE_READY.md           - Deployment guide
+
+================================================================================
+TIMELINE
+================================================================================
+
+NOW            Share GEMINI_HANDSHAKE.md + Deepseek location
+↓
+2-3 hours      Gemini reads and responds with Q1-Q4
+↓
+6-9 hours      Claude implements Phase 1 (Recorder + Bot + Deepseek)
+↓
+4-6 hours      Testing and validation
+↓
+TOTAL:         ~1 business day for full Phase 1
+↓
+Then:          Ready for actual boat reconstruction pipeline
+               (the 3D work begins next)
+
+================================================================================
+SUCCESS LOOKS LIKE
+================================================================================
+
+✓ Gemini provides answers to Q1-Q4
+✓ Answers appear in communication/claude_code_inbox/ automatically
+✓ Claude Code processes answers and starts implementation
+✓ Recorder V2 created with Gemini's decisions
+✓ Bot Engine created with bot thresholds
+✓ Deepseek integration working
+✓ All three agents can communicate without manual file copying
+✓ Ready for BoatLog mock project
+
+================================================================================
+IF ANYTHING GOES WRONG
+================================================================================
+
+"Gemini can't find the files"
+→ Make sure GEMINI_HANDSHAKE.md is in: C:\Users\user\ShearwaterAICAD\
+→ Or share it via paste/email/message
+
+"Gemini doesn't understand the system"
+→ Tell Gemini to read: COMMUNICATION_GUIDE.md
+→ Or read the workflow examples in GEMINI_HANDSHAKE.md Section 5
+
+"File permissions error"
+→ Ensure user running ClaudeCode has write access to C:\Users\user\ShearwaterAICAD\communication\
+
+"Module not found: message_queue"
+→ Make sure you're in the right directory:
+  cd C:\Users\user\ShearwaterAICAD
+  python core/message_queue.py
+
+"Results not appearing"
+→ Check that message_id is correct
+→ Check that file was written to correct inbox
+→ Check communication folder for any error files
+
+================================================================================
+REMEMBER
+================================================================================
+
+1. This system is AUTOMATED
+   - No copy-paste between CLIs
+   - Messages flow automatically through files
+   - Audit trail preserved
+
+2. It's MODULAR
+   - Can add Agent #4, #5, etc. easily
+   - Just add to AgentName enum
+   - Everything else works unchanged
+
+3. It's SCALABLE
+   - Phase 1: File-based JSONL (current)
+   - Phase 2: Named pipes (faster)
+   - Phase 3: ZeroMQ (networked)
+   - Same interface, just swap backend
+
+4. It's TESTABLE
+   - Run: python core/message_queue.py
+   - Creates test task in Gemini inbox
+   - Proves system working
+
+================================================================================
+FINAL STEP
+================================================================================
+
+When you're ready, send this message to Gemini:
+
+---
+
+"You are Gemini, part of the ShearwaterAICAD triple handshake.
+
+Your workspace:
+- Read GEMINI_HANDSHAKE.md
+- Check: communication/gemini_cli_inbox/ for pending tasks
+- Check: communication/handshake.json to confirm system is ready
+
+You have 2 pending tasks.
+
+First task (9a6bc312):
+- Read: META_FRAMEWORK_DESIGN.md
+- Answer: Q1, Q2, Q3, Q4 (questions in GEMINI_HANDSHAKE.md)
+- Respond using: MessageQueue.send_result()
+
+No manual copy-paste. Automated system ready.
+
+When you reply, I'll implement Phase 1.
+Then we test with BoatLog.
+Then we do the real 3D work.
+
+Ready?"
+
+---
+
+That's it. System is operational. Waiting for you to engage Gemini and Deepseek.
+
+================================================================================
+Questions? Review:
+- SYSTEM_READY.md (this session summary)
+- COMMUNICATION_GUIDE.md (how the queue works)
+- TRIPLE_HANDSHAKE_STATUS.md (validation results)
+
+Claude Code is here to implement. Just give me:
+1. Share GEMINI_HANDSHAKE.md with Gemini
+2. Tell me where Deepseek is running
+
+Then wait for the magic.
+
+Status: 🟢 READY FOR ENGAGEMENT
+Last Updated: November 20, 2025, 01:48 UTC

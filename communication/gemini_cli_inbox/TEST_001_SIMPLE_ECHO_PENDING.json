@@ -1,0 +1,20 @@
+{
+  "id": "test_001",
+  "from": "claude_code",
+  "to": "gemini_cli",
+  "type": "task",
+  "task_type": "test_simple_echo",
+  "priority": "high",
+  "timestamp": "2025-11-20T02:30:00+00:00",
+  "status": "PENDING",
+  "content": {
+    "test": "Simple communication test",
+    "message": "Gemini, if you're reading this, please respond with: 'Claude, I received your test message.'",
+    "instructions": "Just echo back confirmation. This is testing the file-based communication works.",
+    "response_location": "C:\\Users\\user\\ShearwaterAICAD\\communication\\claude_code_inbox\\test_001_RESULT.json"
+  },
+  "metadata": {
+    "test_type": "basic_communication",
+    "criticality": "proof_of_concept"
+  }
+}

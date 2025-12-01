@@ -253,10 +253,10 @@ class PersistenceService:
             return
 
         # Connect to agent messages port (agents publish to this)
-        agent_socket = self.context.socket(zmq.SUB)
+        # Using PULL socket (server) to receive from agents' PUSH sockets
+        agent_socket = self.context.socket(zmq.PULL)
         agent_socket.bind(f"tcp://*:{AGENT_MESSAGES_PORT}")
-        agent_socket.setsockopt_string(zmq.SUBSCRIBE, '')  # Subscribe to all topics
-        logger.info(f"Agent message listener started on port {AGENT_MESSAGES_PORT}")
+        logger.info(f"Agent message listener started on port {AGENT_MESSAGES_PORT} (PULL socket)")
 
         self.running = True
         global message_counter
@@ -290,10 +290,16 @@ class PersistenceService:
 
                     for socket, event in events:
                         if event & zmq.POLLIN:
-                            message = socket.recv_multipart(zmq.NOBLOCK)
-
-                            if len(message) >= 2:
-                                topic, payload = message[0], message[1]
+                            try:
+                                # Handle both multipart (from broker SUB) and single-part (from agent PUSH)
+                                if socket == sub_socket:
+                                    # Broker messages are multipart: [topic, payload]
+                                    message = socket.recv_multipart(zmq.NOBLOCK)
+                                    if len(message) >= 2:
+                                        payload = message[1]
+                                else:
+                                    # Agent messages are single-part from PUSH socket
+                                    payload = socket.recv(zmq.NOBLOCK)
 
                                 try:
                                     payload_dict = json.loads(payload.decode('utf-8'))
@@ -309,9 +315,9 @@ class PersistenceService:
                                 except json.JSONDecodeError:
                                     pass  # Non-JSON messages, ignore
 
-                except zmq.Again:
-                    # No messages available, continue
-                    pass
+                            except zmq.Again:
+                                pass  # No message available on this socket
+
                 except Exception as e:
                     logger.warning(f"Error processing message: {e}")
                     pass

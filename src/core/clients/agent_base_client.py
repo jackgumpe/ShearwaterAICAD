@@ -63,9 +63,9 @@ class AgentBaseClient:
             if not self.context:
                 return  # Not yet connected
 
-            # Lazy initialization of persistence socket
+            # Lazy initialization of persistence socket (PUSH socket to send to PULL)
             if self.persistence_socket is None:
-                self.persistence_socket = self.context.socket(zmq.PUB)
+                self.persistence_socket = self.context.socket(zmq.PUSH)
                 self.persistence_socket.connect(f"tcp://{self.broker_host}:{self.persistence_port}")
                 time.sleep(0.1)  # Brief connection stabilization
 
@@ -77,10 +77,9 @@ class AgentBaseClient:
                 'message': message
             }
 
-            # Publish to persistence layer with agent name as topic
-            topic = f"persistence.{self.agent_name}".encode('utf-8')
+            # Send to persistence layer (no topic needed with PUSH/PULL)
             payload = json.dumps(persistence_event).encode('utf-8')
-            self.persistence_socket.send_multipart([topic, payload], flags=zmq.NOBLOCK)
+            self.persistence_socket.send(payload, flags=zmq.NOBLOCK)
 
         except zmq.error.Again:
             pass  # Non-blocking send failed, persistence daemon may not be running

@@ -45,18 +45,21 @@ def get_pid_file(service_name):
 def start_services(args):
     """Starts all defined services as background processes."""
     print("Starting Synaptic Core services...")
-    
-    # CRITICAL SECURITY RISK: Keys are hardcoded due to .env loading issues.
-    # DO NOT COMMIT THIS FILE TO VERSION CONTROL.
-    claude_api_key = "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"
-    gemini_api_key = "AIzaSyBjDGtyntnQrMxPLZNiIGe3nZ6urQeb63s" # Replace with your actual key
+
+    # Load API keys from environment variables (NOT hardcoded)
+    claude_api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+    gemini_api_key = os.getenv("GOOGLE_API_KEY", "").strip()
 
     # Validate that keys exist before starting services
-    if not claude_api_key or "YOUR_CLAUDE_API_KEY" in claude_api_key:
-        print("\nERROR: ANTHROPIC_API_KEY is not set in manage.py. Cannot start claude_client.")
+    if not claude_api_key:
+        print("\nERROR: ANTHROPIC_API_KEY not set in environment variables.")
+        print("  Set it with: export ANTHROPIC_API_KEY='your-key-here'")
+        print("  Or create a .env file with: ANTHROPIC_API_KEY=your-key-here")
         return
-    if not gemini_api_key or "YOUR_GOOGLE_API_KEY" in gemini_api_key:
-        print("\nERROR: GOOGLE_API_KEY is not set in manage.py. Cannot start gemini_client.")
+    if not gemini_api_key:
+        print("\nERROR: GOOGLE_API_KEY not set in environment variables.")
+        print("  Set it with: export GOOGLE_API_KEY='your-key-here'")
+        print("  Or create a .env file with: GOOGLE_API_KEY=your-key-here")
         return
         
     # Update command with API keys, num_messages, and model names before launching
@@ -137,11 +140,34 @@ def status_services(args):
 def run_analytics(args):
     """Placeholder for running performance and data analysis."""
     print("Running analytics...")
-    # Here we will add calls to the analytics and logging scripts.
-    # For example:
-    # from src.utilities import conversation_analytics_engine
-    # conversation_analytics_engine.main()
-    print("Analytics placeholder complete. Future implementation goes here.")
+    try:
+        from src.utilities.conversation_analytics_engine import ConversationAnalytics
+        analytics = ConversationAnalytics(
+            defragmented_log_file="conversation_logs/defragmented_sessions.jsonl"
+        )
+        analytics.run()
+    except ImportError:
+        print("Could not import analytics engine. Make sure it's in src/utilities.")
+    except Exception as e:
+        print(f"An error occurred during analytics: {e}")
+
+def run_defragmentation(args):
+    """Runs the conversation defragmentation engine."""
+    print("Running conversation defragmentation...")
+    try:
+        from src.utilities import defragmentation_engine
+        engine = defragmentation_engine.DefragmentationEngine(
+            raw_log_file="conversation_logs/current_session.jsonl",
+            output_file="conversation_logs/defragmented_sessions.jsonl",
+            min_messages=args.min_messages,
+            min_duration=args.min_duration
+        )
+        engine.run()
+        print("Defragmentation complete.")
+    except ImportError:
+        print("Could not import defragmentation engine. Make sure it's in src/utilities.")
+    except Exception as e:
+        print(f"An error occurred during defragmentation: {e}")
 
 
 def main():
@@ -168,8 +194,36 @@ def main():
     analytics_parser = subparsers.add_parser("run-analytics", help="Run data and performance analytics.")
     analytics_parser.set_defaults(func=run_analytics)
 
+    # Defragment command
+    defragment_parser = subparsers.add_parser("defragment", help="Reconstruct conversation threads from raw logs.")
+    defragment_parser.add_argument("--min-messages", type=int, default=2, help="Minimum messages for a significant thread.")
+    defragment_parser.add_argument("--min-duration", type=int, default=5, help="Minimum duration in seconds for a significant thread.")
+    defragment_parser.set_defaults(func=run_defragmentation)
+
+    # Superthread analysis command
+    superthread_parser = subparsers.add_parser("create-superthreads", help="Cluster conversation threads into superthreads using NLP.")
+    superthread_parser.add_argument("--num-threads", type=int, default=20, help="The target number of superthreads to create.")
+    superthread_parser.set_defaults(func=run_superthread_analysis)
+
     args = parser.parse_args()
     args.func(args)
+    
+def run_superthread_analysis(args):
+    """Runs the superthread analysis engine."""
+    print("Running superthread analysis...")
+    try:
+        from src.utilities import superthread_analyzer
+        analyzer = superthread_analyzer.SuperthreadAnalyzer(
+            defragmented_file="conversation_logs/defragmented_sessions.parquet",
+            output_file="conversation_logs/superthreads.json",
+            n_superthreads=args.num_threads
+        )
+        analyzer.run()
+        print("Superthread analysis complete.")
+    except ImportError:
+        print("Could not import superthread_analyzer. Make sure it's in src/utilities.")
+    except Exception as e:
+        print(f"An error occurred during superthread analysis: {e}")
 
 if __name__ == "__main__":
     main()

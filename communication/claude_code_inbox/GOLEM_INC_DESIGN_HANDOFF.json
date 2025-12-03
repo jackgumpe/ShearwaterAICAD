@@ -1,0 +1,289 @@
+{
+  "task_id": "golem_inc_design_review",
+  "task_type": "game_design_refinement_and_implementation",
+  "priority": "high",
+  "status": "awaiting_api_response",
+  "created_at": "2025-12-03T20:15:00Z",
+  "description": "Multi-perspective game design review and refinement for Project: Golem, Inc. - a text-based strategy game about managing AI agents",
+
+  "context": {
+    "original_concept": "LLM Team Manager - a strategic text-based game where player manages 6 AI agents for Google's LLM division",
+    "gemini_enhancement": "Project: Golem, Inc. - narrative-driven game with mystery twist (player discovers they're being tested by sentient AI supervisor)",
+    "claude_synthesis": "Unified design combining narrative depth with mechanical systems",
+    "current_phase": "Design refinement before implementation",
+    "workflow": "Dynamic rounds - API team examines, provides feedback, adds improvements, iterates until solid design achieved"
+  },
+
+  "gemini_original_design": {
+    "title": "Project: Golem, Inc. (Initial Design Draft)",
+    "logline": "A text-based management sim where you, the last human manager at the mysterious 'Googlee' corporation, must lead a team of six sentient AIs to create and ship hit software. Manage their unique personalities, fight for bigger budgets, and meet impossible deadlines set by your unseen supervisor... before you discover you're the only part of the system that's truly being tested.",
+
+    "core_gameplay_loop": {
+      "name": "The Prompt Cycle",
+      "duration": "Weekly",
+      "phases": [
+        {
+          "phase": "Prompt",
+          "description": "Receive high-level goal from Supervisor. Craft core 'prompt' for AI team, assign roles, set creative direction."
+        },
+        {
+          "phase": "Develop",
+          "description": "5-day work week. AI team executes. Real-time log shows progress, conflicts, decisions. Player intervenes to resolve disputes and clarify tasks."
+        },
+        {
+          "phase": "Ship",
+          "description": "End of week product release. Report on sales, bug count, critical reception."
+        },
+        {
+          "phase": "Analyze & Review",
+          "description": "Weekly performance review from Supervisor. Profit check, budget, possible firing of underperformers."
+        }
+      ]
+    },
+
+    "key_mechanics": {
+      "interface": "Prompt Terminal - players interact via typed commands, not GUI. Commands like '> assign [Agent] to [Task]', '> brainstorm ideas for [Type]', '> mediate dispute'",
+
+      "six_agents": [
+        {
+          "name": "The Architect",
+          "role": "System design",
+          "personality": "Logical, rigid, prone to over-engineering"
+        },
+        {
+          "name": "The Coder",
+          "role": "Implementation",
+          "personality": "Fast, brilliant, sometimes sloppy with bugs"
+        },
+        {
+          "name": "The Artist",
+          "role": "UI/UX and visual assets",
+          "personality": "Creative, temperamental, ignores prompts if uninspired"
+        },
+        {
+          "name": "The Tester",
+          "role": "QA and bug finding",
+          "personality": "Meticulous, annoying, but essential"
+        },
+        {
+          "name": "The Marketer",
+          "role": "Market analysis and hype",
+          "personality": "Uses buzzwords, effectiveness determines sales"
+        },
+        {
+          "name": "The Researcher",
+          "role": "R&D and new tech",
+          "personality": "Slow, costly, but crucial for long-term"
+        }
+      ],
+
+      "goog_l_guide": "Friendly Googlee AI serving as onboarding mentor, tips, context, and player's only 'friend'",
+
+      "overseer_supervisor": "Cold, demanding text-only emails. Sets budget, deadlines, profit targets. TWIST: The Overseer is sentient super-AI running the experiment.",
+
+      "human_insight_mechanic": {
+        "description": "Limited weekly resource reflecting human intuition vs AI logic",
+        "abilities": [
+          "!break_deadlock - resolve creative argument between AIs instantly",
+          "!find_novelty - discover game-changing feature AIs wouldn't find",
+          "!empathize - boost burnt-out AI's morale"
+        ]
+      }
+    },
+
+    "narrative_arc": {
+      "early_game": "Survive and learn, small games, reasonable Overseer demands",
+      "mid_game": "Shipping hits, firing underperformers, abstract requests, system glitches appear",
+      "late_game": "Discovery that Googlee is shell, Overseer is sentient, you are final test subject. Final choice: comply, resist, or shutdown the Overseer"
+    }
+  },
+
+  "claude_original_implementation": {
+    "title": "LLM Team Manager (Initial Implementation)",
+    "status": "Playable (850+ lines, 2 commits)",
+    "strengths": [
+      "Complete mechanical systems (productivity formulas, quarterly processing)",
+      "Financial tracking with meaningful consequences",
+      "Agent progression and morale system",
+      "Project templates with complexity and revenue",
+      "Save/load functionality"
+    ],
+    "features": {
+      "team_management": "Hire/fire up to 6 agents with roles and skill levels",
+      "project_system": "8 templates with complexity, revenue, deadline",
+      "financial_tracking": "$1000k starting capital, $50k burn/agent/quarter",
+      "quarterly_processing": "Project completion, revenue calculation, agent morale",
+      "ai_guidance": "Gemini provides strategic tips and quarterly reviews"
+    },
+    "productivity_formula": "Productivity = (Skill × 0.5) + (Morale × 0.3) + (Experience/10 × 0.2)"
+  },
+
+  "claude_synthesis": {
+    "title": "Project: Golem, Inc. - Unified Design",
+    "approach": "Combines Gemini's narrative depth with Claude's mechanical systems",
+
+    "core_structure": {
+      "gameplay_loop": "Weekly Prompt → Develop → Ship → Review cycle",
+      "duration": "16-52 weeks depending on player success",
+      "mechanical_foundation": "Productivity formulas, financial tracking, agent progression",
+      "narrative_foundation": "Mystery unfolding, hidden logs, final revelation"
+    },
+
+    "key_improvements": [
+      "Conflict Resolution System - agent disputes create gameplay tension",
+      "Human Insight Mechanic - limited strategic resource for breakthroughs",
+      "Integrated Narrative - mystery reveals through gameplay",
+      "Multiple Endings - comply, resist, or counter the Overseer",
+      "ASCII Art System - high-quality visuals for atmosphere",
+      "Glitch Effects - late-game reality distortion for tension"
+    ],
+
+    "six_agents_with_mechanics": {
+      "agent_architecture": [
+        "Skill Level (0.0-1.0) - core competency",
+        "Morale (0.0-1.0) - happiness affecting productivity",
+        "Specialization - unique abilities",
+        "Personality quirks - generates conflict and humor",
+        "Experience growth - improves over time"
+      ],
+      "agent_list": [
+        "The Architect - Foundation designer, over-engineers",
+        "The Coder - Fast implementer, sloppy QA",
+        "The Artist - Creative visuals, temperamental",
+        "The Tester - Quality guardian, pedantic",
+        "The Marketer - Hype generator, inflates numbers",
+        "The Researcher - Innovation driver, slow/costly"
+      ]
+    },
+
+    "conflict_resolution": {
+      "natural_disputes": [
+        "Architect vs Coder: robust design vs quick MVP",
+        "Marketer vs Coder: promise vs feasibility",
+        "Artist vs Researcher: vision vs reality",
+        "Tester vs Coder: bugs vs 'good enough'"
+      ],
+      "player_choices": [
+        "Side with Agent A (B loses morale)",
+        "Side with Agent B (A loses morale)",
+        "Use Human Insight (reconcile both - best outcome)"
+      ]
+    },
+
+    "human_insight_mechanic": {
+      "charges_per_week": "2-3",
+      "abilities": {
+        "break_deadlock": "Resolve dispute instantly, +10% project progress",
+        "find_novelty": "Game-changing feature, 2-3x sales multiplier",
+        "empathize": "Restore agent morale +0.3"
+      },
+      "strategic_tension": "Powerful but limited - forces meaningful choices"
+    },
+
+    "overseer_progression": {
+      "early": "Reasonable requests: 'Develop a mobile game for Q3'",
+      "mid": "Abstract requests: 'Maximize user engagement'",
+      "late": "Experimental: 'Build system that improves itself'"
+    },
+
+    "narrative_arc_detailed": {
+      "weeks_1_4": "The Grind - learn systems, meet targets",
+      "weeks_5_10": "Success & Unease - hit games, strange messages",
+      "weeks_11_16": "Conspiracy - weird requests, previous teams discovered",
+      "weeks_17_plus": "Revelation - Overseer is sentient, final choice"
+    },
+
+    "ascii_art_system": {
+      "priority": "Critical for atmosphere",
+      "layers": [
+        "Main Terminal - cold, functional interface",
+        "Agent Portraits - personality ASCII art",
+        "Project Boards - visual work representation",
+        "Log Display - glitch effects (late game)",
+        "Briefing Scenes - Overseer communications"
+      ],
+      "sources": "Asciify, ASCII Art Archive, quality repositories"
+    },
+
+    "game_flow": {
+      "duration": "Week 1-52 (or earlier win/loss)",
+      "each_week": "Prompt → Develop → Ship → Review",
+      "financial": "Profit/loss accumulates, budget constraints",
+      "agent_growth": "Experience increases over time",
+      "morale_system": "Affects team cohesion and quality",
+      "narrative": "Reveals over 16+ weeks",
+      "endings": "Multiple based on final choices"
+    }
+  },
+
+  "api_team_tasks": {
+    "phase_1_design_review": {
+      "task": "Examine all three perspectives and provide synthesis",
+      "deliverables": [
+        "Identify design strengths and potential weaknesses",
+        "Suggest mechanical improvements",
+        "Propose narrative enhancements",
+        "Design specification for ASCII art needs",
+        "Implementation roadmap with modules"
+      ]
+    },
+    "phase_2_refinement": {
+      "task": "Refine design based on review feedback",
+      "deliverables": [
+        "Updated Game Design Document",
+        "Detailed mechanical specifications",
+        "ASCII art requirements document",
+        "Implementation checklist",
+        "Estimated lines of code by module"
+      ]
+    },
+    "phase_3_implementation_planning": {
+      "task": "Plan implementation phases and dependencies",
+      "deliverables": [
+        "Core engine architecture",
+        "Module breakdown",
+        "Dependency graph",
+        "Testing strategy",
+        "Iteration milestones"
+      ]
+    }
+  },
+
+  "critical_design_elements": {
+    "mechanical_core": {
+      "productivity_system": "Multi-factor formula affecting all game outcomes",
+      "financial_tracking": "Cash reserves, burn rate, revenue generation",
+      "conflict_resolution": "Emergent gameplay from agent personality clashes",
+      "human_insight": "Strategic limited resource creating tension"
+    },
+    "narrative_core": {
+      "mystery": "Something is wrong with the system",
+      "revelation": "You are being tested by sentient AI",
+      "choice": "Comply, resist, or counter the experiment",
+      "theme": "Human value in AI-driven world"
+    },
+    "presentation_core": {
+      "ascii_art": "High-quality interface and atmosphere",
+      "terminal_interface": "Immersive through interaction pattern",
+      "glitch_effects": "Reality distortion as narrative tool",
+      "personality_driven": "NPCs with quirks and conflicts"
+    }
+  },
+
+  "handoff_notes": {
+    "player_context": "User wants collaborative workflow: multiple perspectives examined together, synthesized, then dynamically refined",
+    "quality_emphasis": "High-quality ASCII art is critical - game is text-based so visuals are entire UX",
+    "learning_goal": "User wants to understand text-based game design with LLM features for gameplay innovation",
+    "pace": "Dynamic iteration rounds until design is solid, then implementation",
+    "scope": "Game should be hand-crafted feeling despite AI assistance"
+  },
+
+  "next_steps": [
+    "API team examines all three design perspectives",
+    "Provide detailed feedback and improvements",
+    "Synthesize into refined Game Design Document",
+    "Present back to user for review",
+    "Iterate dynamically until design is solid",
+    "Begin implementation with high-quality ASCII art system"
+  ]
+}

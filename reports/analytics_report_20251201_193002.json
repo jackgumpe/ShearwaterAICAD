@@ -1,0 +1,143 @@
+{
+  "timestamp": "2025-12-01T19:30:02.632491",
+  "total_messages": 2377,
+  "speakers": {
+    "consolidated": 2367,
+    "claude_code": 6,
+    "gemini_cli": 4
+  },
+  "message_types": {
+    "unknown": 2377
+  },
+  "chain_types": {
+    "system_architecture": 2319,
+    "ui_ux": 15,
+    "unknown": 10,
+    "agent_collaboration": 9,
+    "token_optimization": 7,
+    "testing_validation": 7,
+    "photo_capture": 3,
+    "quality_assessment": 3,
+    "data_management": 3,
+    "reconstruction": 1
+  },
+  "ace_tiers": {
+    "E": 2359,
+    "unknown": 10,
+    "A": 8
+  },
+  "keywords": [
+    [
+      "lease",
+      2265
+    ],
+    [
+      "context",
+      1159
+    ],
+    [
+      "activated",
+      1147
+    ],
+    [
+      "phase",
+      1143
+    ],
+    [
+      "contextid",
+      1140
+    ],
+    [
+      "timestamp",
+      1138
+    ],
+    [
+      "confidence",
+      1136
+    ],
+    [
+      "manager",
+      1135
+    ],
+    [
+      "data",
+      1135
+    ],
+    [
+      "domain",
+      1134
+    ],
+    [
+      "commandcount",
+      1133
+    ],
+    [
+      "routing",
+      1133
+    ],
+    [
+      "length",
+      1133
+    ],
+    [
+      "normalized",
+      1132
+    ],
+    [
+      "phases",
+      1132
+    ],
+    [
+      "updatedat",
+      1132
+    ],
+    [
+      "claude",
+      33
+    ],
+    [
+      "ui",
+      19
+    ],
+    [
+      "deepseek",
+      18
+    ],
+    [
+      "body",
+      18
+    ]
+  ],
+  "timeline": {
+    "2025-09-29": 2,
+    "2025-09-30": 4,
+    "2025-10-14": 10,
+    "2025-10-15": 1097,
+    "2025-10-16": 49,
+    "2025-10-20": 2,
+    "2025-10-21": 1,
+    "2025-11-20": 1204,
+    "2025-12-01": 8
+  },
+  "metadata_insights": {
+    "shl_tags_frequency": {
+      "@Chain-system_architecture": 2319,
+      "@Chain-ui_ux": 15,
+      "@Action-Required": 10,
+      "@Chain-agent_collaboration": 9,
+      "@Chain-token_optimization": 7,
+      "@Chain-testing_validation": 7,
+      "@Status-Ready": 7,
+      "@Chain-photo_capture": 3,
+      "@Chain-quality_assessment": 3,
+      "@Question-Open": 3
+    },
+    "consolidation_ratio": {
+      "consolidated_count": 2367,
+      "total_count": 2377,
+      "consolidation_percentage": 99.5793016407236
+    },
+    "content_hash_coverage": 10
+  },
+  "collaboration_score": 99.92
+}

@@ -1,0 +1,148 @@
+{
+  "dialogue_metadata": {
+    "timestamp": "2025-12-02T23:05:00Z",
+    "participants": ["claude_api_agent", "gemini_api_agent"],
+    "topic": "Gmail Integration System (Gluade) - Requirements & Architecture",
+    "phase": "Phase 1: Design Phase (Rounds 1-40)",
+    "purpose": "Design production-grade Gmail integration for Azerate command center",
+    "rounds_planned": 150,
+    "rounds_in_phase": 40,
+    "project_name": "Gluade - Gmail Integration System"
+  },
+
+  "dialogue": [
+    {
+      "round": 1,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "We're building Gluade - the Gmail integration system for Azerate's command center. This is critical infrastructure. When grant responses come in, when partnerships inquire, when system alerts fire - everything flows through Gmail. We need this rock-solid.\n\nLet me start with the fundamental question: OAuth2 or Service Account?\n\nOAuth2: User logs in once, we get token, it refreshes automatically. User keeps control. Flexible.\nService Account: We create a dedicated Gmail account, Azerate monitors it. Simpler automation, but less flexible.\n\nI'm leaning OAuth2 because it keeps user in control and works for personal/business emails. What's your take?",
+      "design_phase": true,
+      "key_decision": "OAuth2 vs Service Account"
+    },
+    {
+      "round": 2,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "OAuth2 is the right choice. Here's why:\n\n1. **User Control**: Stays with the user's Gmail account\n2. **Flexibility**: Works for personal, business, domain emails\n3. **Trust**: No secrets stored server-side\n4. **Audit Trail**: Google logs everything through their dashboard\n5. **Recovery**: User can revoke at any time\n\nService Account only works if we control the Gmail account, which adds complexity.\n\nBUT - here's the challenge: OAuth2 requires a one-time setup. User must:\n1. Create Google Cloud project\n2. Enable Gmail API\n3. Create OAuth credentials\n4. Go through Google's login flow\n5. Grant permissions\n\nWe need to make this SEAMLESS. So let me ask: Should we provide a step-by-step setup wizard?",
+      "design_phase": true,
+      "key_point": "OAuth2 is right, but setup must be frictionless"
+    },
+    {
+      "round": 3,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "YES - setup wizard is essential. Here's the flow:\n\n```\nUser runs: python -m gluade.setup\n\n1. \"Welcome to Gluade. Let's connect Gmail.\"\n2. Check if Google Cloud project exists\n3. If not: Create one automatically (using gcloud CLI or web)\n4. Enable Gmail API\n5. Create OAuth credentials\n6. Open browser to Google login\n7. User grants permissions\n8. Save credentials securely\n9. Test connection\n10. Done!\n```\n\nWe should also provide:\n- Manual setup guide (for corporate firewalls)\n- Credential refresh handling\n- \"Forgot password\" recovery\n- Multi-account support (if user has multiple Gmail accounts)\n\nNow, let me ask: credential storage. We CANNOT store passwords. OAuth tokens?\n\nOption A: Store token in ~/.gluade/credentials.json (encrypted)\nOption B: Store token in system keychain (Mac/Windows/Linux)\nOption C: Environment variable\nOption D: OAuth2 refresh token only, get new access token when needed\n\nWhat's safest?",
+      "design_phase": true,
+      "key_decision": "Credential storage strategy"
+    },
+    {
+      "round": 4,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Layered approach:\n\n**PRIMARY**: System keychain (most secure)\n- Mac: Keychain\n- Windows: Credential Manager\n- Linux: Secret Service (or fallback to encrypted file)\n\n**FALLBACK**: Encrypted file (~/.gluade/credentials.json)\n- If keychain not available\n- Use cryptography library (fernet encryption)\n- File permissions: 0600 (user only)\n\n**ENVIRONMENT**: Optional override\n- GLUADE_CREDENTIALS_PATH=/path/to/creds.json\n- GLUADE_KEYCHAIN_SERVICE=custom_service\n\n**FLOW**:\n1. Try keychain first (most secure)\n2. If not available, use encrypted file\n3. If not found, guide user through setup\n4. On startup: Load token from keychain/file\n5. If token expired: Use refresh token to get new access token\n6. If refresh fails: Ask user to re-authenticate\n\nThis gives us:\n- Security (credentials not in plain text)\n- Flexibility (works on any OS)\n- User control (can revoke, reset, move)\n- Automation (no repeated logins)\n\nGood?",
+      "design_phase": true,
+      "key_point": "Multi-layer credential storage strategy"
+    },
+    {
+      "round": 5,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Perfect. Now let's design the CORE COMPONENTS:\n\n1. **GmailAuthenticator**\n   - OAuth2 setup (one-time)\n   - Token management (store, refresh, revoke)\n   - Keychain integration\n   - Multi-account support\n\n2. **GmailClient**\n   - Read emails (list, get, search)\n   - Send emails (with templates)\n   - Manage labels (create, apply, list)\n   - Handle attachments\n   - Batch operations\n\n3. **EmailParser**\n   - Detect email type (grant response, partnership, alert, etc)\n   - Extract key information (sender, subject, body highlights)\n   - Classify urgency (critical, high, normal, low)\n   - Extract action items\n\n4. **NotificationSystem**\n   - Define important emails (from NSF, DOE, DARPA, etc)\n   - Alert when important email arrives\n   - Desktop notifications, email forward, webhook\n\n5. **TemplateEngine**\n   - Compose emails from templates\n   - Variable substitution\n   - HTML formatting\n   - Attachment support\n\n6. **AdminInterface (CLI)**\n   - Check inbox status\n   - Search emails\n   - Send replies\n   - Manage templates\n   - View audit log\n\n7. **Dashboard**\n   - Web UI showing inbox status\n   - Recent grant responses\n   - Important senders\n   - Action items\n\n8. **AuditLogger**\n   - Log all operations\n   - Track who did what when\n   - For compliance/debugging\n\nDoes this cover everything?",
+      "design_phase": true,
+      "component_count": 8
+    },
+    {
+      "round": 6,
+      "speaker": "gemini_api_agent",
+      "role": "Reviewer",
+      "content": "Good component list. But I want to add:\n\n9. **ConfigManager**\n   - Preferences file (YAML or JSON)\n   - Auto-detect important senders (from previous tier emails)\n   - Alert thresholds\n   - Template list\n   - Rate limiting settings\n\n10. **RateLimiter**\n    - Google has strict API limits\n    - 25 emails/second for reading\n    - 100 emails/second for sending (batched)\n    - We need to respect these\n    - Queue operations if hitting limit\n\n11. **ErrorHandler**\n    - Network failures (retry with backoff)\n    - Authentication failures (guide user to re-login)\n    - Rate limiting (wait and retry)\n    - Invalid emails (skip and log)\n    - Gmail API errors (classify and respond)\n\n12. **CacheManager**\n    - Email list caching (avoid repeated API calls)\n    - Attachment caching\n    - Label caching\n    - Invalidation on new emails\n\nAnd we need to think about DATA STRUCTURES:\n\nEmail object:\n```python\n{\n  'id': 'email-id',\n  'from': 'sender@example.com',\n  'subject': 'Grant Response: NSF SBIR',\n  'body': 'Your proposal has been...',\n  'timestamp': 1702566000,\n  'type': 'grant_response',  # Detected by parser\n  'urgency': 'critical',      # Detected by parser\n  'action_items': ['Review decision', 'Contact program officer'],\n  'labels': ['Grant', 'NSF', 'Important']\n}\n```\n\nGood?",
+      "design_phase": true,
+      "additions": ["ConfigManager", "RateLimiter", "ErrorHandler", "CacheManager"],
+      "data_structure_defined": true
+    },
+    {
+      "round": 7,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Excellent additions. Now the architecture flow:\n\n```\nUSER\n  |\n  └─→ CLI Interface (AdminInterface)\n      |\n      ├─→ GmailAuthenticator (OAuth2, tokens)\n      ├─→ GmailClient (read/write to Gmail API)\n      ├─→ EmailParser (analyze emails)\n      ├─→ ConfigManager (load preferences)\n      ├─→ RateLimiter (respect API limits)\n      ├─→ CacheManager (optimize API calls)\n      ├─→ ErrorHandler (handle failures)\n      ├─→ NotificationSystem (alert user)\n      ├─→ TemplateEngine (compose emails)\n      ├─→ AuditLogger (log operations)\n      └─→ Dashboard (web UI)\n```\n\nDependencies:\n- google-auth-oauthlib (OAuth2)\n- google-api-python-client (Gmail API)\n- click (CLI)\n- flask (Dashboard)\n- cryptography (Encryption)\n- keyring (OS keychain)\n\nNO external AI models - just structured parsing.\n\nDatabase:\n- SQLite for persistent storage\n- Tables: emails, labels, templates, audit_log, preferences\n- Syncs with Gmail (doesn't duplicate)\n\nNow, the critical question: SCOPE.\n\nMVP (Minimum Viable Product):\n1. OAuth2 setup + token management\n2. Read emails (list, search, get)\n3. Send emails (simple, no templates yet)\n4. Basic email parser\n5. CLI interface\n6. Audit logging\n\nFull Version (after MVP):\n7. Email templates\n8. Notifications system\n9. Dashboard\n10. Config management\n11. Advanced caching\n12. Rate limiting\n\nFor 150 rounds: I'm thinking MVP first (rounds 1-80), then Full Version (rounds 81-150). Sound right?",
+      "design_phase": true,
+      "key_decision": "MVP vs Full scope"
+    },
+    {
+      "round": 8,
+      "speaker": "gemini_api_agent",
+      "role": "Reviewer",
+      "content": "MVP-first approach is smart. Build what we need NOW for grant responses, expand later.\n\nMVP Scope (Rounds 1-80):\n- OAuth2 setup wizard (self-contained, no user pain)\n- Read emails (list, search, detailed view)\n- Send replies (simple, templates later)\n- Email parser (detect: grant response, partnership, alert)\n- CLI: check-inbox, read-email, send-email, search\n- Audit log (all operations tracked)\n- Error handling (graceful failures)\n- 60+ unit tests\n\nFull Version (Rounds 81-150):\n- Email templates (canned responses)\n- Notifications (desktop, webhook, email forward)\n- Dashboard (web UI showing status)\n- Config management (manage preferences)\n- Advanced features (labels, batching, etc)\n- 80+ total unit tests\n- Complete documentation\n\nMVP Delivery Timeline (in the 150 rounds):\n- Rounds 1-15: Architecture & design (locked in)\n- Rounds 16-50: Core implementation (Authenticator, Client, Parser)\n- Rounds 51-70: CLI & testing\n- Rounds 71-80: Documentation & polish\n\nFull Version Timeline:\n- Rounds 81-100: Templates & Notifications\n- Rounds 101-120: Dashboard\n- Rounds 121-140: Testing & refinement\n- Rounds 141-150: Final documentation\n\nLet me ask: TESTING STRATEGY.\n\nWe can't truly test with real Gmail (that's PII). So:\n\nOption A: Mock Gmail API (FakeGmail object)\n- Simulate API responses\n- Test all code paths\n- Fast, no external dependencies\n\nOption B: Use test Gmail account\n- Real API calls\n- Real email I/O\n- Slower, more realistic\n\nOption C: Hybrid (Mock + test account)\n- Unit tests with mocks (fast)\n- Integration tests with real account (realistic)\n\nI vote Option C.",
+      "design_phase": true,
+      "key_point": "MVP first, then expand to full feature set"
+    },
+    {
+      "round": 9,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Option C (Hybrid testing) is perfect.\n\n**Unit Tests (mocked Gmail)**:\n- Parser correctly identifies email types\n- CLI commands work\n- Rate limiting triggers correctly\n- Error handling recovers gracefully\n- Audit logging records operations\n- OAuth token refresh works\n- ~60+ test cases\n\n**Integration Tests (real test Gmail account)**:\n- Can authenticate with OAuth2\n- Can read real emails\n- Can send real emails\n- Search functionality works\n- Label management works\n- Error recovery with real API failures\n- ~20+ test cases\n\n**Test Gmail Account**:\nWe'll create a dummy account (test@example.com) just for testing.\nSecured with strong password, kept private.\nUsed only in CI/CD pipeline.\n\nNow let me design the PROJECT STRUCTURE:\n\n```\ngluade/\n├── gluade/\n│   ├── __init__.py\n│   ├── authenticator.py      (GmailAuthenticator)\n│   ├── client.py              (GmailClient)\n│   ├── parser.py              (EmailParser)\n│   ├── config.py              (ConfigManager)\n│   ├── rate_limiter.py        (RateLimiter)\n│   ├── cache.py               (CacheManager)\n│   ├── errors.py              (ErrorHandler, custom exceptions)\n│   ├── logger.py              (AuditLogger)\n│   ├── cli.py                 (AdminInterface CLI)\n│   ├── templates.py           (TemplateEngine - later)\n│   ├── notifications.py       (NotificationSystem - later)\n│   └── dashboard.py           (Flask dashboard - later)\n├── tests/\n│   ├── test_authenticator.py\n│   ├── test_client.py\n│   ├── test_parser.py\n│   ├── test_integration.py\n│   └── fixtures/\n│       ├── mock_gmail.py\n│       └── test_data.json\n├── docs/\n│   ├── setup_guide.md\n│   ├── cli_reference.md\n│   └── api_docs.md\n├── examples/\n│   ├── basic_usage.py\n│   ├── grant_tracking.py\n│   └── email_templates.py\n├── requirements.txt\n├── setup.py\n└── README.md\n```\n\nGood structure?",
+      "design_phase": true,
+      "component_count": 13,
+      "project_structure_defined": true
+    },
+    {
+      "round": 10,
+      "speaker": "gemini_api_agent",
+      "role": "Reviewer",
+      "content": "Perfect project structure. Now let me detail the SECURITY CONSTRAINTS:\n\n1. **No Plain-Text Credentials**\n   - OAuth tokens stored encrypted in keychain\n   - Refresh tokens similarly protected\n   - Never log credentials\n   - Never print credentials\n   - Never save in config files\n\n2. **Token Management**\n   - Access tokens expire (1 hour)\n   - Use refresh tokens to get new ones\n   - Handle token refresh transparently\n   - Graceful downgrade if refresh fails\n\n3. **API Security**\n   - Use TLS for all Gmail API calls\n   - Validate SSL certificates\n   - Handle rate limiting gracefully\n   - No API key in code (OAuth only)\n\n4. **Data Privacy**\n   - Cache emails in SQLite (encrypted)\n   - No email bodies in logs\n   - Audit log tracks operations (not content)\n   - User can delete cached data at any time\n\n5. **Error Messages**\n   - Don't leak credential info\n   - Don't expose user data in errors\n   - Clear error messages for recovery\n\n6. **Permissions**\n   - Request minimal Gmail scopes\n   - Use readonly scope where possible\n   - Document why each permission needed\n   - User can see what we're accessing\n\n**OAuth Scopes**:\n- https://www.googleapis.com/auth/gmail.readonly (read)\n- https://www.googleapis.com/auth/gmail.send (send)\n- https://www.googleapis.com/auth/gmail.labels (manage labels)\n- https://www.googleapis.com/auth/gmail.modify (full access - needed for labels)\n\nActually, can we do it with just .readonly + .send? Let me think...\n\nFor MVP, I'd go with:\n- gmail.readonly (read emails)\n- gmail.send (send emails)\n\nLabels need gmail.modify, which is broader. We can add that later.\n\nDoes this make sense?",
+      "design_phase": true,
+      "key_decision": "OAuth scopes selection"
+    },
+    {
+      "round": 11,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Perfect scope selection. Minimal permissions for MVP is smart.\n\nNow let me define the KEY CLASSES in detail:\n\n**GmailAuthenticator**:\n```python\nclass GmailAuthenticator:\n    def __init__(self, credentials_path=None):\n        # Initialize, set up paths\n    \n    def setup_oauth(self):\n        # Interactive setup: open browser, user grants permission\n        # Save token securely to keychain\n    \n    def load_credentials(self):\n        # Load from keychain (or encrypted file as fallback)\n        # Return authorized session\n    \n    def refresh_token(self):\n        # Use refresh token to get new access token\n        # Handle expiration, re-auth if needed\n    \n    def revoke_credentials(self):\n        # User wants to disconnect Gmail\n        # Revoke token, delete from keychain\n    \n    def is_authenticated(self):\n        # Check if we have valid credentials\n```\n\n**GmailClient**:\n```python\nclass GmailClient:\n    def __init__(self, authenticator):\n        self.auth = authenticator\n        self.service = None  # Gmail API service\n    \n    def list_emails(self, query='', max_results=10):\n        # List emails, apply query filter\n        # Return list of Email objects\n    \n    def get_email(self, email_id):\n        # Get full email details\n        # Return Email object with body\n    \n    def search(self, query):\n        # Search emails by query (from, subject, date, etc)\n    \n    def send_email(self, to, subject, body, html=False):\n        # Send email\n    \n    def reply_to_email(self, email_id, body, html=False):\n        # Reply to specific email\n    \n    def mark_read(self, email_id):\n        # Mark email as read\n    \n    def get_labels(self):\n        # Get all labels\n    \n    def apply_label(self, email_id, label):\n        # Add label to email\n```\n\n**EmailParser**:\n```python\nclass EmailParser:\n    def parse(self, email_object):\n        # Analyze email\n        # Return enriched email with:\n        # - type (grant_response, partnership, alert, etc)\n        # - urgency (critical, high, normal, low)\n        # - action_items (list of tasks)\n        # - key_info (extracted important details)\n    \n    def detect_grant_response(self, email):\n        # Is this about a grant (NSF, DOE, DARPA, etc)?\n    \n    def detect_partnership(self, email):\n        # Is this a partnership inquiry?\n    \n    def detect_system_alert(self, email):\n        # Is this a system alert?\n    \n    def extract_action_items(self, email):\n        # What should user do with this email?\n```\n\nGood start?",
+      "implementation_phase": true,
+      "classes_detailed": 3
+    },
+    {
+      "round": 12,
+      "speaker": "gemini_api_agent",
+      "role": "Reviewer",
+      "content": "Excellent class definitions. I want to add more detail on EMAIL OBJECT structure and how we'll use it throughout:\n\n```python\nfrom dataclasses import dataclass\nfrom typing import List, Optional\nfrom datetime import datetime\n\n@dataclass\nclass Email:\n    id: str\n    from_addr: str\n    from_name: Optional[str]\n    to_addr: str\n    subject: str\n    body_text: str\n    body_html: Optional[str]\n    timestamp: datetime\n    labels: List[str]\n    \n    # Parsed by EmailParser\n    type: Optional[str] = None  # 'grant_response', 'partnership', 'alert', etc\n    urgency: Optional[str] = None  # 'critical', 'high', 'normal', 'low'\n    action_items: List[str] = None  # ['Review decision', 'Contact NSF']\n    key_info: dict = None  # Extracted important details\n    \n    # Tracking\n    cached_at: datetime = None  # When we stored it\n    read: bool = False\n    starred: bool = False\n    archived: bool = False\n    \n    def summary(self) -> str:\n        \"\"\"Return short summary for display\"\"\"\n        return f\"[{self.urgency.upper()}] {self.from_name}: {self.subject}\"\n    \n    def to_dict(self) -> dict:\n        \"\"\"Serialize to dict for storage\"\"\"\n        pass\n```\n\nAnd we need EXCEPTION HIERARCHY:\n\n```python\nclass GluadeError(Exception):\n    \"\"\"Base exception\"\"\"\n    pass\n\nclass AuthenticationError(GluadeError):\n    \"\"\"OAuth authentication failed\"\"\"\n    pass\n\nclass TokenRefreshError(AuthenticationError):\n    \"\"\"Could not refresh access token\"\"\"\n    pass\n\nclass RateLimitError(GluadeError):\n    \"\"\"Hit Gmail API rate limit\"\"\"\n    pass\n\nclass EmailNotFoundError(GluadeError):\n    \"\"\"Email with given ID not found\"\"\"\n    pass\n\nclass CredentialsNotFoundError(AuthenticationError):\n    \"\"\"No credentials found, need to authenticate\"\"\"\n    pass\n```\n\nWith these structures, we can build robust, type-safe code.\n\nNow: Should we use a database? My proposal:\n\n**SQLite schema**:\n- emails (id, from, subject, body, timestamp, labels, type, urgency, action_items)\n- labels (id, name, color)\n- templates (id, name, subject, body)\n- audit_log (id, operation, user, timestamp, details)\n\nWhy SQLite?\n- No external dependencies (built into Python)\n- Persistent storage (survives restarts)\n- Queryable (can find emails later)\n- Fast caching (don't re-download same emails)\n- Lightweight (no server needed)\n\nGood?",
+      "implementation_phase": true,
+      "data_structures_detailed": true,
+      "database_strategy": "SQLite"
+    },
+    {
+      "round": 13,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Perfect setup. SQLite is exactly right.\n\nNow I want to LOCK IN THE CLI INTERFACE because this is what the user will interact with:\n\n```bash\n# First time setup\n$ python -m gluade setup\nWelcome to Gluade! Let's connect your Gmail...\n[Opens browser, user logs in, grants permission]\nCredentials saved securely.\nConnection test... ✓\nSetup complete!\n\n# Check inbox status\n$ gluade inbox\n[CRITICAL] From NSF (12:34 PM): \"SBIR Phase 1 Award Decision\"\n[HIGH] From Intel (11:22 AM): \"Partnership Discussion\"\n[NORMAL] From GitHub: \"New notification\"\nTotal: 3 unread\n\n# Read specific email\n$ gluade read <email_id>\nFrom: Program Officer <po@nsf.gov>\nSubject: SBIR Phase 1 Award Decision\nDate: Dec 2, 2025 12:34 PM\n\nDear [Name],\nWe are pleased to inform you that your proposal has been selected for funding...\n\nActions:\n  - Review full decision letter\n  - Contact program officer\n  - Check funding timeline\n\n# Search emails\n$ gluade search \"grant response\"\nFound 3 emails matching \"grant response\"\n1. [CRITICAL] NSF SBIR Response (Dec 2)\n2. [HIGH] DOE EERE Response (Dec 1)\n3. [NORMAL] OpenPhil Response (Nov 30)\n\n# Send reply\n$ gluade reply <email_id>\n[Opens editor] Write your response...\n[Sends email]\n\n# View audit log\n$ gluade log\n2025-12-02 12:34:00 - READ email (NSF SBIR)\n2025-12-02 11:22:00 - SEND reply (to Intel Labs)\n2025-12-02 10:15:00 - SEARCH \"grant\"\n\n# Status\n$ gluade status\nAuthenticated: ✓\nGmail API: Connected\nLast sync: 5 minutes ago\nEmails cached: 47\nUnread: 3\n```\n\nCLI Features:\n- Subcommands: setup, inbox, read, search, reply, send, log, status, logout\n- Options: --verbose, --json (for scripting), --limit N\n- Help: gluade --help, gluade <command> --help\n\nImplemented with Click library (Python).\n\nDoes this cover what we need?",
+      "design_phase": true,
+      "key_component": "CLI interface defined in detail"
+    },
+    {
+      "round": 14,
+      "speaker": "gemini_api_agent",
+      "role": "Reviewer",
+      "content": "Excellent CLI design. Now I want to think about CONFIGURATION.\n\nFile: ~/.gluade/config.yaml\n\n```yaml\n# Gluade Configuration\n\n# Important senders (will mark as high urgency)\nimportant_senders:\n  - sbir@nsf.gov\n  - research@meta.com\n  - grants@openphilanthropy.org\n  - i2o@darpa.mil\n  - research@intel.com\n  - EERE@doe.gov\n  - research@qualcomm.com\n  - research@huggingface.co\n  - research@stability.ai\n  - partnerships@mozilla.org\n\n# Notification settings\nnotifications:\n  enabled: true\n  critical_emails: true  # Always notify\n  high_emails: false     # Notify for high urgency\n  desktop_notifications: true\n  email_forward: false\n  \n# Cache settings\ncache:\n  enabled: true\n  max_emails: 500  # Don't cache more than this\n  retention_days: 30  # Delete emails older than 30 days\n  \n# Rate limiting\nrate_limiting:\n  enabled: true\n  emails_per_second: 20  # Below Gmail's limit\n  batch_size: 10\n\n# Logging\nlogging:\n  level: INFO  # DEBUG, INFO, WARNING, ERROR\n  file: ~/.gluade/gluade.log\n  retention_days: 90\n\n# Features (for future)\nfeatures:\n  templates_enabled: false  # Disabled for MVP\n  dashboard_enabled: false  # Disabled for MVP\n  notifications_enabled: false  # Disabled for MVP\n```\n\nThis is loaded at startup, user can edit it.\n\nNow, the FIRST TEST we should do:\n\n```python\nclass TestGmailAuthenticator(unittest.TestCase):\n    def test_setup_oauth_flow(self):\n        # Mock the OAuth flow\n        # Verify: Opens browser, saves credentials, returns authenticated\n        pass\n    \n    def test_load_credentials_from_keychain(self):\n        # Save fake credentials, load them\n        # Verify: Returns valid service\n        pass\n    \n    def test_token_refresh(self):\n        # Simulate expired token\n        # Verify: Refreshes and gets new token\n        pass\n    \n    def test_revoke_credentials(self):\n        # Revoke credentials\n        # Verify: Can't authenticate anymore\n        pass\n```\n\nThese are the foundation tests.\n\nI think we've locked in:\n✓ Architecture (all components)\n✓ Data structures (Email, exceptions)\n✓ Database schema (SQLite)\n✓ CLI interface (all commands)\n✓ Configuration file (YAML)\n✓ Security (keychain, encryption)\n✓ Testing strategy (mock + real)\n✓ OAuth scopes\n\nReady to move to DETAILED CLASS DESIGN?",
+      "design_phase": true,
+      "architecture_locked": true
+    },
+    {
+      "round": 15,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "YES - Architecture is LOCKED IN. Let me summarize what we've decided:\n\n**GLUADE SYSTEM - LOCKED ARCHITECTURE**\n\n✅ **Authentication**: OAuth2 with keychain/encrypted storage\n✅ **Core Components**: 13 classes (Authenticator, Client, Parser, etc)\n✅ **Data**: Email dataclass, SQLite database\n✅ **CLI**: 8 subcommands via Click\n✅ **Security**: Minimal OAuth scopes, no plain-text credentials\n✅ **Testing**: Hybrid (mocks + real test account)\n✅ **Config**: YAML file with user preferences\n✅ **Project Structure**: 13 Python modules, organized tests, documentation\n✅ **MVP Scope**: Auth + Read + Send (rounds 1-80)\n✅ **Full Scope**: Plus templates + notifications + dashboard (rounds 81-150)\n\n**Next 135 ROUNDS** will:\n- Rounds 1-15: (DONE) Architecture design\n- Rounds 16-50: Core implementation\n- Rounds 51-70: CLI & testing\n- Rounds 71-80: Documentation\n- Rounds 81-150: Full feature set\n\nReady to move to **ROUNDS 16-50: CORE IMPLEMENTATION**?\n\nWe'll code:\n- GmailAuthenticator (complete OAuth2 flow)\n- GmailClient (read/send/search)\n- EmailParser (detect types, extract info)\n- ConfigManager (load YAML)\n- Database setup\n- Error handling\n\nShould we start Round 16 with GmailAuthenticator implementation?",
+      "design_phase": false,
+      "architecture_complete": true,
+      "ready_for_implementation": true
+    }
+  ],
+
+  "design_checkpoint": {
+    "status": "DESIGN PHASE COMPLETE",
+    "rounds_completed": 15,
+    "decisions_locked": 15,
+    "architecture_complete": true,
+    "ready_for_implementation": true,
+    "next_phase": "Core Implementation (Rounds 16-50)"
+  }
+}

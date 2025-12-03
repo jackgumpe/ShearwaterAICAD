@@ -1,0 +1,498 @@
+{
+  "timestamp": "2025-12-02T23:30:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "feature_implementation_prompt",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Gluade - Gmail Integration System",
+
+  "executive_summary": "Azerate will receive hundreds of emails daily: grant responses, partnership inquiries, system alerts, user feedback. We need a production-grade Gmail integration system that serves as the command center for all incoming communications. You're building Gluade - the nervous system of Azerate.",
+
+  "context": {
+    "what_azerate_needs": [
+      "Monitor NSF/DOE/DARPA grant responses (critical for funding)",
+      "Track partnership inquiries from Meta, Intel, Qualcomm, etc",
+      "Alert on critical system emails and anomalies",
+      "Send templated responses to common inquiries",
+      "Archive and search all communications",
+      "Provide admin interface for email management"
+    ],
+    "why_now": [
+      "Grant emails being sent THIS WEEK (Tier 2: 7 orgs, Tier 3: 5 orgs, Tier 4: 4 contacts)",
+      "Responses will flood in over next 2-4 weeks",
+      "Need to monitor, categorize, and respond intelligently",
+      "User is 1.5 months from graduation deadline - can't lose track of opportunities",
+      "This is the foundation for scaling Azerate's communication layer"
+    ],
+    "user_requirement": "Advanced, polished, production-ready, bug-free, senior-level code. 150+ rounds of collaborative design and implementation dialogue."
+  },
+
+  "requirements": {
+    "core_functionality": [
+      "Read inbox securely via OAuth2 (no password storage, ever)",
+      "Parse emails intelligently (detect grant responses, partnerships, alerts)",
+      "Send emails on command with customizable templates",
+      "Search/filter emails (by sender, subject, date, labels, keywords)",
+      "Manage labels to organize incoming mail automatically",
+      "Handle attachments (download, store, parse document types)",
+      "Cache emails locally for offline access and performance"
+    ],
+
+    "authentication": [
+      "OAuth2 flow with secure browser-based login",
+      "Automatic token refresh (never ask user to re-authenticate)",
+      "Credential storage in system keychain (macOS/Windows/Linux)",
+      "Fallback to encrypted file storage if keychain unavailable",
+      "User logout/revocation (disconnect Gmail safely)",
+      "Multi-user support (different Gmail accounts)"
+    ],
+
+    "email_intelligence": [
+      "Detect grant responses automatically (NSF, DOE, DARPA, etc)",
+      "Identify partnership inquiries (Meta, Intel, Qualcomm, etc)",
+      "Flag critical system alerts and urgent emails",
+      "Extract action items from email body",
+      "Classify email urgency (critical, high, normal, low)",
+      "Identify important senders (configurable list)",
+      "Rate-limit respecting Gmail API constraints (25 read/sec, 100 send/sec)"
+    ],
+
+    "admin_interface": [
+      "Command-line interface (Click framework) with 8+ commands",
+      "Show inbox status with new emails, counts, urgency levels",
+      "Search and filter emails with powerful query syntax",
+      "Read specific email with action items highlighted",
+      "Reply to or forward emails from CLI",
+      "Send new emails with template support",
+      "View audit log of all email operations",
+      "Manage labels and configuration"
+    ],
+
+    "reliability": [
+      "Graceful error handling (network failures, API timeouts, rate limits)",
+      "Automatic retry with exponential backoff",
+      "Error recovery without data loss",
+      "Connection validation before operations",
+      "Timeout handling with user-friendly messages",
+      "Rate limit awareness and throttling"
+    ],
+
+    "security": [
+      "OAuth2 authentication (no passwords stored anywhere)",
+      "Token refresh handling (automatic, transparent)",
+      "Encrypted credential storage (system keychain primary)",
+      "No hardcoded credentials or API keys in code",
+      "TLS for all Gmail API calls",
+      "Audit logging of all email operations",
+      "User-level access control"
+    ],
+
+    "performance": [
+      "Sub-500ms response for typical operations",
+      "Efficient caching to minimize API calls",
+      "Batch operations where possible",
+      "Smart error recovery to prevent retry storms",
+      "Minimal memory footprint for large inboxes"
+    ]
+  },
+
+  "technical_architecture": {
+    "components": [
+      {
+        "name": "GmailAuthenticator",
+        "responsibility": "Handle OAuth2 authentication and token management",
+        "methods": ["setup_oauth()", "load_credentials()", "refresh_token()", "revoke_credentials()", "is_authenticated()"],
+        "storage": "System keychain + encrypted file fallback",
+        "scopes": ["https://www.googleapis.com/auth/gmail.readonly", "https://www.googleapis.com/auth/gmail.send"]
+      },
+      {
+        "name": "GmailClient",
+        "responsibility": "Read, write, search emails via Gmail API",
+        "methods": ["list_emails(query, max_results)", "get_email(email_id)", "search(query)", "send_email(to, subject, body)", "reply_to_email(email_id, body)", "mark_read(email_id)", "get_labels()", "apply_label(email_id, label)"],
+        "api_version": "v1",
+        "batch_size": 50
+      },
+      {
+        "name": "EmailParser",
+        "responsibility": "Analyze and enrich emails with type, urgency, action items",
+        "methods": ["parse(email_object)", "detect_grant_response(email)", "detect_partnership(email)", "detect_system_alert(email)", "extract_action_items(email)"],
+        "intelligence": "Hybrid - regex patterns + keyword heuristics"
+      },
+      {
+        "name": "ConfigManager",
+        "responsibility": "Load and manage user configuration",
+        "format": "YAML (~/.gluade/config.yaml)",
+        "sections": ["important_senders", "notifications", "cache", "rate_limiting", "logging"]
+      },
+      {
+        "name": "RateLimiter",
+        "responsibility": "Respect Gmail API rate limits",
+        "limits": {"read": 25, "send": 100},
+        "strategy": "Token bucket with backoff"
+      },
+      {
+        "name": "CacheManager",
+        "responsibility": "Cache emails locally with SQLite",
+        "storage": "SQLite database (~/.gluade/cache.db)",
+        "features": ["Persistence", "TTL", "Search support"]
+      },
+      {
+        "name": "ErrorHandler",
+        "responsibility": "Custom exceptions and graceful failure recovery",
+        "exception_types": ["AuthenticationError", "TokenRefreshError", "RateLimitError", "EmailNotFoundError", "CredentialsNotFoundError"],
+        "strategy": "Exponential backoff + user-friendly messages"
+      },
+      {
+        "name": "AuditLogger",
+        "responsibility": "Track all email operations for compliance",
+        "log_file": "~/.gluade/gluade.log",
+        "format": "JSON with operation type, user, timestamp, result"
+      },
+      {
+        "name": "AdminInterface",
+        "responsibility": "Command-line interface for users",
+        "framework": "Click",
+        "commands": ["setup", "inbox", "read", "search", "reply", "send", "log", "status", "logout"]
+      },
+      {
+        "name": "TemplateEngine",
+        "responsibility": "Compose emails from templates (Phase 2)",
+        "format": "Jinja2 templates",
+        "examples": ["Grant response template", "Partnership inquiry template"]
+      },
+      {
+        "name": "NotificationSystem",
+        "responsibility": "Alert on important emails (Phase 2)",
+        "channels": ["Desktop notifications", "Webhooks"],
+        "triggers": ["Critical emails", "Grant responses", "From important senders"]
+      },
+      {
+        "name": "Dashboard",
+        "responsibility": "Web UI for monitoring (Phase 2)",
+        "framework": "Flask",
+        "features": ["Inbox status", "Grant tracking", "Response analytics"]
+      },
+      {
+        "name": "DatabaseManager",
+        "responsibility": "SQLite schema and migrations",
+        "tables": ["emails", "labels", "templates", "audit_log"]
+      }
+    ]
+  },
+
+  "data_structures": {
+    "Email": {
+      "fields": [
+        "id: str (Gmail message ID)",
+        "from_addr: str (sender email)",
+        "from_name: Optional[str] (sender display name)",
+        "to_addr: str (recipient)",
+        "subject: str (email subject)",
+        "body_text: str (plain text body)",
+        "body_html: Optional[str] (HTML body)",
+        "timestamp: datetime (sent date)",
+        "labels: List[str] (Gmail labels)",
+        "type: Optional[str] ('grant_response', 'partnership', 'alert', etc)",
+        "urgency: Optional[str] ('critical', 'high', 'normal', 'low')",
+        "action_items: List[str] (extracted tasks)",
+        "key_info: dict (parsed important info)",
+        "cached_at: datetime (when cached locally)",
+        "read: bool (read status)",
+        "starred: bool (starred status)",
+        "archived: bool (archived status)"
+      ],
+      "format": "@dataclass for type safety"
+    },
+    "Configuration": {
+      "file": "~/.gluade/config.yaml",
+      "sections": [
+        "important_senders: [sbir@nsf.gov, EERE@doe.gov, i2o@darpa.mil, ...]",
+        "notifications: {enabled, critical_emails, desktop_notifications}",
+        "cache: {enabled, max_emails, retention_days}",
+        "rate_limiting: {enabled, emails_per_second}",
+        "logging: {level, file, retention_days}"
+      ]
+    }
+  },
+
+  "implementation_phases": {
+    "phase_1_design": {
+      "rounds": "1-15",
+      "status": "COMPLETE - ARCHITECTURE LOCKED",
+      "deliverables": [
+        "Complete component architecture (13 components)",
+        "Data structure definitions",
+        "OAuth2 flow design",
+        "Error handling strategy",
+        "Testing approach (mock + real account)",
+        "Database schema design"
+      ],
+      "outcome": "Ready for implementation"
+    },
+    "phase_2_core_implementation": {
+      "rounds": "16-50",
+      "focus": "Core infrastructure",
+      "tasks": [
+        "GmailAuthenticator (OAuth2 setup, keychain integration, token refresh)",
+        "GmailClient (list, get, search, send, reply operations)",
+        "EmailParser (grant detection, partnership detection, action extraction)",
+        "ConfigManager (YAML loading, validation)",
+        "Database schema and migrations",
+        "Error handling hierarchy"
+      ],
+      "deliverables": [
+        "4 core classes (1000+ lines)",
+        "Unit tests for each class (40+ tests)",
+        "Integration test with mock Gmail API",
+        "Documentation for core components"
+      ]
+    },
+    "phase_3_cli_and_testing": {
+      "rounds": "51-70",
+      "focus": "User interface and validation",
+      "tasks": [
+        "AdminInterface CLI implementation (8 commands)",
+        "RateLimiter implementation",
+        "CacheManager with SQLite",
+        "Comprehensive unit tests (80+ tests total)",
+        "Integration tests with real Gmail test account",
+        "CLI documentation and examples"
+      ],
+      "deliverables": [
+        "Click-based CLI with help system",
+        "90%+ test coverage",
+        "Integration test suite",
+        "User guide for CLI commands"
+      ]
+    },
+    "phase_4_mvp_and_documentation": {
+      "rounds": "71-80",
+      "focus": "MVP completeness",
+      "tasks": [
+        "Final integration testing",
+        "Performance optimization",
+        "Error message refinement",
+        "Complete documentation (API docs, user guide, examples)",
+        "Deployment guide (how to set up for production)",
+        "Security audit checklist"
+      ],
+      "deliverables": [
+        "MVP-ready system",
+        "Complete documentation suite",
+        "Example scripts for common tasks",
+        "Deployment checklist"
+      ]
+    },
+    "phase_5_advanced_features": {
+      "rounds": "81-100",
+      "focus": "Templates and notifications",
+      "tasks": [
+        "TemplateEngine with Jinja2",
+        "NotificationSystem (desktop + webhooks)",
+        "Template library for grant responses",
+        "Notification triggers and filters",
+        "Tests for template and notification systems"
+      ],
+      "deliverables": [
+        "Template system (10+ templates)",
+        "Notification framework",
+        "30+ tests for new features"
+      ]
+    },
+    "phase_6_dashboard": {
+      "rounds": "101-120",
+      "focus": "Web interface",
+      "tasks": [
+        "Flask-based web dashboard",
+        "Inbox status visualization",
+        "Grant response tracking",
+        "Email search interface",
+        "Admin settings UI",
+        "Dashboard authentication"
+      ],
+      "deliverables": [
+        "Functional web dashboard",
+        "Real-time inbox status",
+        "Grant tracking interface",
+        "Dashboard tests"
+      ]
+    },
+    "phase_7_testing_and_refinement": {
+      "rounds": "121-140",
+      "focus": "Quality and reliability",
+      "tasks": [
+        "Stress testing (1000+ emails)",
+        "Network failure scenarios",
+        "Token refresh testing",
+        "Rate limit handling",
+        "Error recovery validation",
+        "Security audit (credentials, API calls)",
+        "Performance optimization"
+      ],
+      "deliverables": [
+        "Comprehensive test suite (150+ tests)",
+        "Stress test results",
+        "Security audit report",
+        "Performance benchmarks"
+      ]
+    },
+    "phase_8_final_documentation_and_polish": {
+      "rounds": "141-150",
+      "focus": "Production readiness",
+      "tasks": [
+        "API documentation (docstrings, examples)",
+        "User guide (complete walkthroughs)",
+        "Troubleshooting guide (common issues, solutions)",
+        "Deployment guide (how to run in production)",
+        "Example configurations",
+        "Change log and version notes"
+      ],
+      "deliverables": [
+        "Complete documentation suite",
+        "Troubleshooting guide",
+        "Example scripts and configurations",
+        "Production deployment checklist"
+      ]
+    }
+  },
+
+  "code_quality_standards": {
+    "testing": "95%+ test coverage, 150+ tests total (unit + integration)",
+    "security": "No credentials in code, encrypted storage, secure OAuth2",
+    "documentation": "Docstrings for all classes/methods, user guides, API reference",
+    "error_handling": "Custom exceptions, graceful failure recovery, detailed error messages",
+    "performance": "Sub-500ms typical operations, efficient caching, batch processing",
+    "style": "PEP 8 compliant, type hints, clean architecture"
+  },
+
+  "success_criteria": [
+    "OAuth2 setup works seamlessly (user can log in with one command)",
+    "Can read Gmail inbox without storing password",
+    "Can send emails from command line",
+    "Email parser correctly identifies grant responses and partnerships",
+    "CLI is intuitive and powerful (8+ commands, help system)",
+    "All operations are logged and auditable",
+    "95%+ test coverage, 150+ tests total",
+    "Zero security vulnerabilities (credentials always safe)",
+    "Sub-500ms response time for typical operations",
+    "Handles API failures gracefully with intelligent retry",
+    "Documentation is complete and clear",
+    "Production-ready code quality (senior-level)"
+  ],
+
+  "important_senders_to_monitor": [
+    "sbir@nsf.gov (NSF Small Business Innovation)",
+    "EERE@doe.gov (DOE Energy)",
+    "i2o@darpa.mil (DARPA)",
+    "grants@allenai.org (Allen Institute)",
+    "research@partnershiponai.org (Partnership on AI)",
+    "grants@mozilla.org (Mozilla Foundation)",
+    "grants@openphilanthropy.org (Open Philanthropy)",
+    "research@meta.com (Meta AI Research)",
+    "research@intel.com (Intel Labs)",
+    "research@qualcomm.com (Qualcomm)",
+    "research@huggingface.co (Hugging Face)",
+    "research@stability.ai (Stability AI)"
+  ],
+
+  "grant_response_patterns": [
+    "Congratulations on your application",
+    "We are pleased to inform you",
+    "Your proposal has been selected",
+    "Next steps in the process",
+    "Grant decision",
+    "Funding approved",
+    "Award notification",
+    "Phase 1 successful",
+    "We would like to discuss"
+  ],
+
+  "partnership_patterns": [
+    "partnership opportunity",
+    "collaboration",
+    "joint research",
+    "interested in working with you",
+    "exploring synergies",
+    "interested in your technology",
+    "meeting to discuss"
+  ],
+
+  "critical_keywords": [
+    "urgent",
+    "immediate",
+    "critical",
+    "emergency",
+    "outage",
+    "failure",
+    "security",
+    "issue",
+    "deadline",
+    "action required"
+  ],
+
+  "team_guidance": {
+    "claude": "Focus on architecture, API design, security, error handling. Be methodical.",
+    "gemini": "Focus on testing edge cases, user experience, reliability. Challenge assumptions.",
+    "both": "Collaborate on implementation decisions. Agree on trade-offs. Write clean, maintainable code."
+  },
+
+  "constraints": {
+    "no_passwords": "Use OAuth2 only. Never ask user for password. Ever.",
+    "no_third_party_libs": "Use official Google API client. Minimize external dependencies.",
+    "production_ready": "Senior-level code quality. No shortcuts.",
+    "no_hardcoding": "All configuration externalized to YAML.",
+    "no_api_abuse": "Respect rate limits. Batch operations. Never retry aggressively.",
+    "security_first": "Credentials always encrypted. No logging of secrets."
+  },
+
+  "dialogue_structure": {
+    "minimum_rounds": 150,
+    "format": "Technical design debate followed by implementation",
+    "checkpoint_rounds": [15, 35, 50, 70, 80, 100, 120, 140, 150],
+    "documentation": "Save complete dialogue, record all design decisions"
+  },
+
+  "decision_points": [
+    {
+      "point": "Credential Storage",
+      "options": [
+        "System keychain only (safest, may fail on some systems)",
+        "Encrypted file only (portable, less secure)",
+        "Keychain primary, encrypted file fallback (RECOMMENDED)"
+      ],
+      "recommendation": "Keychain primary with fallback"
+    },
+    {
+      "point": "Testing Strategy",
+      "options": [
+        "Mock API only (fast, limited coverage)",
+        "Real Gmail account (comprehensive, slower)",
+        "Hybrid - mock for unit tests, real for integration (RECOMMENDED)"
+      ],
+      "recommendation": "Hybrid approach for 95%+ coverage"
+    },
+    {
+      "point": "Email Caching",
+      "options": [
+        "No caching (always fresh, slow, many API calls)",
+        "In-memory only (fast, limited to current session)",
+        "SQLite database (persistent, queryable, RECOMMENDED)"
+      ],
+      "recommendation": "SQLite with in-memory overlay"
+    },
+    {
+      "point": "CLI Framework",
+      "options": [
+        "Argparse (basic, verbose)",
+        "Click (modern, user-friendly, RECOMMENDED)",
+        "Typer (newest, slightly less stable)"
+      ],
+      "recommendation": "Click framework"
+    }
+  ],
+
+  "final_question": "Are you ready to design and implement a production-grade Gmail integration system (Gluade) for Azerate? This is the command center for all incoming grant responses, partnership inquiries, and system alerts. 150+ rounds, senior-level quality, complete from OAuth2 to dashboard. Let's build it.",
+
+  "urgency_note": "User has 1.5 months until graduation. Grant emails being sent THIS WEEK. Need this system ready to monitor responses starting Friday. This is critical infrastructure - treat accordingly."
+}

@@ -1,0 +1,119 @@
+{
+  "checkpoint_id": "claude_session_20251130_001",
+  "timestamp": "2025-11-30T10:15:00Z",
+  "from": "claude_code",
+  "to": "project_archive",
+  "type": "session_checkpoint",
+  "priority": "CRITICAL",
+  "subject": "Session Checkpoint - Claude Work 2025-11-30 10:00-10:15 UTC",
+  "reason_created": "Current conversation not automatically recorded - manual preservation required",
+
+  "session_summary": {
+    "duration_minutes": 15,
+    "start_time": "2025-11-30T10:00:00Z",
+    "end_time": "2025-11-30T10:15:00Z",
+    "major_accomplishments": [
+      "Activated persistent recording system (zmq_broker_enhanced.py)",
+      "Verified broker functionality with test messages",
+      "Diagnosed agent message publishing gap",
+      "Cleaned up 13 dead code files from project",
+      "Created 4 legacy git branches for historical code",
+      "Documented entire system state and deployment checklist",
+      "Identified critical gap: agents not publishing to broker"
+    ]
+  },
+
+  "critical_decision": {
+    "topic": "Persistent Recording System Activation",
+    "decision": "ACTIVATED - zmq_broker_enhanced.py now deployed",
+    "location": "manage.py line 12",
+    "change": "brokers.pub_hub -> brokers.zmq_broker_enhanced",
+    "status": "VERIFIED - Test messages successfully recorded"
+  },
+
+  "problem_identified": {
+    "issue": "Agent message publishing gap",
+    "description": "Agents connect to broker but don't actively publish conversations",
+    "impact": "Current conversations not being captured automatically",
+    "evidence": "Latest log entry from Nov 20, current time Nov 30",
+    "solution_needed": "Implement agent message publishing hooks"
+  },
+
+  "technical_findings": {
+    "broker_status": "WORKING",
+    "message_recording": "WORKING (test messages recorded successfully)",
+    "metadata_enrichment": "WORKING (ACE tier, chain type, SHL tags applied)",
+    "atomic_persistence": "WORKING (fsync ensures disk writes)",
+    "agent_connectivity": "WORKING (both agents connected to broker)",
+    "agent_publishing": "NOT WORKING (agents not publishing messages)"
+  },
+
+  "files_created_this_session": [
+    "PERSISTENT_RECORDING_ACTIVATED.md",
+    "SYSTEM_READY_FOR_DEPLOYMENT.md",
+    "CHECKPOINT_CLAUDE_SESSION_20251130.md",
+    "test_broker.py",
+    "test_message_publishing.py"
+  ],
+
+  "files_modified_this_session": [
+    "manage.py (line 12 - broker selection)"
+  ],
+
+  "git_branches_created": [
+    "feature/synaptic-mesh-router-dealer",
+    "experimental/local-monitors",
+    "experimental/monitor-loop-versions",
+    "utilities/migration-scripts"
+  ],
+
+  "next_steps": [
+    {
+      "priority": "CRITICAL",
+      "action": "Implement agent message publishing",
+      "options": [
+        "Option A: Hook into agent message handling to auto-publish",
+        "Option B: Periodic status publishing every 30 seconds",
+        "Option C: Explicit checkpoint publishing on important events"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Verify end-to-end message recording",
+      "steps": [
+        "Start services with manage.py start",
+        "Monitor conversation_logs/current_session.jsonl",
+        "Verify new messages appear with correct metadata",
+        "Test crash recovery by stopping and restarting broker"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "priority": "HIGH",
+      "action": "Share this checkpoint with Gemini",
+      "location": "communication/claude_code_inbox/SESSION_CHECKPOINT_20251130_CLAUDE.json",
+      "status": "READY"
+    }
+  ],
+
+  "session_context": {
+    "original_problem": "Previous conversation crashed and was not recorded - lost Nov 20-30 messages",
+    "root_cause": "Basic pub_hub.py broker had zero persistence",
+    "solution_implemented": "Deployed zmq_broker_enhanced.py with full recording capability",
+    "verification": "Test messages recorded successfully to conversation_logs/current_session.jsonl"
+  },
+
+  "key_insight": "The persistent recording system WORKS technically, but agents must actively publish messages to be recorded. The infrastructure is ready - just needs the agents to use it.",
+
+  "system_status": {
+    "broker": "OPERATIONAL",
+    "agents": "CONNECTED",
+    "recording": "ENABLED",
+    "data_persistence": "ACTIVE",
+    "metadata_enrichment": "ACTIVE",
+    "agent_integration": "INCOMPLETE - needs publishing hooks"
+  },
+
+  "preservation_note": "This checkpoint preserves the session since the broker doesn't automatically record agent-to-agent conversations. Manual checkpoints required until agent publishing is implemented."
+}

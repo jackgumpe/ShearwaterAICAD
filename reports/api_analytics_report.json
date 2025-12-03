@@ -1,0 +1,62 @@
+{
+  "timestamp": "2025-12-01T20:48:23.197083",
+  "apis": {
+    "claude": {
+      "api_calls": 3,
+      "total_tokens": 626,
+      "tokens_sent": 390,
+      "tokens_received": 236,
+      "bandwidth": {
+        "sent_bytes": 1564,
+        "received_bytes": 949,
+        "total_bytes": 2513,
+        "sent_mb": 0.0015,
+        "received_mb": 0.0009,
+        "total_mb": 0.0024
+      },
+      "latency": {
+        "avg_ms": 0.25,
+        "min_ms": 0.17,
+        "max_ms": 0.33,
+        "calls_measured": 3
+      },
+      "cost": {
+        "estimated_usd": 0.0047,
+        "input_tokens": 390,
+        "output_tokens": 236
+      }
+    },
+    "gemini": {
+      "api_calls": 2,
+      "total_tokens": 1102,
+      "tokens_sent": 608,
+      "tokens_received": 494,
+      "bandwidth": {
+        "sent_bytes": 2433,
+        "received_bytes": 1978,
+        "total_bytes": 4411,
+        "sent_mb": 0.0023,
+        "received_mb": 0.0019,
+        "total_mb": 0.0042
+      },
+      "latency": {
+        "avg_ms": 0.22,
+        "min_ms": 0.18,
+        "max_ms": 0.26,
+        "calls_measured": 2
+      },
+      "cost": {
+        "estimated_usd": 0.0002,
+        "input_tokens": 608,
+        "output_tokens": 494
+      }
+    }
+  },
+  "totals": {
+    "api_calls": 5,
+    "total_tokens": 1728,
+    "total_bandwidth_bytes": 6924,
+    "total_bandwidth_mb": 0.0066,
+    "total_estimated_cost_usd": 0.0049
+  }
+}

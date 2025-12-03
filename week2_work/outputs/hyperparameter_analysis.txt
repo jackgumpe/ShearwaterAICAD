@@ -1,0 +1,21 @@
+================================================================================
+HYPERPARAMETER SEARCH ANALYSIS
+================================================================================
+
+Total Configurations Tested: 50
+Total Configurations Available: 2160
+Coverage: 2.3%
+
+BEST CONFIGURATION
+--------------------------------------------------------------------------------
+Config ID: config_001
+Final Loss: 0.321280
+Overall Score: 0.822
+
+Hyperparameters:
+  Learning Rate: 1e-05
+  Batch Size: 128
+  Architecture: resnet50_sdf
+  L1 Weight: 0.5
+  L2 Weight: 0.0001
+  Smoothness Weight: 0.05

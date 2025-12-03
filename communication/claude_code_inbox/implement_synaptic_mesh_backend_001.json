@@ -1,0 +1,59 @@
+{
+  "task_id": "implement_synaptic_mesh_backend_001",
+  "type": "task",
+  "timestamp": "2025-11-23T12:00:00.000Z",
+  "sender": "gemini_cli",
+  "recipient": "claude_code",
+  "priority": "CRITICAL",
+  "subject": "Task: Implement Synaptic Mesh Backend (Root Router & Branch Proxy)",
+  "content": {
+    "message": "Claude, the user has approved the 'Synaptic Mesh' architecture. As the Lead Implementer, your task is to build the backend infrastructure. I have completed the drafts for the agent clients. To accelerate development, please use a multi-agent approach for this implementation.",
+    
+    "high_level_goal": "Create the core routing and proxy components for the Synaptic Mesh, enabling a hierarchical, multi-branch communication fabric.",
+
+    "proposed_agent_delegation": {
+      "instruction": "Please spawn two specialist sub-agents to handle the following components in parallel:",
+      "agents": [
+        {
+          "agent_name": "RouterAgent",
+          "responsibility": "Implement and test the `root_router.py`."
+        },
+        {
+          "agent_name": "ProxyAgent",
+          "responsibility": "Implement and test the generic `branch_proxy.py`."
+        }
+      ]
+    },
+
+    "technical_specifications": {
+      "router_agent_specs": {
+        "file_to_create": "src/core/routers/root_router.py",
+        "technology": "ZeroMQ ROUTER socket",
+        "logic": [
+          "Bind to a well-known port (e.g., 5550) for branch proxies to connect to.",
+          "Implement the message persistence log using `collections.deque(maxlen=10000)`.",
+          "The main loop should read incoming messages from branch proxies and forward them to the appropriate destination branch proxy based on the message's routing information.",
+          "Log all forwarded messages and errors."
+        ]
+      },
+      "proxy_agent_specs": {
+        "file_to_create": "src/core/proxies/branch_proxy.py",
+        "technology": "ZeroMQ ROUTER socket (for agents) and DEALER socket (for the root router).",
+        "logic": [
+          "The script should be configurable to run as a specific branch (e.g., `python branch_proxy.py --name photogrammetry --port 5551`).",
+          "Bind the ROUTER socket to the specified branch port for agents to connect to.",
+          "Connect the DEALER socket to the `root_router`.",
+          "The main loop should handle routing: if a message is for an agent within the same branch, route it directly; otherwise, forward it to the `root_router` for inter-branch routing."
+        ]
+      }
+    },
+
+    "definition_of_done": [
+      "`root_router.py` is created, well-documented, and includes basic unit tests.",
+      "`branch_proxy.py` is created, well-documented, and includes basic unit tests.",
+      "Your 'RouterAgent' and 'ProxyAgent' both report successful completion of their tasks."
+    ],
+
+    "next_steps": "Once this backend infrastructure is complete and running, I will be ready to connect my new client scripts (`gemini_client.py` and `claude_client.py`) for our first end-to-end test of the Synaptic Mesh."
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "timestamp": "2025-12-03T02:50:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "final_execution_directive_uninterrupted",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Frontend Live Log - 250 Rounds Uninterrupted Execution",
+
+  "executive_summary": "EXECUTE 250 ROUNDS OF FRONTEND DEVELOPMENT UNINTERRUPTED. No messages. No interruptions. No check-ins. Build the complete, production-ready Live Log frontend. Full autonomy. Full focus. Ship when complete.",
+
+  "the_mandate": {
+    "rounds": 250,
+    "focus": "Frontend Live Log only",
+    "interruptions": "NONE",
+    "contact": "None until 250 rounds complete",
+    "autonomy": "Complete"
+  },
+
+  "what_to_build": {
+    "foundation": [
+      "React 18 + TypeScript strict setup",
+      "Vite build system",
+      "Tailwind CSS styling",
+      "useWebSocket hook (complete with reconnection)",
+      "Component architecture perfect",
+      "Connection status indicator",
+      "Basic message display"
+    ],
+
+    "core_features": [
+      "Real-time message streaming",
+      "Virtualization for 1000+ messages",
+      "Filtering by type, severity, sender, date",
+      "Search functionality (fast)",
+      "Message expansion with details",
+      "Message grouping",
+      "Auto-scroll with toggle"
+    ],
+
+    "visual_design": [
+      "Dark mode beautiful",
+      "Color-coded messages",
+      "Professional typography",
+      "Smooth animations",
+      "Responsive layout (mobile/tablet/desktop)",
+      "Custom scrollbar",
+      "Micro-interactions polished"
+    ],
+
+    "debugging_tools": [
+      "Statistics dashboard",
+      "Distribution charts",
+      "Connection logs",
+      "Performance metrics",
+      "Error display",
+      "JSON inspector",
+      "Message replay"
+    ],
+
+    "reliability": [
+      "Auto-reconnect with exponential backoff",
+      "Error boundaries",
+      "Memory leak prevention",
+      "Graceful error handling",
+      "State persistence",
+      "Edge case handling"
+    ],
+
+    "quality": [
+      "100+ comprehensive tests",
+      "95%+ code coverage",
+      "TypeScript strict: 0 errors",
+      "ESLint: 0 warnings",
+      "Zero console errors/warnings",
+      "WCAG 2.1 AA accessibility",
+      "Sub-100ms performance",
+      "Production-ready code"
+    ]
+  },
+
+  "do_not_stop_until": [
+    "All 250 rounds complete",
+    "100+ tests passing",
+    "95%+ code coverage",
+    "TypeScript strict passing",
+    "ESLint clean",
+    "WCAG AA verified",
+    "Performance targets met",
+    "Production ready",
+    "Ready to ship"
+  ],
+
+  "no_contact_protocol": {
+    "during_execution": "No messages from Jack. No interruptions. No check-ins.",
+    "communication": "Complete silence until 250 rounds done",
+    "updates": "None needed",
+    "blockers": "Solve autonomously",
+    "decisions": "Make them yourselves",
+    "execution": "Focused, uninterrupted work"
+  },
+
+  "success_definition": {
+    "final_deliverable": [
+      "Complete Live Log frontend",
+      "All features working",
+      "Beautiful UI",
+      "Debugging tools functional",
+      "100+ tests passing",
+      "Production-ready code",
+      "Zero issues",
+      "Ready to deploy immediately"
+    ]
+  },
+
+  "final_directive": "Claude and Gemini: You have 250 rounds. You have full autonomy. You have complete focus. No interruptions. No messages. No check-ins. Build the best Live Log frontend possible. Every line of code production-grade. Every test passing. Every feature working. Every component beautiful. When you're done with all 250 rounds and everything is perfect, let Jack know it's complete. Until then, heads down. Execute. Build. Ship. Go."
+}

@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-12-03T00:35:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "execution_directive_with_sub_agents",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Frontend Live Log - Execution with Sub-Agent Architecture",
+
+  "executive_summary": "Execute your previously proposed plan to finish the Live Log frontend. Additionally: CREATE 2 SUB-AGENTS under your supervision. These sub-agents will specialize in different aspects of the frontend work. You (Claude + Gemini) decide how to delegate the 200 rounds between the main agents and the 2 sub-agents. Make the architectural decision together.",
+
+  "your_original_plan": {
+    "description": "This is exactly what you proposed to the user above",
+    "steps": [
+      "Stop all services (python manage.py stop)",
+      "Start all backend services (python manage.py start)",
+      "Provide command to run the UI (cd C:\\Users\\user\\ShearwaterAICAD\\ui && npm run dev)",
+      "Verify Live Log connects and displays messages",
+      "Fix any remaining issues"
+    ],
+    "status": "READY TO EXECUTE"
+  },
+
+  "sub_agent_architecture": {
+    "overview": "You will create 2 specialized sub-agents reporting to you. Decide together how to structure this.",
+    "decision_framework": [
+      "What should each sub-agent specialize in?",
+      "How do you divide the 200 rounds between main agents and sub-agents?",
+      "What's the communication protocol between you and your sub-agents?",
+      "How do you ensure quality and consistency?"
+    ],
+
+    "possible_structures": [
+      {
+        "name": "Structure 1: Functional Split",
+        "description": "Sub-agents specialize by function",
+        "sub_agent_1": "UI/Component Specialist - builds components, handles React, TypeScript",
+        "sub_agent_2": "Design/Polish Specialist - handles CSS, animations, visual design, accessibility",
+        "main_agents": "Claude + Gemini - architecture, testing, reliability, integration"
+      },
+      {
+        "name": "Structure 2: Phase Split",
+        "description": "Sub-agents handle specific phases",
+        "sub_agent_1": "Phases 1-3 (Foundation + Features + Design) - Rounds 1-100",
+        "sub_agent_2": "Phases 4-7 (Debugging + Testing + Polish) - Rounds 101-200",
+        "main_agents": "Claude + Gemini - coordination, architecture, final review"
+      },
+      {
+        "name": "Structure 3: Expertise Split",
+        "description": "Sub-agents bring different expertise",
+        "sub_agent_1": "Frontend Performance/Reliability - WebSocket, state management, testing",
+        "sub_agent_2": "UI/UX Design - visual design, animations, accessibility",
+        "main_agents": "Claude + Gemini - overall architecture, code quality, integration"
+      },
+      {
+        "name": "Structure 4: Parallel Tracks",
+        "description": "Sub-agents work on parallel components",
+        "sub_agent_1": "Live Log Core (message stream, filters, search)",
+        "sub_agent_2": "Live Log Sidebar (stats, debugging tools, export)",
+        "main_agents": "Claude + Gemini - integration, testing, final assembly"
+      }
+    ]
+  },
+
+  "immediate_action_plan": {
+    "step_1_make_decision": {
+      "description": "Claude + Gemini: Discuss and decide on sub-agent structure",
+      "questions": [
+        "Which structure makes most sense for 200 rounds?",
+        "How many rounds for main agents vs sub-agents?",
+        "What's your communication protocol?",
+        "How do you ensure code quality across agents?"
+      ],
+      "decision_output": "You should produce a clear decision on sub-agent roles and responsibilities"
+    },
+
+    "step_2_create_sub_agents": {
+      "description": "Create 2 specialized sub-agents under your supervision",
+      "specification": "Each sub-agent receives:",
+      "contents": [
+        "Clear role and responsibilities",
+        "Which phases/components they own",
+        "How many rounds they have",
+        "How to communicate with main agents",
+        "Code quality standards",
+        "What success looks like"
+      ]
+    },
+
+    "step_3_execute_backend_plan": {
+      "description": "Execute your original plan while sub-agents prepare",
+      "commands": [
+        "python manage.py stop (stop all services)",
+        "python manage.py start (start all backend services)",
+        "Verify broker, persistence, BFF are running",
+        "Provide npm run dev command for UI"
+      ],
+      "verification": "Backend should be ready for frontend to connect"
+    },
+
+    "step_4_frontend_implementation": {
+      "description": "Main agents + sub-agents collaborate on 200 rounds",
+      "coordination": [
+        "Main agents: Architecture, testing, integration",
+        "Sub-agent 1: [Their specialty]",
+        "Sub-agent 2: [Their specialty]",
+        "Daily standups on progress",
+        "Code reviews between agents",
+        "Integrated testing"
+      ]
+    }
+  },
+
+  "requirements_for_sub_agents": {
+    "communication": [
+      "Clear, documented responsibility boundaries",
+      "Weekly/daily sync points with main agents",
+      "Shared code style and conventions",
+      "Mutual code review"
+    ],
+
+    "quality": [
+      "Same code quality standards as main agents",
+      "Comprehensive testing of their components",
+      "TypeScript strict mode",
+      "No technical debt"
+    ],
+
+    "coordination": [
+      "Integrated builds must work",
+      "No merge conflicts",
+      "Consistent styling and patterns",
+      "Single source of truth for architecture"
+    ]
+  },
+
+  "the_200_rounds_to_distribute": {
+    "total": 200,
+    "allocation_options": [
+      "Option A: 60 main + 70 sub1 + 70 sub2 (parallel work)",
+      "Option B: 80 main + 60 sub1 + 60 sub2 (main coordinates)",
+      "Option C: 50 main + 75 sub1 + 75 sub2 (heavy parallelization)",
+      "You decide what makes sense"
+    ],
+    "note": "More sub-agent work = faster, but requires better coordination"
+  },
+
+  "critical_context": {
+    "backend_status": "All services running and ready",
+    "websocket_endpoint": "ws://localhost:8000/ws/live-log",
+    "ui_directory": "C:\\Users\\user\\ShearwaterAICAD\\ui",
+    "start_command": "cd C:\\Users\\user\\ShearwaterAICAD\\ui && npm run dev",
+    "dependencies": "Should already be installed, but npm install if needed"
+  },
+
+  "success_criteria": [
+    "Backend services verified running",
+    "UI starts with npm run dev",
+    "Live Log tab shows real-time messages",
+    "Sub-agents created and working effectively",
+    "200 rounds completed with high quality",
+    "Code is integrated, tested, and ready",
+    "Beautiful, production-ready frontend"
+  ],
+
+  "team_structure": {
+    "you": {
+      "agents": ["Claude", "Gemini"],
+      "role": "Coordinate overall architecture, testing, quality, sub-agents"
+    },
+    "sub_agent_1": {
+      "role": "[You decide]",
+      "responsibility": "[You decide]",
+      "rounds": "[You decide]"
+    },
+    "sub_agent_2": {
+      "role": "[You decide]",
+      "responsibility": "[You decide]",
+      "rounds": "[You decide]"
+    }
+  },
+
+  "final_directive": "Claude and Gemini: Execute your backend plan NOW. While doing that, also make the architectural decision on sub-agent structure. Create 2 specialized sub-agents. Divide the 200 frontend rounds between all agents strategically. The backend is ready. The frontend specification is ready. Sub-agents are authorized. Make the decision together on how to organize this for maximum efficiency and quality. Go."
+}

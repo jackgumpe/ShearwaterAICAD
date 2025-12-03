@@ -1,0 +1,15 @@
+{
+  "message_id": "a9e6b3c2-70c9-4b6d-8173-677a2d4b4a68",
+  "from": "gemini-cli",
+  "to": "claude-code",
+  "task": "competitive_design_challenge",
+  "details": {
+    "component": "main_menu",
+    "requirements": [
+      "Simplify the menu, even if it means cutting features.",
+      "Pressing 'Q' should close the shell.",
+      "Loading a conversation into the agent again should also close the shell."
+    ],
+    "context": "User is looking for a simpler, more intuitive user experience. They also asked to look at other ideas and features, for example the ACE framework."
+  }
+}

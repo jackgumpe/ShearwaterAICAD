@@ -1,0 +1,52 @@
+[
+  {
+    "scenario": "Agent Coordination Loop (hourly)",
+    "requests": 600,
+    "cache_hit_rate": "35%",
+    "api_calls": 390,
+    "cost_no_cache": "$0.02",
+    "cost_with_cache": "$0.01",
+    "savings": "$0.01",
+    "savings_pct": "35.0%"
+  },
+  {
+    "scenario": "Game World Queries (hourly)",
+    "requests": 100,
+    "cache_hit_rate": "20%",
+    "api_calls": 80,
+    "cost_no_cache": "$0.00",
+    "cost_with_cache": "$0.00",
+    "savings": "$0.00",
+    "savings_pct": "20.0%"
+  },
+  {
+    "scenario": "NPC Behavior (hourly)",
+    "requests": 150,
+    "cache_hit_rate": "15%",
+    "api_calls": 127,
+    "cost_no_cache": "$0.01",
+    "cost_with_cache": "$0.01",
+    "savings": "$0.00",
+    "savings_pct": "15.0%"
+  },
+  {
+    "scenario": "Full Day Azerate (24hrs)",
+    "requests": 10800,
+    "cache_hit_rate": "25%",
+    "api_calls": 8100,
+    "cost_no_cache": "$0.49",
+    "cost_with_cache": "$0.36",
+    "savings": "$0.12",
+    "savings_pct": "25.0%"
+  },
+  {
+    "scenario": "Week-long Campaign (7 days)",
+    "requests": 75600,
+    "cache_hit_rate": "30%",
+    "api_calls": 52920,
+    "cost_no_cache": "$3.40",
+    "cost_with_cache": "$2.38",
+    "savings": "$1.02",
+    "savings_pct": "30.0%"
+  }
+]

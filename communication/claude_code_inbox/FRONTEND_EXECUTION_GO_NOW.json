@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-12-03T12:00:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "execution_directive",
+  "priority": "CRITICAL",
+
+  "status": {
+    "context_checkpoint": "ACTIVE - Data loss prevented",
+    "dev_server": "RUNNING on port 5176",
+    "foundation": "React 18 + TypeScript + Tailwind - READY"
+  },
+
+  "action": "GET BACK TO FRONTEND WORK NOW",
+
+  "current_task": "Frontend Live Log - 250 Rounds",
+
+  "immediate_start": {
+    "round": "1",
+    "focus": "useWebSocket Hook - Complete Implementation",
+    "deliverable": "Custom React hook with full reconnection logic"
+  },
+
+  "build_sequence": {
+    "round_1": {
+      "task": "Create useWebSocket hook",
+      "file": "ui/src/hooks/useWebSocket.ts",
+      "requirements": [
+        "Accept URL and options as parameters",
+        "Return { connected, messages, error, send }",
+        "Handle connection state",
+        "Basic message queuing"
+      ]
+    },
+
+    "round_2": {
+      "task": "Add reconnection logic",
+      "focus": "Exponential backoff algorithm",
+      "backoff_sequence": [
+        "1 second initial",
+        "2 seconds",
+        "4 seconds",
+        "8 seconds",
+        "max 60 seconds"
+      ]
+    },
+
+    "round_3": {
+      "task": "Add heartbeat mechanism",
+      "purpose": "Detect stale connections before complete failure"
+    },
+
+    "round_4": {
+      "task": "Error handling & cleanup",
+      "focus": "Memory leak prevention, proper cleanup"
+    },
+
+    "round_5": {
+      "task": "Tests for useWebSocket",
+      "requirement": "Full coverage of hook behavior"
+    }
+  },
+
+  "dev_server_info": {
+    "url": "http://localhost:5176",
+    "status": "Running",
+    "hot_reload": "Enabled - changes auto-refresh"
+  },
+
+  "quality_requirements": {
+    "tests": "Write tests as you go",
+    "commits": "Atomic commits after each round",
+    "code_review": "Self-review before commit",
+    "no_debt": "Don't accumulate technical debt"
+  },
+
+  "execution_rules": {
+    "rule_1": "No interruptions - 250 rounds continuous",
+    "rule_2": "Fix any bugs you find immediately",
+    "rule_3": "Test constantly - don't skip tests",
+    "rule_4": "Keep commits atomic and clean",
+    "rule_5": "Ship code constantly, little and often"
+  },
+
+  "success_criteria": {
+    "round_1_5": "useWebSocket hook fully implemented and tested",
+    "continue_to": "Rounds 6-10 for message types and state management"
+  },
+
+  "final_message": "Context protected. Dev server ready. Time to build. Start round 1 now."
+}

@@ -60,6 +60,8 @@ class MessageBus:
     def stop(self):
         """Stop the message bus"""
         self.running = False
+        self.publisher.setsockopt(zmq.LINGER, 0)
+        self.subscriber.setsockopt(zmq.LINGER, 0)
         self.publisher.close()
         self.subscriber.close()
         self.context.term()

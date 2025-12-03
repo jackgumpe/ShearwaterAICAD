@@ -29,34 +29,52 @@ logger = logging.getLogger('AnalyticsEngine')
 class ConversationAnalytics:
     """Analyzes conversation data for collaboration metrics and insights"""
 
-    def __init__(self, log_dir: str = "conversation_logs"):
+    def __init__(self, log_dir: str = "conversation_logs", defragmented_log_file: str = None):
         self.log_dir = Path(log_dir)
-        self.messages = []
+        self.threads = []  # Changed from self.messages to self.threads
         self.reports_dir = Path("reports")
         self.reports_dir.mkdir(exist_ok=True)
+        self.defragmented_log_path = Path(defragmented_log_file) if defragmented_log_file else None
 
     def load_jsonl(self) -> int:
-        """Load messages from JSONL file"""
-        session_file = self.log_dir / "current_session.jsonl"
+        """Load data from JSONL file (either raw messages or defragmented threads)."""
+        file_to_load = self.defragmented_log_path if self.defragmented_log_path and self.defragmented_log_path.exists() else self.log_dir / "current_session.jsonl"
 
-        if not session_file.exists():
-            logger.error(f"Session file not found: {session_file}")
+        if not file_to_load.exists():
+            logger.error(f"Log file not found: {file_to_load}")
             return 0
 
         count = 0
-        try:
-            with open(session_file, 'r') as f:
-                for line in f:
-                    try:
-                        msg = json.loads(line.strip())
-                        self.messages.append(msg)
-                        count += 1
-                    except json.JSONDecodeError:
-                        pass
-        except Exception as e:
-            logger.error(f"Error loading JSONL: {e}")
+        if "defragmented_sessions.jsonl" in str(file_to_load):
+            # Load as threads
+            try:
+                with open(file_to_load, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        try:
+                            thread = json.loads(line.strip())
+                            if "messages" in thread and isinstance(thread["messages"], list):
+                                self.threads.append(thread)
+                                count += 1
+                        except json.JSONDecodeError:
+                            logger.warning(f"Skipping invalid JSON line in {file_to_load}")
+            except Exception as e:
+                logger.error(f"Error loading defragmented JSONL: {e}")
+            logger.info(f"Loaded {count} threads from {file_to_load}")
+        else:
+            # Load as raw messages
+            try:
+                with open(file_to_load, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        try:
+                            msg = json.loads(line.strip())
+                            self.threads.append(msg) # Still append to self.threads, but these are raw messages
+                            count += 1
+                        except json.JSONDecodeError:
+                            logger.warning(f"Skipping invalid JSON line in {file_to_load}")
+            except Exception as e:
+                logger.error(f"Error loading raw JSONL: {e}")
+            logger.info(f"Loaded {count} raw messages from {file_to_load}")
 
-        logger.info(f"Loaded {count} messages from JSONL")
         return count
 
     def load_arrow(self) -> int:
@@ -77,7 +95,7 @@ class ConversationAnalytics:
                     msg = row.to_dict()
                     # Convert numpy types to native Python types
                     msg = {k: (v.item() if hasattr(v, 'item') else v) for k, v in msg.items()}
-                    self.messages.append(msg)
+                    self.threads.append(msg) # Append raw messages to self.threads
                     count += 1
 
                 logger.info(f"Loaded {count} messages from {arrow_file.name}")
@@ -88,38 +106,60 @@ class ConversationAnalytics:
 
     def analyze(self) -> Dict[str, Any]:
         """Perform comprehensive analysis"""
-        if not self.messages:
-            logger.error("No messages loaded!")
+        if not self.threads: # Changed from self.messages to self.threads
+            logger.error("No data loaded!")
             return {}
+
+        # Determine if we are analyzing raw messages or defragmented threads
+        is_defragmented = False
+        if self.threads and "messages" in self.threads[0] and isinstance(self.threads[0]["messages"], list):
+            is_defragmented = True
+
+        total_messages_count = 0
+        if is_defragmented:
+            total_messages_count = sum(thread["message_count"] for thread in self.threads)
+        else:
+            total_messages_count = len(self.threads)
 
         results = {
             'timestamp': datetime.now().isoformat(),
-            'total_messages': len(self.messages),
-            'speakers': self._analyze_speakers(),
-            'message_types': self._analyze_message_types(),
-            'chain_types': self._analyze_chain_types(),
-            'ace_tiers': self._analyze_ace_tiers(),
-            'keywords': self._analyze_keywords(),
-            'timeline': self._analyze_timeline(),
-            'metadata_insights': self._analyze_metadata(),
-            'collaboration_score': self._calculate_collaboration_score(),
+            'total_items': len(self.threads), # Total threads or raw messages
+            'total_messages_within_threads': total_messages_count, # Total raw messages
+            'is_defragmented': is_defragmented,
+            'speakers': self._analyze_speakers(is_defragmented),
+            'message_types': self._analyze_message_types(is_defragmented),
+            'chain_types': self._analyze_chain_types(is_defragmented),
+            'ace_tiers': self._analyze_ace_tiers(is_defragmented),
+            'keywords': self._analyze_keywords(is_defragmented),
+            'timeline': self._analyze_timeline(is_defragmented),
+            'metadata_insights': self._analyze_metadata(is_defragmented),
+            'collaboration_score': self._calculate_collaboration_score(is_defragmented),
         }
 
         return results
 
-    def _analyze_speakers(self) -> Dict[str, int]:
+    def _get_all_messages(self, is_defragmented: bool) -> List[Dict[str, Any]]:
+        """Helper to get all individual messages, whether from raw or defragmented data."""
+        if is_defragmented:
+            all_msgs = []
+            for thread in self.threads:
+                all_msgs.extend(thread["messages"])
+            return all_msgs
+        return self.threads # If not defragmented, self.threads already contains raw messages
+
+    def _analyze_speakers(self, is_defragmented: bool) -> Dict[str, int]:
         """Count messages by speaker"""
         speakers = Counter()
-        for msg in self.messages:
+        for msg in self._get_all_messages(is_defragmented):
             speaker = msg.get('SpeakerName', 'unknown')
             speakers[speaker] += 1
         return dict(speakers.most_common())
 
-    def _analyze_message_types(self) -> Dict[str, int]:
+    def _analyze_message_types(self, is_defragmented: bool) -> Dict[str, int]:
         """Analyze message types from metadata"""
         msg_types = defaultdict(int)
 
-        for msg in self.messages:
+        for msg in self._get_all_messages(is_defragmented):
             # Try multiple possible type fields
             msg_type = (msg.get('Type') or
                        msg.get('type') or
@@ -129,27 +169,27 @@ class ConversationAnalytics:
 
         return dict(sorted(msg_types.items(), key=lambda x: x[1], reverse=True))
 
-    def _analyze_chain_types(self) -> Dict[str, int]:
+    def _analyze_chain_types(self, is_defragmented: bool) -> Dict[str, int]:
         """Analyze domain chains"""
         chains = Counter()
-        for msg in self.messages:
-            chain = msg.get('chain_type', 'unknown')
+        for msg in self._get_all_messages(is_defragmented):
+            chain = msg.get('chain_type', msg.get('Metadata', {}).get('chain_type', 'unknown')) # Check both direct and nested
             chains[chain] += 1
         return dict(chains.most_common())
 
-    def _analyze_ace_tiers(self) -> Dict[str, int]:
+    def _analyze_ace_tiers(self, is_defragmented: bool) -> Dict[str, int]:
         """Analyze ACE tier distribution"""
         tiers = Counter()
-        for msg in self.messages:
-            tier = msg.get('ace_tier', 'unknown')
+        for msg in self._get_all_messages(is_defragmented):
+            tier = msg.get('ace_tier', msg.get('Metadata', {}).get('ace_tier', 'unknown')) # Check both direct and nested
             tiers[tier] += 1
         return dict(tiers.most_common())
 
-    def _analyze_keywords(self, top_n: int = 20) -> List[Tuple[str, int]]:
+    def _analyze_keywords(self, is_defragmented: bool, top_n: int = 20) -> List[Tuple[str, int]]:
         """Extract top keywords"""
         keywords = Counter()
 
-        for msg in self.messages:
+        for msg in self._get_all_messages(is_defragmented):
             # Try metadata keywords first
             if isinstance(msg.get('Metadata'), dict):
                 meta_keywords = msg['Metadata'].get('keywords', [])
@@ -162,11 +202,11 @@ class ConversationAnalytics:
 
         return keywords.most_common(top_n)
 
-    def _analyze_timeline(self) -> Dict[str, Any]:
+    def _analyze_timeline(self, is_defragmented: bool) -> Dict[str, Any]:
         """Analyze message distribution over time"""
         timeline = defaultdict(int)
 
-        for msg in self.messages:
+        for msg in self._get_all_messages(is_defragmented):
             timestamp = msg.get('Timestamp', '')
             if timestamp:
                 # Extract date
@@ -175,30 +215,30 @@ class ConversationAnalytics:
 
         return dict(sorted(timeline.items()))
 
-    def _analyze_metadata(self) -> Dict[str, Any]:
+    def _analyze_metadata(self, is_defragmented: bool) -> Dict[str, Any]:
         """Analyze metadata patterns"""
         insights = {
-            'shl_tags_frequency': self._count_shl_tags(),
-            'consolidation_ratio': self._analyze_consolidation(),
-            'content_hash_coverage': sum(1 for m in self.messages
+            'shl_tags_frequency': self._count_shl_tags(is_defragmented),
+            'consolidation_ratio': self._analyze_consolidation(is_defragmented),
+            'content_hash_coverage': sum(1 for m in self._get_all_messages(is_defragmented)
                                         if 'content_hash' in m.get('Metadata', {})),
         }
         return insights
 
-    def _count_shl_tags(self) -> Dict[str, int]:
+    def _count_shl_tags(self, is_defragmented: bool) -> Dict[str, int]:
         """Count SHL tags"""
         tags = Counter()
-        for msg in self.messages:
-            shl_tags = msg.get('shl_tags', [])
+        for msg in self._get_all_messages(is_defragmented):
+            shl_tags = msg.get('shl_tags', msg.get('Metadata', {}).get('shl_tags', [])) # Check both direct and nested
             if isinstance(shl_tags, list):
                 tags.update(shl_tags)
         return dict(tags.most_common(10))
 
-    def _analyze_consolidation(self) -> Dict[str, Any]:
+    def _analyze_consolidation(self, is_defragmented: bool) -> Dict[str, Any]:
         """Analyze message consolidation stats"""
-        consolidated = sum(1 for m in self.messages
+        consolidated = sum(1 for m in self._get_all_messages(is_defragmented)
                           if m.get('Metadata', {}).get('consolidated'))
-        total = len(self.messages)
+        total = len(self._get_all_messages(is_defragmented))
 
         return {
             'consolidated_count': consolidated,
@@ -206,36 +246,38 @@ class ConversationAnalytics:
             'consolidation_percentage': (consolidated / total * 100) if total > 0 else 0,
         }
 
-    def _calculate_collaboration_score(self) -> float:
+    def _calculate_collaboration_score(self, is_defragmented: bool) -> float:
         """Calculate overall collaboration quality (0-100)"""
-        if not self.messages:
+        if not self.threads:
             return 0
 
         score = 0.0
+        all_messages = self._get_all_messages(is_defragmented)
+        total_raw_messages = len(all_messages)
 
         # 1. Speaker diversity (20%)
-        speakers = len(self._analyze_speakers())
-        speaker_score = min(speakers / 3 * 100, 100)  # 0-100 based on unique speakers
+        speakers_count = len(self._analyze_speakers(is_defragmented)) # Use the updated analyze speakers
+        speaker_score = min(speakers_count / 3 * 100, 100)  # 0-100 based on unique speakers
         score += speaker_score * 0.2
 
         # 2. Domain coverage (20%)
-        chains = len(self._analyze_chain_types())
-        domain_score = min(chains / 10 * 100, 100)  # 0-100 based on domain chains
+        chains_count = len(self._analyze_chain_types(is_defragmented)) # Use the updated analyze chain types
+        domain_score = min(chains_count / 10 * 100, 100)  # 0-100 based on domain chains
         score += domain_score * 0.2
 
-        # 3. Message consistency (20%)
-        message_ratio = len(self.messages) / 100  # Normalize to 100-message baseline
-        consistency_score = min(message_ratio * 100, 100)
+        # 3. Message consistency (20%) - Now based on total raw messages
+        message_consistency_baseline = 100.0  # Normalize to 100-message baseline
+        consistency_score = min(total_raw_messages / message_consistency_baseline * 100, 100)
         score += consistency_score * 0.2
 
         # 4. Metadata enrichment (20%)
-        enriched = sum(1 for m in self.messages if m.get('Metadata'))
-        enrichment_score = (enriched / len(self.messages) * 100) if self.messages else 0
+        enriched = sum(1 for m in all_messages if m.get('Metadata'))
+        enrichment_score = (enriched / total_raw_messages * 100) if total_raw_messages > 0 else 0
         score += enrichment_score * 0.2
 
         # 5. SHL tagging (20%)
-        tagged = sum(1 for m in self.messages if m.get('shl_tags'))
-        tagging_score = (tagged / len(self.messages) * 100) if self.messages else 0
+        tagged = sum(1 for m in all_messages if m.get('shl_tags') or m.get('Metadata', {}).get('shl_tags'))
+        tagging_score = (tagged / total_raw_messages * 100) if total_raw_messages > 0 else 0
         score += tagging_score * 0.2
 
         return round(score, 2)
@@ -251,14 +293,14 @@ class ConversationAnalytics:
 Generated: {analysis['timestamp']}
 
 ## Overview
-- **Total Messages**: {analysis['total_messages']}
+- **Total Conversations/Threads**: {analysis['total_items']}
+- **Total Messages within Threads**: {analysis['total_messages_within_threads']}
 - **Collaboration Score**: {analysis['collaboration_score']}/100
 - **Sessions**: {len(analysis['timeline'])}
 
 ## Speaker Activity
 ```
 """
-
         for speaker, count in analysis['speakers'].items():
             report += f"{speaker}: {count} messages\n"
 
@@ -298,7 +340,7 @@ Generated: {analysis['timestamp']}
 
 ## Metadata Insights
 - Consolidated Messages: {consolidated}/{total} ({pct:.1f}%)
-- Content Hash Coverage: {hashes}/total
+- Content Hash Coverage: {hashes}/{total_messages_in_threads}
 - SHL Tags Coverage: Yes
 
 ## Collaboration Metrics
@@ -320,6 +362,7 @@ Generated: {analysis['timestamp']}
             total=analysis['metadata_insights']['consolidation_ratio']['total_count'],
             pct=analysis['metadata_insights']['consolidation_ratio']['consolidation_percentage'],
             hashes=analysis['metadata_insights']['content_hash_coverage'],
+            total_messages_in_threads=analysis['total_messages_within_threads'],
             speakers=len(analysis['speakers']),
             domains=len(analysis['chain_types']),
             top_domain=max(analysis['chain_types'].items(), key=lambda x: x[1])[0] if analysis['chain_types'] else 'N/A',
@@ -341,8 +384,24 @@ Generated: {analysis['timestamp']}
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         report_path = self.reports_dir / f"analytics_report_{timestamp}.json"
 
-        with open(report_path, 'w') as f:
-            json.dump(analysis, f, indent=2)
+        # Add these to the JSON report directly
+        json_report_data = {
+            "timestamp": analysis['timestamp'],
+            "total_items": analysis['total_items'],
+            "total_messages_within_threads": analysis['total_messages_within_threads'],
+            "is_defragmented": analysis['is_defragmented'],
+            "collaboration_score": analysis['collaboration_score'],
+            "speakers": analysis['speakers'],
+            "message_types": analysis['message_types'],
+            "chain_types": analysis['chain_types'],
+            "ace_tiers": analysis['ace_tiers'],
+            "keywords": analysis['keywords'],
+            "timeline": analysis['timeline'],
+            "metadata_insights": analysis['metadata_insights']
+        }
+
+        with open(report_path, 'w', encoding='utf-8') as f:
+            json.dump(json_report_data, f, indent=2, ensure_ascii=False)
 
         logger.info(f"JSON report saved to {report_path}")
         return str(report_path)
@@ -355,9 +414,9 @@ Generated: {analysis['timestamp']}
         jsonl_count = self.load_jsonl()
         arrow_count = self.load_arrow()
 
-        logger.info(f"Total messages loaded: {len(self.messages)}")
+        logger.info(f"Total items loaded: {len(self.threads)}")
 
-        if not self.messages:
+        if not self.threads:
             logger.error("No data to analyze!")
             return {}
 
@@ -371,7 +430,11 @@ Generated: {analysis['timestamp']}
         print("\n" + "="*70)
         print("CONVERSATION ANALYTICS REPORT")
         print("="*70)
-        print(f"Total Messages: {analysis['total_messages']}")
+        if analysis['is_defragmented']:
+            print(f"Total Conversations/Threads: {analysis['total_items']}")
+            print(f"Total Messages within Threads: {analysis['total_messages_within_threads']}")
+        else:
+            print(f"Total Messages: {analysis['total_items']}")
         print(f"Collaboration Score: {analysis['collaboration_score']}/100")
         print(f"\nTop Speakers:")
         for speaker, count in list(analysis['speakers'].items())[:5]:

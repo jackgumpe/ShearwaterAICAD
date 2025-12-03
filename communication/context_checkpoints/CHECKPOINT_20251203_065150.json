@@ -1,0 +1,29 @@
+{
+  "timestamp": "2025-12-03T06:51:50.332809",
+  "token_budget_threshold_triggered": true,
+  "state": {
+    "session_data": {
+      "frontend_rounds": 250,
+      "status": "active"
+    },
+    "task_progress": {
+      "setup": 100,
+      "websocket": 0
+    },
+    "agent_status": {},
+    "active_processes": [],
+    "pending_tasks": [
+      "WebSocket hook",
+      "Message types",
+      "Components"
+    ],
+    "completed_tasks": []
+  },
+  "purpose": "Context preservation before compaction",
+  "recovery_instructions": [
+    "1. When context resumes, load this checkpoint",
+    "2. Restore all state variables",
+    "3. Re-initialize any running processes",
+    "4. Continue from last known good state"
+  ]
+}

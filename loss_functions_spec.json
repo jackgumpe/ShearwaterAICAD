@@ -1,0 +1,31 @@
+{
+  "name": "MultiComponentSDF_Loss",
+  "components": [
+    {
+      "name": "L1_SDF_Loss",
+      "weight": 1.0,
+      "description": "MAE between predicted and ground truth SDF",
+      "formula": "mean(|predicted_sdf - gt_sdf|)"
+    },
+    {
+      "name": "L2_Regularization",
+      "weight": 0.0001,
+      "description": "Weight decay to prevent overfitting",
+      "formula": "lambda * sum(weights^2)"
+    },
+    {
+      "name": "Boundary_Smoothness",
+      "weight": 0.1,
+      "description": "Encourage smooth SDF boundaries",
+      "formula": "mean(gradient_magnitude^2)"
+    }
+  ],
+  "total_loss": "L1 + 0.0001*L2 + 0.1*Smoothness",
+  "optimization": {
+    "optimizer": "Adam",
+    "learning_rate": 0.0001,
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "weight_decay": 0.0001
+  }
+}

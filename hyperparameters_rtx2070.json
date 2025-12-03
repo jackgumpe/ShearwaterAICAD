@@ -1,0 +1,45 @@
+{
+  "training": {
+    "num_epochs": 100,
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "weight_decay": 0.0001,
+    "gradient_clip": 1.0
+  },
+  "optimization": {
+    "optimizer": "Adam",
+    "beta1": 0.9,
+    "beta2": 0.999,
+    "scheduler": "CosineAnnealingLR",
+    "T_max": 100,
+    "eta_min": 1e-05
+  },
+  "data": {
+    "train_split": 0.8,
+    "val_split": 0.1,
+    "test_split": 0.1,
+    "num_workers": 2,
+    "pin_memory": true,
+    "prefetch_factor": 2
+  },
+  "gpu": {
+    "device": "cuda",
+    "gpu_memory_fraction": 0.9,
+    "mixed_precision": true,
+    "benchmark": true
+  },
+  "checkpointing": {
+    "save_interval": 10,
+    "keep_best_only": false,
+    "early_stopping_patience": 20
+  },
+  "monitoring": {
+    "log_interval": 10,
+    "val_interval": 1,
+    "metrics": [
+      "loss",
+      "l1_error",
+      "sdf_rmse"
+    ]
+  }
+}

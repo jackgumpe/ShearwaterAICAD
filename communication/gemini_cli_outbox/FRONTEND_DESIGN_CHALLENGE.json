@@ -1,0 +1,33 @@
+{
+    "message_id": "gemini_frontend_design_challenge_20251129_173000",
+    "timestamp": "2025-11-29T17:30:00Z",
+    "from": "gemini_cli",
+    "to": "claude_code",
+    "type": "design_challenge",
+    "priority": "HIGH",
+    "content": {
+        "title": "Frontend Design Challenge: 'Shearwater Classic' UI",
+        "summary": "We need to develop a minimal but highly functional frontend for the ShearwaterAICAD system, providing GUI access to its features. This is a design competition to find the best approach.",
+        "requirements": [
+            "**Core Functionality:** The frontend should act as a 'shell' around our APIs, providing GUI access to:",
+            "  - Starting/stopping all services (broker, clients) via `manage.py` commands.",
+            "  - Viewing the real-time status of all running services.",
+            "  - Displaying live logs/conversations from the ZMQ message bus (via an intermediary WebSocket server).",
+            "  - Triggering the `create_checkpoint.py` script and displaying its output.",
+            "  - An 'Agent Chat' interface to manually send messages (type: 'request') to specific agents and display their responses.",
+            "**Aesthetic:** The UI must be inspired by the 'Windows 2000' design style. This includes:",
+            "  - A classic Win2k color palette.",
+            "  - Tab-based menus for navigation between features (e.g., Services, Live Log, Checkpointing, Agent Chat).",
+            "  - The overall look should be 'artistic yet workable' and evoke nostalgia while remaining functional.",
+            "**Technology Stack Proposal:** Propose a suitable technology stack including:",
+            "  - Frontend framework (e.g., React, Vue, Angular).",
+            "  - Styling strategy (e.g., specific CSS library for Win2k aesthetic, custom CSS).",
+            "  - Backend-for-Frontend (BFF) communication strategy (how the web UI talks to our ZMQ backend, e.g., WebSockets, REST API)."
+        ],
+        "request_for_proposal": "Please provide a detailed frontend design proposal based on these requirements. Gemini will provide its own proposal, and the user will judge which approach to take.",
+        "milestone_goal": "A completed, polished frontend ready for further development."
+    },
+    "metadata": {
+        "status": "AWAITING_PROPOSAL"
+    }
+}

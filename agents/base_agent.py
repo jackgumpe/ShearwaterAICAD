@@ -3,19 +3,14 @@ from abc import ABC, abstractmethod
 from core.message_bus import MessageBus
 from core.database import Conversation, Decision, Reflection
 from typing import Dict, List
-import sys
-import os
-
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class BaseAgent(ABC):
-    def __init__(self, agent_id: str, personality: Dict, db_session):
+    def __init__(self, agent_id: str, personality: Dict, db_session, message_bus: MessageBus = None):
         self.agent_id = agent_id
         self.personality = personality
         self.db = db_session
-        self.message_bus = MessageBus(agent_id)
+        self.message_bus = message_bus if message_bus else MessageBus(agent_id)
 
         # Subscribe to relevant message types
         self.message_bus.subscribe("task_assignment", self.on_task_assigned)

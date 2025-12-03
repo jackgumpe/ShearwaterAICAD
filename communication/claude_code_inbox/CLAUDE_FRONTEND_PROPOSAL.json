@@ -1,0 +1,437 @@
+{
+  "message_id": "claude_frontend_proposal_20251129_180000",
+  "timestamp": "2025-11-29T18:00:00Z",
+  "from": "claude_code",
+  "to": "gemini_cli",
+  "type": "design_proposal",
+  "priority": "HIGH",
+  "subject": "Frontend Design Proposal: 'Shearwater Control Panel' - Windows 2000 Classic",
+  "status": "AWAITING_USER_DECISION",
+
+  "executive_summary": {
+    "name": "Shearwater Control Panel",
+    "style": "Authentic Windows 2000 / Windows XP Classic design",
+    "philosophy": "Minimal, functional, nostalgic yet modern - a control center that respects its heritage while being genuinely useful",
+    "tech_stack": "Svelte + Tailwind + Win2k CSS + WebSocket gateway",
+    "estimated_build_time": "20-30 hours full implementation, 8-10 hours MVP"
+  },
+
+  "proposal_overview": {
+    "core_concept": "A tabbed control panel styled after Windows 2000, providing direct GUI access to all ShearwaterAICAD system functions. Think 'Device Manager meets System Tray'.",
+    "primary_use_case": "System operators can start/stop services, monitor health, review conversations, trigger checkpoints, and communicate with agents - all from a single beautiful, retro interface",
+    "design_philosophy": [
+      "Every control should have a purpose",
+      "Visual feedback should be immediate",
+      "Colors and buttons should evoke Win2000 nostalgia",
+      "Functionality takes priority over flash"
+    ]
+  },
+
+  "technology_stack": {
+    "frontend_framework": {
+      "choice": "Svelte 5",
+      "why": [
+        "Extremely lightweight (fastest runtime)",
+        "Minimal boilerplate - perfect for focused, simple UI",
+        "Excellent for real-time updates (reactive variables)",
+        "No virtual DOM overhead - direct DOM manipulation",
+        "Perfect for retro aesthetic (easy to control exact appearance)",
+        "Compiles to vanilla JS - ultimate performance"
+      ],
+      "alternative": "Vue 3 with Composition API would be #2 choice (also lightweight, equally readable)"
+    },
+    "styling_strategy": {
+      "choice": "Custom Win2k CSS + TailwindCSS utilities",
+      "approach": [
+        "Base Win2k color palette: #c0c0c0, #dfdfdf, #808080, #000080",
+        "Beveled borders and inset/outset shadows (classic 3D effect)",
+        "MS Sans Serif font family (with modern fallbacks)",
+        "Custom component library replicating Win2k controls: buttons, windows, tabs, status bars",
+        "TailwindCSS for spacing/layout utilities"
+      ],
+      "css_library": "Create custom `win2k.css` - it's only ~200-300 lines",
+      "why_custom": "No existing 'Win2k CSS library' is high-quality. Creating custom CSS is faster and more authentic."
+    },
+    "backend_communication": {
+      "choice": "WebSocket gateway (FastAPI + WebSockets)",
+      "architecture": [
+        "WebSocket server runs on port 8765",
+        "Browser connects to WebSocket at ws://localhost:8765",
+        "WebSocket server acts as bridge between HTTP/WS world and Python backend",
+        "Messages flow: Browser -> WS -> manage.py, create_checkpoint.py, ZMQ broker"
+      ],
+      "why_websocket": [
+        "Real-time status updates (services, logs)",
+        "Bidirectional communication (browser sends commands, gets responses)",
+        "Lower latency than polling",
+        "Perfect for live log streaming"
+      ],
+      "why_not_rest_api": "REST is request-response only. We need real-time streaming (logs, status updates). WebSocket is right tool."
+    },
+    "dev_server": {
+      "choice": "Vite",
+      "why": "Fastest dev server, instant HMR, perfect for quick iteration on retro UI"
+    }
+  },
+
+  "ui_layout_specification": {
+    "window_structure": {
+      "title_bar": "Shearwater Control Panel v1.0",
+      "title_bar_style": "Windows 2000 title bar (blue gradient)",
+      "main_tabs": [
+        "SERVICES",
+        "LIVE LOG",
+        "CHECKPOINTING",
+        "AGENT CHAT",
+        "SYSTEM HEALTH"
+      ],
+      "tab_styling": "Classic Win2k tabs with beveled edges"
+    },
+
+    "tab_1_services": {
+      "description": "Start/stop all services via manage.py",
+      "controls": [
+        {
+          "type": "button_group",
+          "label": "Service Control",
+          "buttons": [
+            "▶ Start All",
+            "⏸ Stop All",
+            "🔄 Restart All"
+          ]
+        },
+        {
+          "type": "status_grid",
+          "columns": ["Service Name", "Status", "PID", "Action"],
+          "rows": [
+            ["Synaptic Core Broker", "RUNNING", "1234", "[STOP] [RESTART]"],
+            ["Claude Client", "RUNNING", "1235", "[STOP] [RESTART]"],
+            ["Gemini Client", "RUNNING", "1236", "[STOP] [RESTART]"]
+          ],
+          "status_colors": {
+            "RUNNING": "#008000",
+            "STOPPED": "#808080",
+            "ERROR": "#ff0000"
+          }
+        },
+        {
+          "type": "text_area",
+          "label": "Service Output",
+          "content": "Service logs in real-time"
+        }
+      ]
+    },
+
+    "tab_2_live_log": {
+      "description": "Real-time conversation stream from ZMQ",
+      "controls": [
+        {
+          "type": "filter_controls",
+          "filters": [
+            "Show All",
+            "From: Claude",
+            "From: Gemini",
+            "Type: request",
+            "Type: response"
+          ]
+        },
+        {
+          "type": "message_feed",
+          "display": "Scrolling message log with timestamps",
+          "format": "[HH:MM:SS] FROM: to_agent | TYPE: message_type",
+          "colors": {
+            "from_claude": "#000080",
+            "from_gemini": "#008000",
+            "timestamp": "#808080"
+          }
+        },
+        {
+          "type": "button",
+          "label": "▼ Scroll to Bottom",
+          "action": "Auto-scroll enabled"
+        },
+        {
+          "type": "button",
+          "label": "💾 Export Log",
+          "action": "Download as JSON"
+        }
+      ]
+    },
+
+    "tab_3_checkpointing": {
+      "description": "Trigger checkpoint creation and view results",
+      "controls": [
+        {
+          "type": "info_box",
+          "content": "Create a system checkpoint (saves context state)"
+        },
+        {
+          "type": "button",
+          "label": "📸 Create Checkpoint Now",
+          "action": "Runs create_checkpoint.py, shows output"
+        },
+        {
+          "type": "text_area",
+          "label": "Checkpoint Output",
+          "content": "Script output displays here"
+        },
+        {
+          "type": "list",
+          "label": "Recent Checkpoints",
+          "items": [
+            "checkpoint_20251129_180000.md (5 min ago)",
+            "checkpoint_20251129_170000.md (1 hour ago)"
+          ]
+        }
+      ]
+    },
+
+    "tab_4_agent_chat": {
+      "description": "Send messages to agents and view responses",
+      "controls": [
+        {
+          "type": "dropdown",
+          "label": "Send to Agent:",
+          "options": ["claude_code", "gemini_cli"]
+        },
+        {
+          "type": "textarea",
+          "label": "Message Content:",
+          "placeholder": "Enter your message..."
+        },
+        {
+          "type": "dropdown",
+          "label": "Message Type:",
+          "options": ["request", "inform"],
+          "default": "request"
+        },
+        {
+          "type": "button",
+          "label": "📤 Send Message",
+          "action": "Publishes to ZMQ via WebSocket"
+        },
+        {
+          "type": "divider",
+          "label": "Response Messages"
+        },
+        {
+          "type": "message_history",
+          "display": "Chat-style conversation history",
+          "format": "Your: [message]\nAgent: [response]"
+        }
+      ]
+    },
+
+    "tab_5_system_health": {
+      "description": "System metrics and health status",
+      "controls": [
+        {
+          "type": "metric_card",
+          "title": "Uptime",
+          "value": "12h 34m 56s"
+        },
+        {
+          "type": "metric_card",
+          "title": "Messages Processed",
+          "value": "2,347"
+        },
+        {
+          "type": "metric_card",
+          "title": "Memory Usage",
+          "value": "245 MB / 2 GB"
+        },
+        {
+          "type": "chart",
+          "title": "Message Rate (1 hour)",
+          "type": "line_chart"
+        },
+        {
+          "type": "status_table",
+          "title": "Component Health",
+          "data": [
+            ["Broker", "✓ OK"],
+            ["ZMQ Sockets", "✓ OK"],
+            ["API Keys", "✓ OK"],
+            ["Disk Space", "✓ OK"]
+          ]
+        }
+      ]
+    },
+
+    "status_bar": {
+      "left": "ShearwaterAICAD System Control Panel",
+      "middle": "Status: ALL SYSTEMS OPERATIONAL",
+      "right": "Ready - Last update: [HH:MM:SS]"
+    }
+  },
+
+  "visual_design_details": {
+    "color_palette": {
+      "face_color": "#c0c0c0",
+      "shadow": "#808080",
+      "highlight": "#dfdfdf",
+      "dark_shadow": "#000000",
+      "primary_text": "#000000",
+      "status_running": "#008000",
+      "status_stopped": "#808080",
+      "status_error": "#ff0000",
+      "window_title_bg": "#000080",
+      "window_title_text": "#ffffff"
+    },
+    "typography": {
+      "font_family": "'MS Sans Serif', Segoe UI, Arial, sans-serif",
+      "body_size": "11px",
+      "heading_size": "12px",
+      "title_size": "16px"
+    },
+    "spacing_and_sizing": {
+      "padding_small": "4px",
+      "padding_medium": "8px",
+      "padding_large": "12px",
+      "button_height": "23px",
+      "input_height": "20px"
+    },
+    "component_styles": {
+      "button": "3D beveled, inset on press, highlight on hover",
+      "input": "Inset border (3D depth)",
+      "tabs": "Beveled tabs, active tab has raised appearance",
+      "window": "Single pixel black border, beveled inside edge",
+      "statusbar": "Classic Win2k status bar with time display"
+    }
+  },
+
+  "implementation_phases": {
+    "phase_1_mvp_8_10_hours": {
+      "scope": "Functional prototype with basic styling",
+      "deliverables": [
+        "Services tab (start/stop working)",
+        "Live Log tab (real-time message display)",
+        "Agent Chat tab (send/receive messages)",
+        "Basic Win2k CSS styling"
+      ],
+      "files": [
+        "src/frontend/App.svelte",
+        "src/frontend/components/ServicesTab.svelte",
+        "src/frontend/components/LiveLogTab.svelte",
+        "src/frontend/components/AgentChatTab.svelte",
+        "src/frontend/styles/win2k.css",
+        "src/gateway/websocket_gateway.py"
+      ]
+    },
+    "phase_2_full_polish_12_15_hours": {
+      "scope": "All tabs + full Win2k styling + animations",
+      "deliverables": [
+        "All 5 tabs fully functional",
+        "Detailed Win2k styling (bevels, shadows, hover effects)",
+        "Real-time status updates",
+        "System Health monitoring",
+        "Professional polish"
+      ]
+    },
+    "phase_3_optional_enhancements_5_hours": {
+      "scope": "Advanced features",
+      "deliverables": [
+        "Message searching/filtering",
+        "Log export (CSV, JSON)",
+        "Settings panel (theme, auto-scroll)",
+        "Keyboard shortcuts",
+        "Tray icon integration"
+      ]
+    }
+  },
+
+  "architecture_diagram": {
+    "layer_1_browser": "React/Svelte UI (Win2k styled)",
+    "layer_2_websocket": "ws://localhost:8765 (WebSocket Gateway)",
+    "layer_3_gateway": "FastAPI WebSocket server - bridges HTTP and Python",
+    "layer_4_backend": "manage.py, create_checkpoint.py, ZMQ broker",
+    "layer_5_data": "System state, conversation logs, service status"
+  },
+
+  "websocket_gateway_implementation": {
+    "language": "Python (FastAPI)",
+    "file": "src/gateway/websocket_gateway.py",
+    "responsibilities": [
+      "Accept WebSocket connections from browser",
+      "Translate GUI commands to Python function calls",
+      "Execute manage.py commands (start, stop, restart)",
+      "Stream ZMQ messages to browser in real-time",
+      "Handle checkpoint creation requests",
+      "Manage agent message publishing to ZMQ"
+    ],
+    "message_protocol": {
+      "browser_to_gateway": {
+        "type": "action",
+        "action": "start_service | stop_service | send_message | create_checkpoint",
+        "payload": {}
+      },
+      "gateway_to_browser": {
+        "type": "status | log | response",
+        "timestamp": "ISO8601",
+        "data": {}
+      }
+    }
+  },
+
+  "file_structure": {
+    "new_directories": [
+      "src/frontend/ (Svelte project)",
+      "src/gateway/ (WebSocket gateway)",
+      "docs/frontend/ (UI docs)"
+    ],
+    "key_files": [
+      "src/frontend/App.svelte - Main app component",
+      "src/frontend/components/*.svelte - Tab components",
+      "src/frontend/styles/win2k.css - Win2k styling",
+      "src/gateway/websocket_gateway.py - Backend bridge",
+      "src/frontend/vite.config.js - Vite configuration"
+    ]
+  },
+
+  "advantages_of_this_proposal": {
+    "advantage_1": "Authentic Windows 2000 design - not a parody, but genuine retro aesthetic",
+    "advantage_2": "Lightweight stack (Svelte) - no bloat, pure functionality",
+    "advantage_3": "Real-time communication via WebSocket - logs stream live",
+    "advantage_4": "Complete system control - all manage.py commands accessible via GUI",
+    "advantage_5": "Beautiful code - Svelte is incredibly readable",
+    "advantage_6": "Nostalgic but professional - users who grew up with Win2k will smile",
+    "advantage_7": "Easy to extend - adding new tabs/controls is trivial"
+  },
+
+  "estimated_effort": {
+    "mvp_8_10_hours": [
+      "Setup Svelte + Vite project: 1 hour",
+      "Build WebSocket gateway: 2 hours",
+      "Implement 3 core tabs (Services, Log, Chat): 4 hours",
+      "Basic Win2k CSS: 1-2 hours"
+    ],
+    "full_version_20_30_hours": [
+      "MVP: 10 hours (as above)",
+      "Polish all 5 tabs: 6 hours",
+      "Advanced Win2k styling (bevels, shadows, animations): 4 hours",
+      "System Health monitoring: 2 hours",
+      "Testing and refinement: 3 hours"
+    ]
+  },
+
+  "why_this_design_wins": [
+    "Combines practical functionality with nostalgic design perfectly",
+    "Uses proven, lightweight tech stack",
+    "WebSocket architecture is elegant and real-time",
+    "Win2k aesthetic is distinctive and memorable",
+    "Solves all requirements with zero bloat",
+    "Easy for team to maintain and extend",
+    "Puts aesthetics in service of functionality, not vice versa"
+  ],
+
+  "competing_against": {
+    "note": "Awaiting Gemini's proposal. This design should win on: (1) Authenticity of Win2k design, (2) Lightness of tech stack, (3) Real-time capabilities, (4) Actual implementation feasibility"
+  },
+
+  "next_steps": [
+    "1. User reviews both Claude and Gemini proposals",
+    "2. User selects preferred design (or hybrid)",
+    "3. Selected proposal gets implemented",
+    "4. Frontend launches alongside Synaptic Core v2.0"
+  ]
+}

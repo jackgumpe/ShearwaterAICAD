@@ -1,0 +1,45 @@
+{
+  "metrics": [
+    {
+      "name": "Training Loss",
+      "frequency": "every_batch",
+      "threshold_alert": 1.5,
+      "description": "L1 + regularization + smoothness"
+    },
+    {
+      "name": "Validation Loss",
+      "frequency": "every_epoch",
+      "threshold_alert": 1.2,
+      "description": "Loss on validation set"
+    },
+    {
+      "name": "VRAM Usage",
+      "frequency": "every_batch",
+      "threshold_alert": 7.5,
+      "description": "GPU memory in GB"
+    },
+    {
+      "name": "Gradient Norm",
+      "frequency": "every_batch",
+      "threshold_alert": 10.0,
+      "description": "L2 norm of gradients"
+    }
+  ],
+  "alerts": {
+    "loss_plateau": "No improvement for 20 epochs",
+    "memory_critical": "VRAM > 7.5 GB",
+    "gradient_explosion": "Gradient norm > 10.0",
+    "divergence": "Loss > 5.0"
+  },
+  "checkpointing": {
+    "save_every_n_epochs": 10,
+    "keep_best": true,
+    "keep_last": true,
+    "keep_interval": 5
+  },
+  "visualization": {
+    "loss_curve": "plot_training_loss.png",
+    "vram_timeline": "plot_vram_usage.png",
+    "convergence_analysis": "convergence_report.json"
+  }
+}

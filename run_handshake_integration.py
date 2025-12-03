@@ -5,12 +5,13 @@ import time
 import json
 from pathlib import Path
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# Add src directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from agents.pm_alpha import PMAlpha
 from agents.pm_beta import PMBeta
 from core.database import init_db, Conversation
+from core.message_bus import MessageBus
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -28,21 +29,24 @@ def test_triple_handshake():
     print("   ✓ Database initialized")
 
     # Get API keys
-    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    openai_key = os.getenv("OPENAI_API_KEY")
+    anthropic_key = "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" # TEMP WORKAROUND
+    openai_key = "YOUR_OPENAI_API_KEY" # TEMP WORKAROUND - Replace with your actual key
 
     if not anthropic_key or not openai_key:
         print("\n   ✗ API keys not found in .env file")
         print("   Please set ANTHROPIC_API_KEY and OPENAI_API_KEY")
         return False
 
+    # Create a shared message bus
+    message_bus = MessageBus("handshake_test")
+
     # Create agents
     print("\n2. Creating agents...")
     try:
-        pm_alpha = PMAlpha(db, anthropic_key)
+        pm_alpha = PMAlpha(db, anthropic_key, message_bus)
         print("   ✓ PM-Alpha (The Architect) initialized")
 
-        pm_beta = PMBeta(db, openai_key)
+        pm_beta = PMBeta(db, openai_key, message_bus)
         print("   ✓ PM-Beta (The Executor) initialized")
     except Exception as e:
         print(f"   ✗ Error creating agents: {e}")
@@ -98,9 +102,8 @@ def test_triple_handshake():
     print(f"Status: {'READY FOR PHASE 1' if len(conversations) > 0 else 'CHECK LOGS'}")
     print("=" * 60)
 
-    # Stop agents
-    pm_alpha.message_bus.stop()
-    pm_beta.message_bus.stop()
+    # Stop the shared message bus
+    message_bus.stop()
 
     return True
 

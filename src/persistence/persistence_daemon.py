@@ -297,6 +297,9 @@ class PersistenceService:
                                     message = socket.recv_multipart(zmq.NOBLOCK)
                                     if len(message) >= 2:
                                         payload = message[1]
+                                    else:
+                                        logger.warning(f"Received malformed multipart message: {message}")
+                                        continue # Skip to next iteration
                                 else:
                                     # Agent messages are single-part from PUSH socket
                                     payload = socket.recv(zmq.NOBLOCK)

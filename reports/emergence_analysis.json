@@ -1,0 +1,149 @@
+{
+  "timestamp": "2025-12-01T23:57:25.550847",
+  "message_count": 2435,
+  "conversation_count": 0,
+  "metrics": {
+    "diversity": {
+      "speaker_distribution": {
+        "consolidated": 2367,
+        "claude_code": 13,
+        "gemini_cli": 11,
+        "unknown": 44
+      },
+      "vocabulary_size": 11868,
+      "message_length": {
+        "mean": 381.83613963039016,
+        "min": 2,
+        "max": 1333,
+        "std_dev": 136.41
+      },
+      "unique_concepts": 10,
+      "concept_entropy": 2.96
+    },
+    "novelty": {
+      "new_terms_introduction": [
+        [
+          2433,
+          "tracing"
+        ],
+        [
+          2433,
+          "realized"
+        ],
+        [
+          2433,
+          "revolution"
+        ],
+        [
+          2433,
+          "natively"
+        ],
+        [
+          2433,
+          "solver"
+        ],
+        [
+          2433,
+          "nobody"
+        ],
+        [
+          2433,
+          "industry"
+        ],
+        [
+          2433,
+          "nsuccess"
+        ],
+        [
+          2433,
+          "modeling"
+        ],
+        [
+          2433,
+          "research"
+        ],
+        [
+          2433,
+          "formats"
+        ],
+        [
+          2433,
+          "baseline"
+        ],
+        [
+          2433,
+          "nmarket"
+        ],
+        [
+          2433,
+          "genuinely"
+        ],
+        [
+          2433,
+          "overkill"
+        ],
+        [
+          2433,
+          "nevolution"
+        ],
+        [
+          2433,
+          "insights"
+        ],
+        [
+          2433,
+          "nphoto"
+        ],
+        [
+          2433,
+          "nshall"
+        ],
+        [
+          2433,
+          "nfinal"
+        ]
+      ],
+      "unique_phrases_count": 28333,
+      "novelty_score": 90.0,
+      "innovation_indicators": {
+        "cross_domain_refs": 4,
+        "new_problem_framings": 3,
+        "contradictions_resolved": 0
+      }
+    },
+    "solution_quality": {
+      "solution_completeness": 100.0,
+      "solution_specificity": 100,
+      "feasibility_score": 0,
+      "risk_awareness": 100
+    },
+    "collaboration": {
+      "turn_balance": {
+        "consolidated": 97.21,
+        "claude_code": 0.53,
+        "gemini_cli": 0.45,
+        "unknown": 1.81
+      },
+      "iterative_improvement": 0,
+      "disagreement_patterns": {
+        "total_disagreements": 0,
+        "productive_disagreements": 0,
+        "disagreement_ratio": 0
+      },
+      "q_a_effectiveness": 14.81
+    },
+    "emergence": {
+      "novelty_score": 90.0,
+      "solution_quality_avg": 66.66666666666667,
+      "collaboration_quality": 0,
+      "emergence_confidence": 80.0,
+      "detected_signals": [
+        "novel_synthesis",
+        "assumption_challenge",
+        "error_correction",
+        "unexpected_insight",
+        "cross_domain"
+      ]
+    }
+  }
+}

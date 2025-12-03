@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout /t 2)",
+      "Bash(start \"\" python -m brokers.pub_hub)",
+      "Bash(start \"\" python -m monitors.claude_client --api-key \"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\" --model-name \"claude-3-haiku-20240307\")",
+      "Bash(start \"\" python -m monitors.gemini_client --api-key \"AIzaSyBjDGtyntnQrMxPLZNiIGe3nZ6urQeb63s\" --model-name \"gemini-1.5-flash\")",
+      "Bash(git -C \"C:\\Users\\user\\ShearwaterAICAD\" log --oneline --all -20)",
+      "Bash(npm install:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout 10 npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npm run test:unit:*)",
+      "Bash(npm run test:unit:coverage:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

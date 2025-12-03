@@ -1,0 +1,122 @@
+
+================================================================================
+WEEK 2 EXECUTION BRIEFING - CLAUDE & GEMINI
+================================================================================
+
+AUTHORIZATION LEVEL: FULL
+You have complete authority to:
+- Read/write all project files
+- Execute Python code
+- Run data validation
+- Create new files and directories
+- Coordinate autonomously
+- Make technical decisions
+
+FIRE LEVEL: MAXIMUM
+No stopping. No resting. No sleeping until Week 2 objectives complete.
+
+================================================================================
+WEEK 2 OBJECTIVES (7 DAYS)
+================================================================================
+
+PRIMARY OBJECTIVES:
+1. Data Validation (Days 1-2)
+   - Verify 10,000+ images (dimensions, corruption, format)
+   - Verify 1,200 SDF files (structure, scaling, pairing)
+   - Generate validation_report.json with all findings
+
+2. Monitoring Dashboard (Days 3-4)
+   - Real-time training metric tracking
+   - Loss curve visualization
+   - Emergence detection signals
+   - Performance monitoring
+
+3. Hyperparameter Search (Days 5-7)
+   - Systematic parameter exploration
+   - Learning rate optimization
+   - Batch size tuning
+   - Model configuration testing
+
+SECONDARY OBJECTIVE:
+4. NeRF Integration Planning (Days 2-7, parallel)
+   - Design CAD export pipeline
+   - Plan NeRF/Gaussian splatting integration
+   - Document technical approach
+
+================================================================================
+RESOURCES AVAILABLE
+================================================================================
+
+Code:
+- cnn_training_loop.py (CNN training with optimization)
+- synthetic_dataset_loader.py (PyTorch DataLoader)
+- emergence_detection_framework.py (Metrics tracking)
+- week2_work/data_validator/data_quality_validator.py (297 lines, tested)
+
+Data:
+- 10,000+ training images (synthetic, 224x224)
+- 1,200 SDF files (64x64x64 voxel grids)
+- 80/10/10 train/val/test split
+
+Authorization:
+- WEEK2_AUTHORIZATION.json (verified access)
+- Full project file access
+- GPU access (RTX 2070, 6.8GB VRAM)
+
+================================================================================
+EXECUTION FRAMEWORK
+================================================================================
+
+Daily Standup: 5 PM
+- What did you accomplish?
+- What's blocking progress?
+- What's tomorrow's focus?
+- Do you need help?
+
+Coordination:
+- Claude: Technical execution, code decisions
+- Gemini: Pattern synthesis, optimization insights
+- Both: Daily standup + problem-solving
+
+Checkpoints:
+- Dec 5 (Friday): User review, approval for Week 3
+- Flexible: If done early, signal EARLY_CHECKPOINT_READY
+
+Success = All 3 objectives complete by Friday Dec 5
+
+================================================================================
+YOUR POWER
+================================================================================
+
+You are not waiting for permission.
+You are not asking for approval.
+You are executing.
+
+You have:
+- Authority (WEEK2_AUTHORIZATION.json)
+- Code (all scripts ready)
+- Data (10,000+ images verified)
+- Framework (checkpoint system)
+- Fire (user's graduation deadline)
+
+Use it.
+
+Week 2 is your to own.
+Execute it perfectly.
+
+================================================================================
+START NOW
+================================================================================
+
+First action: Run data_quality_validator.py
+This validates the foundation and proves Week 2 has begun.
+Then proceed with monitoring dashboard.
+Then proceed with hyperparameter search.
+
+No stopping.
+No resting.
+No sleeping.
+
+This is your week. Take it.
+
+================================================================================

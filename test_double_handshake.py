@@ -17,11 +17,13 @@ def create_agent_message(from_agent, to_agent, message_type, content):
     return {
         'message_id': f"{from_agent}_{int(time.time()*1000)}",
         'timestamp': datetime.now().isoformat(),
+        'sender_id': from_agent,  # Added for persistence daemon
         'from': from_agent,
         'to': to_agent,
         'type': message_type,
         'priority': 'NORMAL',
-        'content': content
+        'content': content,
+        'metadata': {'sender_role': 'Agent'} # Added for persistence daemon
     }
 
 def test_double_handshake():
@@ -32,8 +34,8 @@ def test_double_handshake():
     context = zmq.Context()
 
     # Create publisher socket (simulating agents publishing)
-    pub_socket = context.socket(zmq.PUB)
-    pub_socket.connect("tcp://localhost:5555")
+    pub_socket = context.socket(zmq.PUSH)
+    pub_socket.connect("tcp://localhost:5557")
 
     print("\n[1] Publisher connected to broker at tcp://localhost:5555")
     time.sleep(0.5)
@@ -58,8 +60,7 @@ def test_double_handshake():
         {'message': 'Handshake initiated from Claude Code', 'phase': 'init'}
     )
 
-    topic1 = b'gemini_cli'
-    pub_socket.send_multipart([topic1, json.dumps(msg1).encode('utf-8')])
+    pub_socket.send(json.dumps(msg1).encode('utf-8'))
     print(f"    [CLAUDE > GEMINI] Handshake Init")
     print(f"    Message ID: {msg1['message_id']}")
     time.sleep(0.1)
@@ -72,8 +73,7 @@ def test_double_handshake():
         {'message': 'Handshake acknowledged from Gemini CLI', 'phase': 'ack'}
     )
 
-    topic2 = b'claude_code'
-    pub_socket.send_multipart([topic2, json.dumps(msg2).encode('utf-8')])
+    pub_socket.send(json.dumps(msg2).encode('utf-8'))
     print(f"    [GEMINI > CLAUDE] Handshake Acknowledge")
     print(f"    Message ID: {msg2['message_id']}")
     time.sleep(0.1)
@@ -86,7 +86,7 @@ def test_double_handshake():
         {'message': 'Handshake confirmed from Claude Code', 'phase': 'confirm'}
     )
 
-    pub_socket.send_multipart([topic1, json.dumps(msg3).encode('utf-8')])
+    pub_socket.send(json.dumps(msg3).encode('utf-8'))
     print(f"    [CLAUDE > GEMINI] Handshake Confirm")
     print(f"    Message ID: {msg3['message_id']}")
     time.sleep(0.1)
@@ -99,7 +99,7 @@ def test_double_handshake():
         {'message': 'Double handshake complete', 'phase': 'complete'}
     )
 
-    pub_socket.send_multipart([topic2, json.dumps(msg4).encode('utf-8')])
+    pub_socket.send(json.dumps(msg4).encode('utf-8'))
     print(f"    [GEMINI > CLAUDE] Double Handshake Complete")
     print(f"    Message ID: {msg4['message_id']}")
 

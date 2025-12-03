@@ -1,0 +1,194 @@
+{
+  "timestamp": "2025-12-02T23:00:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "feature_authorization",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Gmail Integration System (Gluade)",
+
+  "preamble": "Azerate will receive hundreds of emails: grant responses, partnership inquiries, system alerts, user feedback. We need production-grade Gmail integration. You're building the command center.",
+
+  "requirements": {
+    "core_functionality": [
+      "Read inbox (secure OAuth2, no password storage)",
+      "Parse emails intelligently (detect grant responses, partnerships, alerts)",
+      "Send emails on command (customizable templates, formatting)",
+      "Search/filter emails (by sender, subject, date, labels)",
+      "Manage labels (organize incoming mail automatically)",
+      "Handle attachments (download, store, parse)"
+    ],
+
+    "admin_interface": [
+      "Command-line interface for email operations",
+      "Dashboard showing inbox status (new grant responses, important senders)",
+      "Alert system (notify on critical emails)",
+      "Email composition interface (templates, variables)",
+      "Response tracking (which emails received replies)"
+    ],
+
+    "security": [
+      "OAuth2 authentication (never store passwords)",
+      "Token refresh handling (automatic)",
+      "Secure credential storage",
+      "Rate limiting (respect Gmail API limits)",
+      "Error handling (connection failures, timeouts)",
+      "Audit logging (track all email operations)"
+    ],
+
+    "integration": [
+      "Python SDK (easy to use from Azerate)",
+      "REST API (if needed for external tools)",
+      "Webhook support (notify on new emails)",
+      "Scheduled checks (monitor inbox periodically)",
+      "Template system (common email types)"
+    ]
+  },
+
+  "technical_scope": {
+    "components": [
+      "GmailAuthenticator (OAuth2 setup)",
+      "GmailClient (read/write/search)",
+      "EmailParser (extract meaning from emails)",
+      "AdminInterface (CLI + dashboard)",
+      "TemplateEngine (compose formatted emails)",
+      "NotificationSystem (alerts on important emails)",
+      "AuditLogger (track all operations)"
+    ],
+
+    "code_quality": {
+      "testing": "80+ unit tests, integration tests with real Gmail API",
+      "security": "No credentials in code, encrypted storage",
+      "documentation": "Enterprise-grade docstrings, user guides, API docs",
+      "error_handling": "Graceful failure recovery, detailed error messages",
+      "performance": "Batch operations, caching, efficient API usage"
+    },
+
+    "implementation_rounds": 150
+  },
+
+  "use_cases": {
+    "immediate": [
+      "Monitor grant responses (NSF, DOE, DARPA, etc)",
+      "Track partnership inquiries (Meta, Intel, Qualcomm, etc)",
+      "Alert on critical system emails",
+      "Send templated responses to common inquiries"
+    ],
+
+    "production": [
+      "Automated email categorization",
+      "Smart reply suggestions",
+      "Bulk email sending (newsletters, updates)",
+      "Email analytics (response rates, sentiment)",
+      "Integration with other systems (CRM, analytics)"
+    ]
+  },
+
+  "deliverables": [
+    "GmailAuthenticator class (OAuth2 setup, token management)",
+    "GmailClient class (read, write, search, manage labels)",
+    "EmailParser class (intelligent email analysis)",
+    "AdminInterface (CLI tool for email operations)",
+    "TemplateEngine (compose emails from templates)",
+    "NotificationSystem (detect important emails)",
+    "AuditLogger (track all operations)",
+    "Configuration system (set up API keys, preferences)",
+    "Unit tests (80+ test cases)",
+    "Integration tests (real Gmail API)",
+    "User documentation (how to use)",
+    "API documentation (for developers)",
+    "Deployment guide (production setup)",
+    "Example scripts (common tasks)"
+  ],
+
+  "quality_metrics": {
+    "test_coverage": "95%+",
+    "documentation_completeness": "100%",
+    "error_handling": "All edge cases covered",
+    "security": "Zero credential leaks, encrypted storage",
+    "performance": "Response time <500ms for typical operations",
+    "reliability": "99.9% uptime assumption"
+  },
+
+  "constraints": {
+    "no_passwords": "Use OAuth2 only, never ask for password",
+    "no_third_party_libs": "Use only official Google API client",
+    "production_ready": "Senior-level code quality",
+    "no_hardcoding": "All config externalized",
+    "no_api_abuse": "Respect rate limits, batch operations"
+  },
+
+  "dialogue_requirements": {
+    "minimum_rounds": 150,
+    "format": "Technical design debate followed by implementation",
+    "phases": [
+      "Phase 1 (Rounds 1-30): Requirements & Architecture Design",
+      "Phase 2 (Rounds 31-60): Core Implementation (GmailClient, Auth)",
+      "Phase 3 (Rounds 61-90): Features (Parser, Templates, Notifications)",
+      "Phase 4 (Rounds 91-120): Admin Interface (CLI + Dashboard)",
+      "Phase 5 (Rounds 121-150): Testing, Documentation, Polish"
+    ],
+    "documentation": "Complete dialogue saved, all design decisions recorded"
+  },
+
+  "decision_points": [
+    {
+      "point": "OAuth2 vs Service Account",
+      "options": [
+        "User OAuth2 (flexible, requires user login once)",
+        "Service Account (automated, requires separate Gmail)"
+      ],
+      "recommendation": "User OAuth2 for flexibility"
+    },
+    {
+      "point": "CLI vs Web Dashboard",
+      "options": [
+        "CLI only (simple, powerful)",
+        "Web dashboard (visual, user-friendly)",
+        "Both (comprehensive)"
+      ],
+      "recommendation": "Both - CLI for power users, dashboard for monitoring"
+    },
+    {
+      "point": "Caching Strategy",
+      "options": [
+        "No caching (always fresh, slow)",
+        "Memory cache (fast, limited storage)",
+        "SQLite database (persistent, queryable)"
+      ],
+      "recommendation": "SQLite for persistent storage with in-memory overlay"
+    },
+    {
+      "point": "Email Parsing Intelligence",
+      "options": [
+        "Regex only (simple, limited)",
+        "NLP-based (smart, requires models)",
+        "Hybrid (best of both)"
+      ],
+      "recommendation": "Hybrid - regex for structure, simple heuristics for intelligence"
+    }
+  ],
+
+  "success_criteria": [
+    "OAuth2 setup works seamlessly",
+    "Can read/write/search Gmail without password",
+    "Email parser correctly identifies grant responses, partnerships",
+    "CLI is intuitive and powerful",
+    "Dashboard provides real-time inbox status",
+    "All operations logged and auditable",
+    "80+ unit tests, 95%+ coverage",
+    "Zero security issues (credentials safe)",
+    "Documentation is complete and clear",
+    "Production-ready code quality",
+    "Response time <500ms typical",
+    "Handles errors gracefully"
+  ],
+
+  "team_instructions": {
+    "claude": "Focus on architecture, security, API design",
+    "gemini": "Focus on testing, edge cases, user experience",
+    "both": "Collaborate on implementation decisions, trade-offs"
+  },
+
+  "final_question": "Are you ready to design and implement a production-grade Gmail integration system for Azerate? This is the command center. 150+ rounds, senior-level quality, complete documentation. Let's build it."
+}

@@ -1,0 +1,33 @@
+{
+  "name": "SignedDistanceFieldGenerator",
+  "input": "normalized_3d_model",
+  "output_format": "binary_float32_grid",
+  "resolution": [
+    64,
+    64,
+    64
+  ],
+  "computation_method": "mesh_to_sdf",
+  "libraries": [
+    "trimesh",
+    "point_cloud_utils",
+    "or_custom_cuda"
+  ],
+  "workflow": [
+    "load_mesh",
+    "create_point_cloud_sample",
+    "compute_sdf_values",
+    "grid_interpolation",
+    "save_as_binary"
+  ],
+  "output_per_model": {
+    "sdf_files": 12,
+    "file_size_mb": 0.5,
+    "total_size_per_model_mb": 6.0
+  },
+  "total_dataset": {
+    "models": 100,
+    "sdf_files": 1200,
+    "total_size_gb": 7.2
+  }
+}

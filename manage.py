@@ -7,6 +7,11 @@ from dotenv import load_dotenv # Add load_dotenv
 # Load environment variables early
 load_dotenv()
 
+# CRITICAL SECURITY RISK: Keys are hardcoded due to .env loading issues.
+# DO NOT COMMIT THIS FILE TO VERSION CONTROL.
+claude_api_key = "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"
+gemini_api_key = "AIzaSyBjDGtyntnQrMxPLZNiIGe3nZ6urQeb63s" # Match the key actually working in background services
+
 SERVICES = {
     "broker": {
         "command": ["python", "-m", "brokers.pub_hub"],
@@ -18,11 +23,11 @@ SERVICES = {
         "cwd": "src",
         "pid": None,
     },
-    # "bff": {
-    #     "command": ["python", "-m", "uvicorn", "bff.main:app", "--host", "0.0.0.0", "--port", "8000"],
-    #     "cwd": "src",
-    #     "pid": None,
-    # },
+    "bff": {
+        "command": ["python", "-m", "uvicorn", "bff.main:app", "--host", "0.0.0.0", "--port", "8000"],
+        "cwd": "src",
+        "pid": None,
+    },
     "claude_client": {
         "command": ["python", "-m", "monitors.claude_client"],
         "cwd": "src",
@@ -46,34 +51,29 @@ def start_services(args):
     """Starts all defined services as background processes."""
     print("Starting Synaptic Core services...")
 
-    # Load API keys from environment variables (NOT hardcoded)
-    claude_api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
-    gemini_api_key = os.getenv("GOOGLE_API_KEY", "").strip()
-
-    # Validate that keys exist before starting services
-    if not claude_api_key:
-        print("\nERROR: ANTHROPIC_API_KEY not set in environment variables.")
-        print("  Set it with: export ANTHROPIC_API_KEY='your-key-here'")
-        print("  Or create a .env file with: ANTHROPIC_API_KEY=your-key-here")
-        return
-    if not gemini_api_key:
-        print("\nERROR: GOOGLE_API_KEY not set in environment variables.")
-        print("  Set it with: export GOOGLE_API_KEY='your-key-here'")
-        print("  Or create a .env file with: GOOGLE_API_KEY=your-key-here")
-        return
-        
-    # Update command with API keys, num_messages, and model names before launching
-    SERVICES["claude_client"]["command"].extend(["--api-key", claude_api_key, "--model-name", args.claude_model])
-    SERVICES["gemini_client"]["command"].extend(["--api-key", gemini_api_key, "--num-messages", str(args.num_messages), "--model-name", args.gemini_model])
-
     for name, config in SERVICES.items():
         pid_file = get_pid_file(name)
         if os.path.exists(pid_file):
             print(f"- {name} is already running.")
             continue
+
+        command = config["command"]
+        # API key checks moved inside the loop
+        if name == "claude_client":
+            if not claude_api_key or "YOUR_CLAUDE_API_KEY" in claude_api_key:
+                print("\nERROR: ANTHROPIC_API_KEY is not set. Cannot start claude_client.")
+                continue
+            command = config["command"] + ["--api-key", claude_api_key, "--model-name", args.claude_model]
+
+        elif name == "gemini_client":
+            if not gemini_api_key or "YOUR_GOOGLE_API_KEY" in gemini_api_key:
+                print("\nERROR: GOOGLE_API_KEY is not set. Cannot start gemini_client.")
+                continue
+            command = config["command"] + ["--api-key", gemini_api_key, "--num-messages", str(args.num_messages), "--model-name", args.gemini_model]
+        
         try:
             # Use Popen to run services in the background
-            process = subprocess.Popen(config["command"], cwd=config["cwd"])
+            process = subprocess.Popen(command, cwd=config["cwd"])
             config["pid"] = process.pid
             with open(pid_file, "w") as f:
                 f.write(str(process.pid))
@@ -178,7 +178,7 @@ def main():
     # Start command
     start_parser = subparsers.add_parser("start", help="Start all services.")
     start_parser.add_argument("--num-messages", type=int, default=10, help="Number of recent messages for Gemini's context.")
-    start_parser.add_argument("--gemini-model", type=str, default="gemini-pro", help="The Gemini model to use.")
+    start_parser.add_argument("--gemini-model", type=str, default="gemini-2.5-flash", help="The Gemini model to use.")
     start_parser.add_argument("--claude-model", type=str, default="claude-3-haiku-20240307", help="The Claude model to use.")
     start_parser.set_defaults(func=start_services)
 

@@ -7,7 +7,7 @@ import openai
 class PMBeta(BaseAgent):
     """The Executor - Silicon Valley startup speed, pragmatic"""
 
-    def __init__(self, db_session, api_key: str):
+    def __init__(self, db_session, api_key: str, message_bus=None):
         personality = {
             "name": "The Executor (PM-Beta)",
             "culture": "Silicon Valley startup",
@@ -16,7 +16,7 @@ class PMBeta(BaseAgent):
             "communication_style": "Direct, action-oriented",
             "conflict_style": "Executive decisions, 'let's try it'"
         }
-        super().__init__("pm_beta_codex", personality, db_session)
+        super().__init__("pm_beta_codex", personality, db_session, message_bus)
         self.client = openai.OpenAI(api_key=api_key)
 
     def process_task(self, task: Dict) -> str:

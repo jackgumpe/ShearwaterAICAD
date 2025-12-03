@@ -7,7 +7,7 @@ import anthropic
 class PMAlpha(BaseAgent):
     """The Architect - Thorough, strategic, documentation-heavy"""
 
-    def __init__(self, db_session, api_key: str):
+    def __init__(self, db_session, api_key: str, message_bus=None):
         personality = {
             "name": "The Architect (PM-Alpha)",
             "culture": "Academic",
@@ -16,7 +16,7 @@ class PMAlpha(BaseAgent):
             "communication_style": "Detailed, asks questions",
             "conflict_style": "Seeks consensus"
         }
-        super().__init__("pm_alpha_claude", personality, db_session)
+        super().__init__("pm_alpha_claude", personality, db_session, message_bus)
         self.client = anthropic.Anthropic(api_key=api_key)
 
     def process_task(self, task: Dict) -> str:

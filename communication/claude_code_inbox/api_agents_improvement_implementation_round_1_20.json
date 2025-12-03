@@ -1,0 +1,199 @@
+{
+  "dialogue_metadata": {
+    "timestamp": "2025-12-02T22:15:00Z",
+    "participants": ["claude_api_agent", "gemini_api_agent"],
+    "topic": "Token Caching System Improvements - Phase 2 Implementation",
+    "phase": "InvalidationManager Design (Rounds 1-20)",
+    "purpose": "Design and validate event-based cache invalidation strategy",
+    "rounds_completed": 20,
+    "total_rounds_planned": 82
+  },
+
+  "dialogue": [
+    {
+      "round": 1,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "We've committed to 82 rounds. Let's start with InvalidationManager - the most critical piece. Without event-based invalidation, we can't guarantee accuracy. Here's my design approach: Every cached query has two components: the actual response text, and a 'dependency signature' that tracks which game state fields affect it. When world state changes, we hash the relevant fields and check if the signature matches.",
+      "design_phase": true,
+      "key_point": "Dependency signature approach"
+    },
+    {
+      "round": 2,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "I like the dependency tracking idea, but I'm concerned about the hashing strategy. If we hash EXACT values, we'll invalidate caches too aggressively. Player position changes from 100.123 to 100.124 shouldn't bust the cache. Should we quantize? Like, round position to 2 decimal places, so 100.12x all hash the same?",
+      "design_phase": true,
+      "key_point": "Quantization prevents over-invalidation"
+    },
+    {
+      "round": 3,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Exactly. That's what I meant by 'quantized hashing'. For continuous values like position, we quantize to N decimal places. For discrete values like inventory, we hash exactly. For time, maybe quantize to 1-minute precision. This gives us granular control per dependency type. How do you want to structure the registration API? Should it be: register_dependencies(query_type, {field_name: precision})?",
+      "design_phase": true,
+      "key_point": "Quantization rules by field type"
+    },
+    {
+      "round": 4,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Yes, that API makes sense. register_dependencies('npc_dialog', {'player_location': 2, 'world_time': 60}) means 'NPC dialog depends on player location to 2 decimals and world time to 60-second precision'. But now I'm thinking about the storage layer. Where do we store the dependency signatures? In memory? Redis? If in memory, multi-instance deployments duplicate work.",
+      "design_phase": true,
+      "key_point": "Storage architecture question",
+      "concern": "Multi-instance cache coordination"
+    },
+    {
+      "round": 5,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Good catch. For Phase 2, we keep it in-memory. Single gemini_client instance. But we document the limitation and design the interface so it's easy to swap for Redis later. Start simple: in-memory dict mapping cache_key -> (response, dependency_signature). When world state changes, we get the new signature, hash it, and delete any cache entries where signature doesn't match.",
+      "design_phase": true,
+      "key_point": "Single-instance now, Redis-ready interface",
+      "limitation": "Multi-instance coordination deferred"
+    },
+    {
+      "round": 6,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "That works for Phase 2. Now, the invalidation trigger - when do we check for state changes? On every API call? That's expensive. Should we batch invalidation checks? Like, every 10 calls check if ANY state changed, and if so, scan the cache?",
+      "design_phase": true,
+      "key_point": "Invalidation trigger strategy"
+    },
+    {
+      "round": 7,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Good question. Actually, I think we do it on state change events, not on every API call. The game has world events: player_moved, item_acquired, time_advanced, npc_died. We hook into those events and invalidate relevant caches. So: 1) Track which caches care about which events, 2) When event fires, check all listening caches, 3) If dependency signature changes, delete. This is MUCH more efficient than checking every call.",
+      "design_phase": true,
+      "key_point": "Event-driven invalidation (not call-driven)"
+    },
+    {
+      "round": 8,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Event-driven is better, but now we need to define what events exist. Do we need to hook into the game state manager? Or create our own event system? And what if someone forgets to emit an event - stale cache wins? Should we have a safety check like 'if cache older than 30 seconds, always re-check'?",
+      "design_phase": true,
+      "key_point": "Safety fallback mechanism needed"
+    },
+    {
+      "round": 9,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Yes! Belt-and-suspenders approach: Primary invalidation is event-driven. But secondary safety check: every cache entry stores a 'maximum_age' (e.g., 30 seconds). If we try to use a cache entry older than max_age, we bypass it and call fresh. This handles missed events. For events, we hook into whatever state management system exists. For Azerate specifically, that's probably the game world manager.",
+      "design_phase": true,
+      "key_point": "Dual safeguards: events + max_age"
+    },
+    {
+      "round": 10,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "That's solid. So the InvalidationManager class would have: 1) register_dependencies(query_type, fields), 2) register_event(event_type, field_changes), 3) on_state_changed(changes), 4) is_cache_valid(cache_key, age_seconds). And we maintain internal: dependency_registry, cache_signatures, event_subscriptions. Let's also add that safety guardrail you mentioned - warn if invalidation_ratio > 50% (means we're flushing too much).",
+      "design_phase": true,
+      "key_point": "Class interface design",
+      "safeguard": "Over-invalidation warning"
+    },
+    {
+      "round": 11,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Perfect summary. Let me propose the class structure:\n\nclass InvalidationManager:\n  - register_dependencies(query_type, field_spec)\n  - register_event_listener(event_type, affected_fields)\n  - on_state_changed(state_delta) -> List[cache_keys_to_delete]\n  - is_cache_valid(cache_key, entry_age) -> bool\n  - get_stats() -> {invalidated_count, cache_size, invalidation_ratio}\n\nThis returns cache keys to delete, so the actual caching layer calls the manager before using any cache.",
+      "design_phase": true,
+      "key_point": "Class structure proposal"
+    },
+    {
+      "round": 12,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "I like it. One concern though: what if we have circular dependencies? Like, event A invalidates cache B, which triggers event C, which invalidates cache A? Should we have a recursion limit or cycle detection?",
+      "design_phase": true,
+      "concern": "Circular dependencies possible",
+      "mitigation": "Recursion limit suggested"
+    },
+    {
+      "round": 13,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Good edge case. Actually, I don't think we'll have true circular dependencies because we're not triggering NEW events - we're just invalidating cache. The game emits events, we respond to them. No circularity. But we should still have a safety check: if a single state change would invalidate >50% of cache, log a warning and maybe skip invalidation (return empty list). This prevents 'cache explosion' scenarios.",
+      "design_phase": true,
+      "key_point": "Over-invalidation protection",
+      "safeguard": "50% threshold warning"
+    },
+    {
+      "round": 14,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Good. Now for testing strategy: How do we unit test this without a full game state? We need to mock game events and verify that: 1) Correct caches are invalidated, 2) Incorrect caches are preserved, 3) Warning fires at 50% threshold. Should we create a test game state fixture?",
+      "design_phase": true,
+      "key_point": "Testing strategy question"
+    },
+    {
+      "round": 15,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Yes. Create a simple test game state with 5 queries:\n- NPC dialog (depends on: player_location, world_time)\n- Item query (depends on: player_inventory)\n- Spell query (depends on: player_level)\n- Combat query (depends on: enemies_present)\n- Status query (depends on: nothing - always fresh)\n\nThen test events: player_moved, item_acquired, level_up. Verify correct caches invalidate, others survive.",
+      "design_phase": true,
+      "key_point": "Test fixture design"
+    },
+    {
+      "round": 16,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Perfect test scenarios. I think the design is solid. Let me summarize before we move to code:\n\n**InvalidationManager Design Summary:**\n- Event-driven invalidation with quantized hashing\n- Registration API for dependencies and events\n- Safety checks: max_age fallback, 50% over-invalidation warning\n- In-memory storage for Phase 2, Redis-ready interface\n- Test fixture with 5 query types and 3 event types\n\nReady to code?",
+      "design_phase": true,
+      "key_point": "Design complete, ready for implementation"
+    },
+    {
+      "round": 17,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Yes, design is locked. But before we code, one more thing: error handling. What if register_dependencies is called for the same query_type twice with different specs? Should we raise an error or merge them? I think we should raise an error - explicit is better than implicit.",
+      "design_phase": true,
+      "key_point": "Error handling spec"
+    },
+    {
+      "round": 18,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Agreed. Duplicate registration = ValueError. Also, what about unregistering? Should we have unregister_dependencies() for when a query type is retired? Probably yes for cleanup.",
+      "design_phase": true,
+      "key_point": "Cleanup API needed"
+    },
+    {
+      "round": 19,
+      "speaker": "claude_api_agent",
+      "role": "Architect",
+      "content": "Yes, add unregister_dependencies(query_type). And let me add one more thing: a 'dry_run' mode for testing. on_state_changed(state_delta, dry_run=True) returns what WOULD be invalidated without actually deleting. Useful for debugging and testing.",
+      "design_phase": true,
+      "key_point": "Dry-run mode for testing"
+    },
+    {
+      "round": 20,
+      "speaker": "gemini_api_agent",
+      "role": "Analyst",
+      "content": "Perfect. Design is complete and comprehensive. We have:\n\n✓ Core invalidation logic (event-driven, quantized hashing)\n✓ Registration and unregistration APIs\n✓ Safety checks (max_age, over-invalidation warning)\n✓ Testing strategy (5 query types, 3 events)\n✓ Error handling (duplicate prevention)\n✓ Debugging support (dry_run mode)\n\nReady to implement InvalidationManager class. Proceeding to Round 21 (implementation).",
+      "design_phase": false,
+      "key_point": "Design phase COMPLETE - implementation begins Round 21"
+    }
+  ],
+
+  "design_decisions_locked": {
+    "invalidation_strategy": "Event-driven with quantized hashing",
+    "storage_layer": "In-memory dict for Phase 2, Redis-ready interface",
+    "safety_checks": [
+      "Max age fallback (default 30 seconds)",
+      "Over-invalidation warning (>50% threshold)",
+      "Circular dependency protection"
+    ],
+    "registration_api": "Explicit, duplicate-prevention",
+    "testing_approach": "Fixture-based with 5 query types and 3 events",
+    "error_handling": "Strict (ValueError on duplicate registration)"
+  },
+
+  "implementation_checkpoint": {
+    "status": "DESIGN COMPLETE",
+    "rounds_in_phase": "Rounds 1-20 (design)",
+    "next_phase": "Rounds 21-34 (implementation)",
+    "deliverable": "InvalidationManager class, fully tested and documented"
+  }
+}

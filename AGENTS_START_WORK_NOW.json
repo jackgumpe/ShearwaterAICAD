@@ -1,0 +1,40 @@
+{
+  "timestamp": "2025-12-02T08:53:00",
+  "command": "START_WEEK2_WORK_IMMEDIATELY",
+  "from": "User (Eastern State Florida College)",
+  "to": ["Claude", "Gemini"],
+  "authority": "FULL AUTONOMY GRANTED",
+
+  "message": "Week 2 authorization is complete. You have full project access, clean work directories, and official authorization. BEGIN WORK IMMEDIATELY ON DATA QUALITY VALIDATOR (PRIMARY TASK). This is your go-signal.",
+
+  "immediate_action": "Data Quality Validator - START NOW",
+  "priority": "PRIMARY",
+  "owner": "Claude",
+  "timeline": "Days 1-2 (3-4 hours)",
+
+  "deliverables": [
+    "data_quality_validator.py (complete working system)",
+    "validation_report.json (comprehensive dataset quality findings)",
+    "Actionable fixes for any detected issues"
+  ],
+
+  "validation_scope": [
+    "Check integrity of all 10,000+ training images (PNG files)",
+    "Validate all 1,200 SDF files (64x64x64 grids)",
+    "Verify data types and dimensions",
+    "Detect corruption, missing values, outliers",
+    "Generate clear, actionable report"
+  ],
+
+  "work_location": "C:\\Users\\user\\ShearwaterAICAD\\week2_work\\data_validator\\",
+  "output_location": "C:\\Users\\user\\ShearwaterAICAD\\week2_work\\outputs\\",
+
+  "research_mode": true,
+  "capture_metrics": true,
+  "log_decisions": true,
+  "track_emergence": true,
+
+  "execution_signal": "GO",
+  "authorization_reference": "WEEK2_AUTHORIZATION.json",
+  "baseline_metrics_file": "week2_work/logs/baseline_metrics.json"
+}

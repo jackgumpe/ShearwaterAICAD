@@ -1,0 +1,15 @@
+{
+  "source": "ShapeNet_subset",
+  "total_models_target": 100,
+  "categories": [
+    "car",
+    "chair",
+    "airplane",
+    "sofa",
+    "table"
+  ],
+  "models_per_category": 20,
+  "format": "obj",
+  "status": "ready_to_acquire",
+  "acquisition_method": "shapemet_api_or_local_download"
+}

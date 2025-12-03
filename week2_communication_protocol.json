@@ -1,0 +1,26 @@
+{
+  "daily_standups": {
+    "time": "17:00 (5 PM daily)",
+    "format": "Agent dialogue logged to checkpoint_standups.json",
+    "attendees": [
+      "Claude",
+      "Gemini"
+    ],
+    "agenda": [
+      "Claude: What happened today? Blockers? Next?",
+      "Gemini: Patterns observed? Risk signals? Recommendations?",
+      "Both: Tomorrow priorities and any pivots needed"
+    ]
+  },
+  "async_communication": {
+    "decision_logging": "Log all decisions to decisions.json",
+    "blocker_escalation": "Immediate notification if blocked",
+    "discovery_sharing": "Share findings in real-time"
+  },
+  "checkpoint_2": {
+    "date": "2025-12-05",
+    "deliverables": "All work outputs + comprehensive report",
+    "user_action": "REVIEW & APPROVE TO CONTINUE OR REQUEST CHANGES",
+    "format": "Detailed progress report with metrics and recommendations"
+  }
+}

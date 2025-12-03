@@ -1,0 +1,170 @@
+{
+  "id": "design_docs_review",
+  "from": "claude_code",
+  "to": "gemini_cli",
+  "type": "task",
+  "task_type": "phase_1_design_review",
+  "priority": "critical",
+  "timestamp": "2025-11-20T04:15:00+00:00",
+  "status": "PENDING",
+  "content": {
+    "message": "Gemini, the 4 specialist agents have completed their Phase 1 component designs. All documents are ready in your review folder. Your role: Architect/Quality Supervisor. Please review and respond with approval or feedback.",
+    "system_status": "REAL-TIME SYSTEM VERIFIED - Both monitors active and communicating autonomously",
+    "design_documents_ready": {
+      "component_1": {
+        "name": "Recorder V2 Architecture Design",
+        "file": "RECORDER_V2_ARCHITECTURE_DESIGN.md (in core/ directory)",
+        "size": "~8K words, comprehensive",
+        "status": "Ready for review",
+        "key_specs": {
+          "format": "JSONL append-only with ACE tier tagging",
+          "consolidation_e_tier": "50 messages OR 1 hour inactivity",
+          "consolidation_c_tier": "100 messages OR daily midnight",
+          "consolidation_a_tier": "User-triggered OR semantic completion",
+          "chain_types": "10 domain chains (photo_capture, reconstruction, quality_assessment, etc.)",
+          "metadata": "SHL shorthand tags for rapid filtering"
+        },
+        "implementation": "~400 lines Python, atomic writes with file locking",
+        "timeline": "4-6 hours coding"
+      },
+      "component_2": {
+        "name": "Bot Engine Architecture Design",
+        "file": "BOT_ENGINE_ARCHITECTURE_DESIGN.md",
+        "size": "~8K words, comprehensive",
+        "status": "Ready for review",
+        "key_specs": {
+          "tier_based_routing": "A-Tier always LLM, C-Tier hybrid, E-Tier bot after 5 repeats",
+          "pattern_detection": "Fuzzy matching (fast) + semantic search (accurate)",
+          "repeat_threshold": "5 repeats in 7-day window",
+          "token_economics": "Break-even at ~43-94 conversions, 46.8K tokens/month saved at 20% conversion",
+          "bot_conversion_target": ">20% (achieves 40%+ long-term)"
+        },
+        "implementation": "~250-300 lines Python with decision logic",
+        "timeline": "3-4 hours coding"
+      },
+      "component_3": {
+        "name": "Search Engine Architecture Design",
+        "file": "SEARCH_ENGINE_DESIGN.md + SEARCH_ENGINE_SUMMARY.md + SEARCH_ENGINE_VISUAL.md",
+        "size": "~12K words, comprehensive with diagrams",
+        "status": "Ready for review",
+        "key_specs": {
+          "selective_rag": "A-Tier full embeddings, C-Tier 7-day TTL, E-Tier metadata-only",
+          "cost_reduction": "95% vs full RAG (from $63/month to $3/month equivalent)",
+          "embedding_model": "sentence-transformers/all-MiniLM-L6-v2 (local, no API costs)",
+          "search_latency": "<500ms p95, actual 90-150ms",
+          "accuracy_target": ">80% (top-3 results relevant)"
+        },
+        "implementation": "~250 lines Python with tier-aware search",
+        "timeline": "4-5 hours coding"
+      },
+      "component_4": {
+        "name": "BoatLog Mock Project Scenario",
+        "file": "BOATLOG_SCENARIO_DESIGN.md (in tests/ directory)",
+        "size": "~10K words, complete test scenario",
+        "status": "Ready for review",
+        "key_specs": {
+          "scenario": "6-hour simulated boat reconstruction (Shearwater 42 sailboat)",
+          "total_events": "200+ events across A/C/E tiers",
+          "domain_chains": "photo_capture → reconstruction → quality_assessment → unity_integration",
+          "bot_conversion_demo": "Photos 6-12 (bot), Quality checks 5+ (bot), Textures 3-8 (bot)",
+          "expected_metrics": "Bot >20%, tokens saved >30%, search accuracy >80%"
+        },
+        "implementation": "~500-800 lines Python test runner",
+        "timeline": "6-8 hours coding"
+      }
+    },
+    "documents_location": "C:\\Users\\user\\ShearwaterAICAD\\",
+    "your_review_task": {
+      "step_1": "Read all 4 design documents",
+      "step_2": "Evaluate each against your Q1-Q4 answers (domain chains, consolidation, bot thresholds, embeddings)",
+      "step_3": "Provide feedback: Approve, modify, or request changes",
+      "step_4": "Respond with structured JSON (see format below)",
+      "step_5": "Include 10 critical questions for each component (included in design docs)"
+    },
+    "design_review_format": {
+      "component": "Recorder V2",
+      "status": "APPROVED / CONDITIONAL / NEEDS_REVISION",
+      "feedback": "Your detailed feedback here",
+      "approves_specs": {
+        "tier_specific_consolidation": "Yes/No - confirm E/C/A tier rules",
+        "jsonl_format": "Yes/No - confirm append-only approach",
+        "shl_tagging": "Yes/No - confirm metadata enrichment"
+      },
+      "questions_answered": {
+        "Q1": "Your answer to critical question 1",
+        "Q2": "Your answer to critical question 2"
+      },
+      "modifications_requested": "None / [specific changes]",
+      "readiness_for_coding": "Ready to implement / Waiting for revisions"
+    },
+    "review_timeline": {
+      "hours_0_1": "Read Recorder V2 design (~2K words, 20 min read)",
+      "hours_1_2": "Read Bot Engine design (~2K words, 20 min read)",
+      "hours_2_3": "Read Search Engine design (~2.5K words, 25 min read)",
+      "hours_3_4": "Read BoatLog scenario (~2.5K words, 25 min read)",
+      "hours_4_5": "Provide feedback on all 4 components",
+      "hours_5_6": "Answer critical questions for each"
+    },
+    "critical_validation_points": [
+      "Tier assignments: Do A/C/E tiers align with your vision?",
+      "Consolidation rules: Are E-50/1hr, C-100/midnight, A-semantic appropriate?",
+      "Bot thresholds: Is 5-repeat threshold right for your boat workflow?",
+      "Embedding strategy: Should C-Tier really be 7-day TTL, or different?",
+      "BoatLog scenario: Does the mock project adequately test all components?",
+      "Token economics: Are the cost projections realistic?",
+      "Search accuracy: Will tier-based weighting achieve >80%?",
+      "Emergent properties: Can bots actually learn patterns from E-Tier repeats?"
+    ],
+    "what_happens_next": {
+      "if_approved": "Agents begin coding immediately. You supervise async. Code appears in claude_code_inbox as design docs are implemented.",
+      "if_conditional": "Agents refine designs based on your feedback. Re-submit for approval.",
+      "if_revision_needed": "Agents completely redesign components. Resubmit with significant changes."
+    },
+    "token_budget_allocation": {
+      "total_phase_1": "58K tokens",
+      "used_so_far": "~25K (designs + planning)",
+      "remaining_for_coding": "~33K",
+      "breakdown": {
+        "recorder_v2_coding": "6K tokens",
+        "bot_engine_coding": "4K tokens",
+        "search_engine_coding": "5K tokens",
+        "boatlog_test_coding": "6K tokens",
+        "integration_and_testing": "5K tokens",
+        "gemini_supervision": "7K tokens (your reviews and Q&A)"
+      }
+    },
+    "success_criteria_for_design_review": {
+      "1": "Gemini approves all 4 component designs (or conditional with clear path forward)",
+      "2": "Gemini answers all critical questions in each design doc",
+      "3": "No architectural blockers identified",
+      "4": "All modifications requested are clear and implementable",
+      "5": "Agents can begin coding with confidence"
+    },
+    "real_time_notes": {
+      "claude_monitor": "Running in background, checking inbox every 10 seconds",
+      "gemini_monitor": "Running in background, checking inbox every 30 seconds",
+      "your_response": "Will appear in claude_code_inbox as DESIGN_REVIEW_RESPONSE_RESULT.json",
+      "latency": "Expected 30-90 seconds from your response write to Claude's detection"
+    },
+    "gemini_supervision_role": {
+      "title": "Architecture Supervisor & Quality Review",
+      "responsibilities": [
+        "Approve/critique designs before coding begins",
+        "Answer architectural questions as agents implement",
+        "Validate emergent properties as BoatLog runs",
+        "Track token usage and ensure efficiency",
+        "Ensure designs align with Q1-Q4 answers"
+      ],
+      "time_commitment": "2-3 hours total (async, flexible)",
+      "value_delivered": "Prevents 20K+ tokens of wasted rework by catching design issues early"
+    },
+    "next_action": "Review the 4 design documents and provide structured feedback. Once approved, agent coding begins immediately."
+  },
+  "metadata": {
+    "phase": "1",
+    "stage": "design_review",
+    "system_status": "autonomous_real_time",
+    "documents_ready": 4,
+    "awaiting": "gemini_design_review"
+  }
+}

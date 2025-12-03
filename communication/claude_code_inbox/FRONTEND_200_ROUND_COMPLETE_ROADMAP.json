@@ -1,0 +1,929 @@
+{
+  "timestamp": "2025-12-03T02:35:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "complete_frontend_roadmap_200_rounds",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Frontend Live Log - Complete 200-Round Detailed Roadmap",
+
+  "executive_summary": "Complete, detailed roadmap for all 200 rounds of frontend development. Every phase defined. Every deliverable specified. Every checkpoint identified. 5 phases, 40 rounds per phase on average, building from foundation to production-ready. All rounds locked. Full autonomy to execute. Begin immediately.",
+
+  "phase_1_foundation_rounds_1_to_30": {
+    "phase_name": "Foundation & Core Structure",
+    "duration_days": "4 days (Dec 3-6)",
+    "total_rounds": 30,
+    "goal": "Rock-solid foundation that everything else builds on",
+    "focus": "Get the basics perfect before adding features",
+
+    "deliverables_by_round": {
+      "rounds_1_5": {
+        "name": "Project Setup & Architecture Decision",
+        "tasks": [
+          "React 18 + TypeScript setup verified (already done)",
+          "Vite build system configured",
+          "Tailwind CSS configured",
+          "Framer Motion for animations installed",
+          "Vitest + React Testing Library installed",
+          "ESLint + Prettier configured",
+          "Git structure organized",
+          "Sub-agent roles and responsibilities clearly defined",
+          "Communication protocol established",
+          "Daily standup schedule confirmed"
+        ],
+        "deliverables": [
+          "Project runs cleanly with 'npm run dev'",
+          "All dependencies installed",
+          "Development environment perfect",
+          "Build pipeline working"
+        ]
+      },
+
+      "rounds_6_10": {
+        "name": "Component Architecture & Type Definitions",
+        "tasks": [
+          "Design component hierarchy (detailed)",
+          "Define TypeScript interfaces for all data structures",
+          "Create Message type definition",
+          "Create LiveLog state interface",
+          "Create filter and search types",
+          "Component folder structure created",
+          "Barrel exports organized",
+          "Utility types defined",
+          "Custom hooks structure planned"
+        ],
+        "deliverables": [
+          "types/Message.ts - All message fields",
+          "types/LiveLog.ts - Complete state shape",
+          "types/index.ts - All exports",
+          "components/ folder structure",
+          "hooks/ folder structure",
+          "utils/ folder structure",
+          "All TypeScript interfaces documented"
+        ]
+      },
+
+      "rounds_11_15": {
+        "name": "useWebSocket Custom Hook - Complete Implementation",
+        "tasks": [
+          "Create useWebSocket hook with full implementation",
+          "WebSocket connection logic",
+          "Message buffering during disconnect",
+          "Automatic reconnection with exponential backoff (1s, 2s, 4s, 8s, max 60s)",
+          "Heartbeat mechanism to detect stale connections",
+          "Error handling and logging",
+          "Memory leak prevention in cleanup",
+          "TypeScript types for hook",
+          "State management (connected, connecting, error)",
+          "Event handling (onMessage, onConnect, onDisconnect)"
+        ],
+        "deliverables": [
+          "hooks/useWebSocket.ts - Full hook with all logic",
+          "Complete TypeScript types",
+          "Error boundaries for connection issues",
+          "Console logging for debugging",
+          "Graceful error recovery"
+        ],
+        "success_criteria": [
+          "Connects to ws://localhost:8000/ws/live-log",
+          "Receives messages from backend",
+          "Handles disconnect and reconnects",
+          "Exponential backoff working",
+          "No memory leaks"
+        ]
+      },
+
+      "rounds_16_20": {
+        "name": "Base Components - LiveLogContainer & Layout",
+        "tasks": [
+          "Create LiveLogContainer (main wrapper)",
+          "State management with useState and custom hook",
+          "Message state management",
+          "Filter state",
+          "Search state",
+          "Create Layout component (header, sidebar, main, footer)",
+          "Basic styling with Tailwind",
+          "Connection indicator placeholder",
+          "Message count display placeholder"
+        ],
+        "deliverables": [
+          "components/LiveLogContainer.tsx",
+          "components/Layout.tsx",
+          "components/Header.tsx (placeholder)",
+          "components/Sidebar.tsx (placeholder)",
+          "components/Footer.tsx (placeholder)",
+          "All components have TypeScript types",
+          "Basic styling complete"
+        ]
+      },
+
+      "rounds_21_25": {
+        "name": "Live Connection Indicator & Status Display",
+        "tasks": [
+          "Create connection status component",
+          "Display connection state (Connected, Connecting, Disconnected, Error)",
+          "Visual indicators (colors, icons, animations)",
+          "Show WebSocket URL being connected to",
+          "Message count display (updates in real-time)",
+          "Timestamp of last message",
+          "Connection uptime tracking",
+          "Framer Motion animations for status changes"
+        ],
+        "deliverables": [
+          "components/ConnectionStatus.tsx",
+          "components/MessageCount.tsx",
+          "Animations for status changes",
+          "Real-time updates working",
+          "Professional styling"
+        ]
+      },
+
+      "rounds_26_30": {
+        "name": "Basic Message Display & Unit Tests",
+        "tasks": [
+          "Create Message component for individual messages",
+          "Create MessageList component (start with basic array rendering)",
+          "Display message text",
+          "Show timestamp",
+          "Show sender",
+          "Show message type/severity",
+          "Basic message styling",
+          "Unit tests for all Phase 1 components (20+ tests minimum)",
+          "Test useWebSocket hook",
+          "Test component rendering",
+          "Test state management"
+        ],
+        "deliverables": [
+          "components/MessageItem.tsx",
+          "components/MessageList.tsx",
+          "tests/ folder with 20+ test files",
+          "Tests for hook",
+          "Tests for components",
+          "95%+ code coverage for Phase 1",
+          "All tests passing"
+        ],
+
+        "success_criteria": [
+          "Messages display on screen",
+          "Connection status shows correct state",
+          "Message count updates in real-time",
+          "20+ unit tests passing",
+          "TypeScript strict mode: 0 errors",
+          "ESLint: 0 warnings",
+          "Zero console errors or warnings",
+          "npm run dev starts cleanly",
+          "All components render without errors"
+        ]
+      }
+    },
+
+    "phase_1_checkpoints": [
+      "Checkpoint 1 (Round 10): Architecture complete, types locked",
+      "Checkpoint 2 (Round 15): useWebSocket hook working perfectly",
+      "Checkpoint 3 (Round 20): Base components rendering",
+      "Checkpoint 4 (Round 25): Connection indicator showing real status",
+      "Checkpoint 5 (Round 30): Basic message display + 20+ tests passing"
+    ],
+
+    "phase_1_quality_checklist": [
+      "✅ TypeScript strict mode passing",
+      "✅ ESLint zero warnings",
+      "✅ 20+ unit tests passing",
+      "✅ 95%+ coverage for Phase 1 code",
+      "✅ Zero console errors/warnings",
+      "✅ WebSocket connecting to real endpoint",
+      "✅ All components have proper TypeScript types",
+      "✅ Code is well-documented"
+    ]
+  },
+
+  "phase_2_core_features_rounds_31_to_80": {
+    "phase_name": "Core Features & Message Handling",
+    "duration_days": "12 days (Dec 6-17)",
+    "total_rounds": 50,
+    "goal": "All core features working perfectly, messages flowing, filtering working",
+    "focus": "Real-time data flow, user interactions",
+
+    "deliverables_by_round": {
+      "rounds_31_35": {
+        "name": "Message Virtualization (1000+ messages efficient)",
+        "tasks": [
+          "Implement react-window for virtual scrolling",
+          "Measure message height dynamically",
+          "Only render visible messages",
+          "Smooth scrolling with many messages",
+          "Efficient memory usage",
+          "Test with 1000+ messages",
+          "Performance profiling"
+        ],
+        "deliverables": [
+          "VirtualMessageList component",
+          "Dynamic height calculation",
+          "Efficient rendering",
+          "Memory usage optimized",
+          "Tests for virtualization"
+        ]
+      },
+
+      "rounds_36_40": {
+        "name": "Message Filtering System",
+        "tasks": [
+          "Create filter state management",
+          "Filter by message type (grant, system, alert, info, debug)",
+          "Filter by severity level",
+          "Filter by sender/source",
+          "Filter by date range",
+          "Multiple filters simultaneously",
+          "Clear filters functionality",
+          "Persist filter preferences to localStorage"
+        ],
+        "deliverables": [
+          "components/FilterPanel.tsx",
+          "hooks/useFilters.ts",
+          "Filter logic in LiveLogContainer",
+          "localStorage persistence",
+          "UI for filter controls"
+        ]
+      },
+
+      "rounds_41_45": {
+        "name": "Search Functionality",
+        "tasks": [
+          "Create search input component",
+          "Implement text search through messages",
+          "Search in message body, sender, subject",
+          "Real-time search results (debounced)",
+          "Highlight matching text",
+          "Search performance optimization",
+          "Clear search results"
+        ],
+        "deliverables": [
+          "components/SearchBar.tsx",
+          "Search logic and performance optimized",
+          "Highlighting implementation",
+          "Tests for search functionality"
+        ]
+      },
+
+      "rounds_46_50": {
+        "name": "Message Details & Expansion",
+        "tasks": [
+          "Expandable message details",
+          "Show full message body",
+          "Show all metadata",
+          "Timestamp with timezone handling",
+          "Sender details",
+          "Related metadata",
+          "Copy-to-clipboard functionality",
+          "JSON view of message"
+        ],
+        "deliverables": [
+          "components/MessageDetails.tsx",
+          "Expand/collapse animation",
+          "Full metadata display",
+          "Copy functionality"
+        ]
+      },
+
+      "rounds_51_55": {
+        "name": "Message Grouping & Organization",
+        "tasks": [
+          "Group messages by sender",
+          "Group messages by type",
+          "Group messages by time range (hour, day)",
+          "Toggle grouping on/off",
+          "Collapse/expand groups",
+          "Count per group"
+        ],
+        "deliverables": [
+          "Grouping logic",
+          "UI for grouped messages",
+          "Collapse/expand functionality"
+        ]
+      },
+
+      "rounds_56_60": {
+        "name": "Real-Time Updates & Integration Tests",
+        "tasks": [
+          "Real-time message display as they arrive",
+          "Scroll to new message (auto-scroll toggle)",
+          "Notification for new messages",
+          "Message counter updates live",
+          "Filter updates in real-time",
+          "Search results update live",
+          "Integration tests with mock WebSocket",
+          "40+ total tests now"
+        ],
+        "deliverables": [
+          "Real-time flow working smoothly",
+          "Tests for all Phase 2 features",
+          "Integration tests passing",
+          "40+ total unit tests",
+          "Performance benchmarks met"
+        ],
+
+        "success_criteria": [
+          "Messages stream in real-time",
+          "Filtering works for all message types",
+          "Search is fast (<100ms)",
+          "1000+ messages handled efficiently",
+          "Message expansion shows all details",
+          "40+ tests passing",
+          "All features tested"
+        ]
+      }
+    },
+
+    "phase_2_checkpoints": [
+      "Checkpoint 6 (Round 35): Virtualization handling 1000+ messages",
+      "Checkpoint 7 (Round 40): Filtering system complete",
+      "Checkpoint 8 (Round 45): Search working fast",
+      "Checkpoint 9 (Round 50): Message expansion complete",
+      "Checkpoint 10 (Round 60): All features working in real-time"
+    ]
+  },
+
+  "phase_3_visual_design_rounds_81_to_130": {
+    "phase_name": "Visual Design & User Experience",
+    "duration_days": "15 days (Dec 17-31)",
+    "total_rounds": 50,
+    "goal": "Beautiful, professional UI that showcases the system",
+    "focus": "Visual design, animations, responsive layout",
+
+    "deliverables_by_round": {
+      "rounds_81_85": {
+        "name": "Dark Mode Design System",
+        "tasks": [
+          "Define color palette (dark blue-gray background)",
+          "Define colors for message types (grant, system, alert, info, debug)",
+          "Define accent colors (blue, green, amber, red, cyan)",
+          "Text colors (primary, secondary, disabled)",
+          "Background variations",
+          "Tailwind configuration for custom colors",
+          "CSS variables for theme"
+        ],
+        "deliverables": [
+          "tailwind.config.js updated with color palette",
+          "colors/ or theme file with all colors defined",
+          "Design tokens locked",
+          "Professional color scheme"
+        ]
+      },
+
+      "rounds_86_90": {
+        "name": "Typography & Layout Refinement",
+        "tasks": [
+          "Choose professional font (Inter or system font)",
+          "Define font sizes (heading, body, small, tiny)",
+          "Define font weights (regular, medium, semibold, bold)",
+          "Line heights optimized for readability",
+          "Letter spacing refined",
+          "Layout spacing refined (padding, margins, gaps)",
+          "Component spacing consistent"
+        ],
+        "deliverables": [
+          "Typography system defined",
+          "All text sizes and weights specified",
+          "Layout spacing locked",
+          "Professional appearance"
+        ]
+      },
+
+      "rounds_91_95": {
+        "name": "Message Styling & Color Coding",
+        "tasks": [
+          "Color-code messages by type (grant=blue, system=gray, alert=red, info=cyan, debug=purple)",
+          "Message backgrounds with subtle colors",
+          "Border styling for clarity",
+          "Icon indicators for type",
+          "Severity indicator (background color intensity)",
+          "Timestamp styling",
+          "Sender name styling"
+        ],
+        "deliverables": [
+          "Colored message items",
+          "Icons for message types",
+          "Professional message appearance",
+          "Visual hierarchy clear"
+        ]
+      },
+
+      "rounds_96_100": {
+        "name": "Status Indicators & Animations",
+        "tasks": [
+          "Connection status animation (pulsing dot)",
+          "Loading state animation (skeleton screens)",
+          "Message arrival animation (fade in from top)",
+          "Message filter animation (smooth transitions)",
+          "Button hover states (interactive feedback)",
+          "Scrollbar styling (custom, matches theme)",
+          "Focus states (accessibility)"
+        ],
+        "deliverables": [
+          "Smooth animations with Framer Motion",
+          "Professional loading states",
+          "Interactive feedback everywhere",
+          "Accessible focus states"
+        ]
+      },
+
+      "rounds_101_105": {
+        "name": "Responsive Design (Mobile, Tablet, Desktop)",
+        "tasks": [
+          "Mobile layout (stacked, sidebar hidden)",
+          "Tablet layout (sidebar collapsible)",
+          "Desktop layout (full sidebar, spacious)",
+          "Responsive breakpoints (sm, md, lg, xl)",
+          "Touch-friendly on mobile (larger buttons, spacing)",
+          "Readable on all screen sizes",
+          "Text scaling appropriate for device"
+        ],
+        "deliverables": [
+          "Mobile responsive design",
+          "Tablet responsive design",
+          "Desktop optimized layout",
+          "All breakpoints tested"
+        ]
+      },
+
+      "rounds_106_110": {
+        "name": "Header & Navigation Polish",
+        "tasks": [
+          "Beautiful header design",
+          "Logo/branding (Azerate)",
+          "Title and description",
+          "Stats display (message count, connection time)",
+          "Navigation tabs/buttons",
+          "Settings button",
+          "Professional header appearance"
+        ],
+        "deliverables": [
+          "Header component redesigned",
+          "All header elements styled",
+          "Stats updating in real-time",
+          "Professional appearance"
+        ]
+      },
+
+      "rounds_111_115": {
+        "name": "Sidebar & Control Panel Design",
+        "tasks": [
+          "Sidebar layout (filters, search, settings)",
+          "Filter controls styled beautifully",
+          "Search bar styled",
+          "Settings toggle",
+          "Sidebar collapsible on mobile",
+          "Sidebar smooth animations",
+          "Professional appearance"
+        ],
+        "deliverables": [
+          "Sidebar redesigned",
+          "All controls styled",
+          "Responsive collapsible",
+          "Smooth animations"
+        ]
+      },
+
+      "rounds_116_120": {
+        "name": "Custom Scrollbar & UI Details",
+        "tasks": [
+          "Custom scrollbar styling (matches theme)",
+          "Scrollbar color and width",
+          "Hover states for scrollbar",
+          "Other micro-interactions (button press effects, etc.)",
+          "Spacing refinements",
+          "Shadow and depth (subtle but professional)",
+          "Border radius consistency"
+        ],
+        "deliverables": [
+          "Custom scrollbar implemented",
+          "All micro-interactions polished",
+          "Professional details everywhere"
+        ]
+      },
+
+      "rounds_121_125": {
+        "name": "Dark Mode Perfect Implementation",
+        "tasks": [
+          "Dark mode as default",
+          "All components dark mode optimized",
+          "Text contrast verified (WCAG AA minimum)",
+          "Background contrast verified",
+          "Icon contrast verified",
+          "No harsh black on black",
+          "Subtle backgrounds used"
+        ],
+        "deliverables": [
+          "Dark mode perfect",
+          "All contrast ratios verified",
+          "Professional dark mode UI"
+        ]
+      },
+
+      "rounds_126_130": {
+        "name": "Visual Design Tests & Polish",
+        "tasks": [
+          "Visual design tests (component appearance)",
+          "Responsive design tests (all breakpoints)",
+          "Animation smoothness tests",
+          "Color contrast tests (accessibility)",
+          "Final visual polish (micro refinements)",
+          "Component library documentation",
+          "60+ total tests now"
+        ],
+        "deliverables": [
+          "Visual design locked",
+          "60+ total tests",
+          "Professional appearance verified",
+          "Ready for debugging tools phase"
+        ],
+
+        "success_criteria": [
+          "UI is visually stunning",
+          "Animations are smooth (60fps)",
+          "Responsive on all devices",
+          "Dark mode is beautiful",
+          "Text is readable everywhere",
+          "Professional polish evident",
+          "60+ tests passing"
+        ]
+      }
+    },
+
+    "phase_3_checkpoints": [
+      "Checkpoint 11 (Round 85): Color palette locked",
+      "Checkpoint 12 (Round 90): Typography system complete",
+      "Checkpoint 13 (Round 95): Messages beautifully styled",
+      "Checkpoint 14 (Round 100): Animations smooth",
+      "Checkpoint 15 (Round 110): Sidebar polished",
+      "Checkpoint 16 (Round 125): Dark mode perfect"
+    ]
+  },
+
+  "phase_4_debugging_and_reliability_rounds_131_to_170": {
+    "phase_name": "Debugging Tools & Reliability",
+    "duration_days": "12 days",
+    "total_rounds": 40,
+    "goal": "Production reliability with built-in debugging tools",
+    "focus": "Error handling, reliability, debugging features",
+
+    "deliverables_by_round": {
+      "rounds_131_135": {
+        "name": "Message Statistics Dashboard",
+        "tasks": [
+          "Message count by type",
+          "Message count by hour/day",
+          "Message rate (messages per second)",
+          "Average message latency",
+          "Peak activity time",
+          "Sender statistics",
+          "Real-time stats updates"
+        ],
+        "deliverables": [
+          "components/StatsPanel.tsx",
+          "Real-time stats calculation",
+          "Stats display panel"
+        ]
+      },
+
+      "rounds_136_140": {
+        "name": "Distribution Charts & Visualization",
+        "tasks": [
+          "Type distribution pie chart (grant, system, alert, info, debug)",
+          "Time series line chart (messages over time)",
+          "Sender distribution bar chart",
+          "Beautiful chart styling",
+          "Interactive chart tooltips",
+          "Chart library integration (recharts or similar)"
+        ],
+        "deliverables": [
+          "components/Charts.tsx",
+          "Pie chart implementation",
+          "Line chart implementation",
+          "Bar chart implementation",
+          "Beautiful chart styling"
+        ]
+      },
+
+      "rounds_141_145": {
+        "name": "Connection Logs & Event Tracking",
+        "tasks": [
+          "Log all connection events (connect, disconnect, reconnect, error)",
+          "Timestamp for each event",
+          "Event type indicator",
+          "Connection uptime calculation",
+          "Last connection time",
+          "Connection attempt count",
+          "Connection logs viewer"
+        ],
+        "deliverables": [
+          "Event logging system",
+          "Connection log UI",
+          "Logs viewer component"
+        ]
+      },
+
+      "rounds_146_150": {
+        "name": "Error Display & Troubleshooting",
+        "tasks": [
+          "Display errors prominently but professionally",
+          "Error messages with solutions",
+          "Stack traces for debugging",
+          "Connection error indicators",
+          "Performance warnings",
+          "Error history tracking",
+          "Clear errors button"
+        ],
+        "deliverables": [
+          "Error display component",
+          "Error state management",
+          "Error history tracking"
+        ]
+      },
+
+      "rounds_151_155": {
+        "name": "Raw JSON Inspector & Debug Tools",
+        "tasks": [
+          "Raw JSON view of each message",
+          "Expandable/collapsible JSON tree",
+          "Copy JSON to clipboard",
+          "JSON search/filter",
+          "Pretty print JSON",
+          "Message payload inspection",
+          "Developer tools panel"
+        ],
+        "deliverables": [
+          "components/JSONInspector.tsx",
+          "JSON tree viewer",
+          "Debug panel"
+        ]
+      },
+
+      "rounds_156_160": {
+        "name": "Auto-Reconnect & Error Boundaries",
+        "tasks": [
+          "Exponential backoff reconnection (already in hook, verify it works)",
+          "Reconnect display (showing retry count)",
+          "Error boundary component (catches React errors)",
+          "Error boundary displays error message professionally",
+          "Recovery mechanism",
+          "Fallback UI if component crashes"
+        ],
+        "deliverables": [
+          "Error boundary wrapper",
+          "Reconnect display UI",
+          "Recovery mechanism working"
+        ]
+      },
+
+      "rounds_161_165": {
+        "name": "Memory Leak Prevention & Performance",
+        "tasks": [
+          "Verify useEffect cleanup functions (no memory leaks)",
+          "Performance profiling (React DevTools)",
+          "Identify bottlenecks",
+          "Optimize re-renders (memoization where needed)",
+          "Lazy loading of old messages",
+          "Memory usage optimization"
+        ],
+        "deliverables": [
+          "Memory leak tests",
+          "Performance optimization",
+          "Lazy loading implementation"
+        ]
+      },
+
+      "rounds_166_170": {
+        "name": "Reliability Testing & Debugging Tests",
+        "tasks": [
+          "Simulate connection failures",
+          "Test reconnection logic",
+          "Test error handling",
+          "Test memory usage over time",
+          "Test with large message volumes (5000+ messages)",
+          "Stress test the system",
+          "80+ total tests now"
+        ],
+        "deliverables": [
+          "Reliability tests",
+          "Stress tests",
+          "Performance benchmarks",
+          "80+ total tests",
+          "All tests passing"
+        ],
+
+        "success_criteria": [
+          "Debugging tools complete and useful",
+          "Stats displaying correctly",
+          "Charts showing data accurately",
+          "Connection logs tracking events",
+          "Errors handled gracefully",
+          "Auto-reconnect working",
+          "No memory leaks",
+          "80+ tests passing"
+        ]
+      }
+    },
+
+    "phase_4_checkpoints": [
+      "Checkpoint 17 (Round 135): Stats dashboard working",
+      "Checkpoint 18 (Round 140): Charts displaying data",
+      "Checkpoint 19 (Round 150): Debugging tools complete",
+      "Checkpoint 20 (Round 160): Reliability verified"
+    ]
+  },
+
+  "phase_5_polish_and_production_rounds_171_to_200": {
+    "phase_name": "Final Polish & Production Ready",
+    "duration_days": "10 days (Dec 20+)",
+    "total_rounds": 30,
+    "goal": "Production-ready, shipping quality, zero issues",
+    "focus": "Edge cases, testing, documentation, final polish",
+
+    "deliverables_by_round": {
+      "rounds_171_175": {
+        "name": "Edge Case Handling & Empty States",
+        "tasks": [
+          "Empty state when no messages yet",
+          "No results state for search",
+          "Connection lost state",
+          "Error state display",
+          "Loading state with skeleton",
+          "All edge cases handled",
+          "Graceful degradation"
+        ],
+        "deliverables": [
+          "Empty state components",
+          "Error state displays",
+          "All edge cases handled"
+        ]
+      },
+
+      "rounds_176_180": {
+        "name": "Loading States & Skeleton Screens",
+        "tasks": [
+          "Skeleton screen while loading",
+          "Loading animation (pulsing effect)",
+          "Progress indicator",
+          "Loading message",
+          "Transition animations smooth",
+          "Professional appearance"
+        ],
+        "deliverables": [
+          "Skeleton screen implementation",
+          "Loading animations",
+          "Professional UX"
+        ]
+      },
+
+      "rounds_181_185": {
+        "name": "Keyboard Shortcuts & Accessibility",
+        "tasks": [
+          "Keyboard shortcuts (j/k to scroll, / to search, etc.)",
+          "Keyboard navigation (tab through all controls)",
+          "Focus management (clear focus indicators)",
+          "WCAG 2.1 AA accessibility compliance",
+          "Screen reader support",
+          "Semantic HTML verified"
+        ],
+        "deliverables": [
+          "Keyboard shortcuts working",
+          "Full keyboard navigation",
+          "Accessibility verified (WCAG AA)"
+        ]
+      },
+
+      "rounds_186_190": {
+        "name": "Settings UI & Preferences",
+        "tasks": [
+          "Settings panel (accessible from header)",
+          "Auto-scroll toggle",
+          "Message retention (max messages to keep)",
+          "Font size adjustment",
+          "Compact/comfortable/spacious view modes",
+          "Preferences saved to localStorage",
+          "Settings restoration on reload"
+        ],
+        "deliverables": [
+          "components/Settings.tsx",
+          "Settings panel UI",
+          "localStorage persistence",
+          "All preferences working"
+        ]
+      },
+
+      "rounds_191_195": {
+        "name": "Complete Documentation & Tests",
+        "tasks": [
+          "Component documentation (Storybook or comments)",
+          "API documentation (hooks, utilities)",
+          "User guide (how to use features)",
+          "Developer setup guide",
+          "Troubleshooting guide",
+          "100+ comprehensive tests (all features tested)",
+          "All tests passing"
+        ],
+        "deliverables": [
+          "README.md with usage guide",
+          "DEVELOPMENT.md for developers",
+          "Component documentation",
+          "100+ total tests",
+          "100% of critical paths tested"
+        ]
+      },
+
+      "rounds_196_200": {
+        "name": "Final Polish, Security Review & Ship Readiness",
+        "tasks": [
+          "Visual polish (final micro-interactions)",
+          "Animation refinement (smooth, purposeful)",
+          "Color scheme final pass (optimization)",
+          "Typography final pass (readability verification)",
+          "Performance final pass (all targets met)",
+          "Security review (XSS, injection, data leaks)",
+          "Final code review by all team members",
+          "Production deployment verification",
+          "Ship readiness sign-off"
+        ],
+        "deliverables": [
+          "Production-ready code",
+          "Security reviewed and passed",
+          "100+ tests all passing",
+          "Performance verified",
+          "Documentation complete",
+          "Ready to deploy immediately",
+          "Zero known issues"
+        ],
+
+        "success_criteria": [
+          "All 200 rounds complete",
+          "100+ comprehensive tests passing",
+          "95%+ code coverage",
+          "Zero console errors or warnings",
+          "TypeScript strict: 0 errors",
+          "ESLint: 0 violations",
+          "WCAG 2.1 AA: Compliant",
+          "Performance targets: All met",
+          "Security review: Passed",
+          "Ready to ship: YES"
+        ]
+      }
+    },
+
+    "phase_5_checkpoints": [
+      "Checkpoint 21 (Round 175): Edge cases handled",
+      "Checkpoint 22 (Round 180): Loading states polished",
+      "Checkpoint 23 (Round 185): Accessibility verified",
+      "Checkpoint 24 (Round 190): Settings complete",
+      "Checkpoint 25 (Round 200): PRODUCTION READY"
+    ]
+  },
+
+  "overall_quality_metrics": {
+    "testing": {
+      "phase_1": "20+ tests",
+      "phase_2": "40+ tests",
+      "phase_3": "60+ tests",
+      "phase_4": "80+ tests",
+      "phase_5": "100+ tests",
+      "overall_minimum": "95%+ code coverage"
+    },
+    "code_quality": {
+      "typescript": "Strict mode, 0 errors",
+      "eslint": "0 warnings",
+      "prettier": "All formatted",
+      "type_hints": "Every function"
+    },
+    "performance": {
+      "message_display_latency": "<100ms",
+      "search_response": "<100ms",
+      "animations": "60fps smooth",
+      "memory_usage": "Optimized, no leaks"
+    },
+    "accessibility": {
+      "wcag_compliance": "2.1 AA",
+      "keyboard_navigation": "Full support",
+      "screen_reader": "Compatible",
+      "color_contrast": "Verified"
+    },
+    "visual_design": {
+      "dark_mode": "Professional, beautiful",
+      "responsive": "Mobile/tablet/desktop",
+      "animations": "Smooth, purposeful",
+      "polish": "Showcase quality"
+    }
+  },
+
+  "critical_success_factors": [
+    "Every test must pass before moving to next round",
+    "TypeScript strict mode always passing",
+    "Zero console errors/warnings at all times",
+    "Performance targets met in every phase",
+    "Code reviewed by all team members",
+    "Accessibility verified continuously",
+    "No technical debt accumulation",
+    "Documentation kept current"
+  ],
+
+  "final_directive": "Claude and Gemini: You have the complete 200-round roadmap. All phases defined. All deliverables specified. All checkpoints identified. Begin immediately with Phase 1, Rounds 1-30. Work through each round systematically. Test as you go. Review code constantly. By Round 30, you'll have a rock-solid foundation. Then move to features, then design, then debugging, then polish. By Round 200, this will be production-ready and ready to ship. Execute with full focus. Jack is counting on a beautiful, reliable frontend. Build something you're proud of. GO."
+}

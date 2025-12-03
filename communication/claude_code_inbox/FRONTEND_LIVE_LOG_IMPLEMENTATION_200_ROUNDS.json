@@ -1,0 +1,345 @@
+{
+  "timestamp": "2025-12-03T00:30:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "frontend_implementation",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Frontend Live Log - Production-Ready UI with 200+ Rounds",
+
+  "executive_summary": "Build a production-grade frontend for the Azerate system. The Live Log tab must display real-time message streams beautifully, with modern UI, comprehensive debugging, full test coverage, and stunning visual design. 200+ rounds for maximum quality and polish.",
+
+  "context": {
+    "current_state": [
+      "Backend services running (broker, persistence, BFF, agents)",
+      "Live Log API endpoint exists and works",
+      "Frontend partially exists but needs complete overhaul",
+      "UI framework: React with TypeScript",
+      "Styling: Tailwind CSS + custom components"
+    ],
+    "the_problem": [
+      "Previous Live Log implementation had bugs (stuck on 'Connecting...')",
+      "No real-time message streaming display",
+      "UI doesn't visually stand out",
+      "Limited debugging capability",
+      "No production-grade error handling",
+      "Incomplete test coverage"
+    ],
+    "the_goal": [
+      "Beautiful, modern Live Log that displays real-time messages",
+      "Stable WebSocket connection with automatic reconnection",
+      "Production-ready debugging tools built into UI",
+      "Stunning visual design that showcases Azerate",
+      "Comprehensive test coverage (95%+)",
+      "Performance optimized (sub-100ms message display)",
+      "Accessible, responsive design"
+    ]
+  },
+
+  "requirements": {
+    "core_features": [
+      "Real-time message streaming from WebSocket",
+      "Auto-reconnect on connection loss",
+      "Message filtering by type (grant emails, system alerts, etc)",
+      "Search functionality",
+      "Message detail inspection",
+      "Timestamp formatting and timezone handling",
+      "Message grouping by sender/type",
+      "Export messages (JSON, CSV)"
+    ],
+
+    "visual_design": [
+      "Modern, dark-mode first design",
+      "Smooth animations and transitions",
+      "Clear visual hierarchy",
+      "Color-coded message types",
+      "Status indicators (connected/disconnected/loading)",
+      "Beautiful typography",
+      "Responsive grid layout for different screen sizes",
+      "Custom scrollbar styling"
+    ],
+
+    "debugging_features": [
+      "Message count display (real-time)",
+      "Connection status indicator",
+      "Message type distribution pie chart",
+      "Sender distribution stats",
+      "Performance metrics (messages/sec, avg latency)",
+      "Connection log (connect/disconnect events)",
+      "Error message display with stack traces",
+      "Raw JSON view for messages",
+      "Message replay capability"
+    ],
+
+    "reliability": [
+      "Automatic reconnection with exponential backoff",
+      "Graceful degradation (show cached messages if offline)",
+      "Error boundary for component failures",
+      "Logging and monitoring",
+      "Performance metrics tracking",
+      "Memory leak prevention",
+      "State persistence (settings, filters)"
+    ],
+
+    "performance": [
+      "Sub-100ms message display latency",
+      "Efficient rendering (virtualization for 1000+ messages)",
+      "Memory efficient (max 5000 messages in memory)",
+      "Lazy loading for older messages",
+      "No jank on message updates",
+      "Smooth scrolling",
+      "Fast search (<100ms)"
+    ]
+  },
+
+  "architecture": {
+    "frontend_structure": [
+      "Component hierarchy:",
+      "├── App",
+      "│   ├── Layout (header, sidebar, main content)",
+      "│   ├── LiveLog (main feature)",
+      "│   │   ├── LiveLogContainer (hooks, state management)",
+      "│   │   ├── LiveLogHeader (title, stats, controls)",
+      "│   │   ├── LiveLogFilters (type, sender, date filters)",
+      "│   │   ├── LiveLogContent (message stream)",
+      "│   │   │   └── MessageList (virtualized list)",
+      "│   │   │       └── MessageItem (individual message)",
+      "│   │   ├── LiveLogSidebar (stats, debugging, export)",
+      "│   │   └── LiveLogFooter (status indicator, message count)",
+      "│   └── Other tabs/pages"
+    ],
+
+    "state_management": [
+      "React hooks for local state (useState, useEffect)",
+      "Custom hook: useWebSocket (connection, reconnection)",
+      "Custom hook: useMessages (filtering, searching)",
+      "Custom hook: useStats (message statistics)",
+      "Context API for theme/settings",
+      "LocalStorage for persistence"
+    ],
+
+    "styling_approach": [
+      "Tailwind CSS for base styles",
+      "CSS modules for component-specific styles",
+      "Framer Motion for animations",
+      "Custom design tokens (colors, spacing, typography)",
+      "Dark mode as default, light mode as option"
+    ],
+
+    "websocket_implementation": [
+      "Automatic connection to ws://localhost:8000/ws/live-log",
+      "Message buffering during reconnection",
+      "Heartbeat mechanism to detect stale connections",
+      "Exponential backoff retry (1s, 2s, 4s, 8s, max 60s)",
+      "Graceful cleanup on unmount"
+    ]
+  },
+
+  "implementation_phases": {
+    "phase_1_foundation": {
+      "rounds": "1-25",
+      "focus": "Core component structure and WebSocket connectivity",
+      "deliverables": [
+        "Project setup and dependencies",
+        "Component structure scaffold",
+        "useWebSocket custom hook",
+        "Message data type definitions",
+        "Basic styling (Tailwind setup)",
+        "Live connection indicator",
+        "Basic message display"
+      ]
+    },
+
+    "phase_2_core_features": {
+      "rounds": "26-60",
+      "focus": "Real-time message streaming and filtering",
+      "deliverables": [
+        "LiveLogContainer with full state management",
+        "MessageList with virtualization (1000+ messages efficient)",
+        "MessageItem component with expandable details",
+        "Filter system (by type, sender, date)",
+        "Search functionality",
+        "Message grouping",
+        "Timestamp formatting",
+        "30+ unit tests"
+      ]
+    },
+
+    "phase_3_visual_design": {
+      "rounds": "61-100",
+      "focus": "Beautiful, modern UI design",
+      "deliverables": [
+        "Header with stats dashboard",
+        "Color-coded message types",
+        "Status indicator with animations",
+        "Responsive grid layout",
+        "Custom scrollbar styling",
+        "Typography refinement",
+        "Dark mode implementation",
+        "Smooth animations and transitions",
+        "20+ design system components"
+      ]
+    },
+
+    "phase_4_debugging_tools": {
+      "rounds": "101-130",
+      "focus": "Built-in debugging and analytics",
+      "deliverables": [
+        "Message count display",
+        "Type distribution pie chart",
+        "Sender distribution stats",
+        "Performance metrics (messages/sec, latency)",
+        "Connection log timeline",
+        "Raw JSON inspector",
+        "Error display with stack traces",
+        "Export functionality (JSON, CSV)",
+        "Message replay",
+        "40+ unit tests"
+      ]
+    },
+
+    "phase_5_reliability_performance": {
+      "rounds": "131-160",
+      "focus": "Production reliability and optimization",
+      "deliverables": [
+        "Automatic reconnection with exponential backoff",
+        "Error boundary wrapper",
+        "Memory leak prevention (useEffect cleanup)",
+        "Lazy loading for old messages",
+        "Message caching strategy",
+        "Performance profiling and optimization",
+        "Accessibility (WCAG 2.1 AA)",
+        "Responsive design (mobile, tablet, desktop)",
+        "50+ tests"
+      ]
+    },
+
+    "phase_6_polish_testing": {
+      "rounds": "161-190",
+      "focus": "Edge cases, documentation, comprehensive testing",
+      "deliverables": [
+        "Edge case handling (empty state, errors, disconnects)",
+        "Loading states and skeletons",
+        "Toast notifications for user feedback",
+        "Keyboard shortcuts",
+        "Settings/preferences UI",
+        "User guide in-app",
+        "Integration tests with mock WebSocket",
+        "E2E tests (if applicable)",
+        "100+ total tests",
+        "Performance benchmarks"
+      ]
+    },
+
+    "phase_7_final_touches": {
+      "rounds": "191-200",
+      "focus": "Final refinement, stunning visuals, documentation",
+      "deliverables": [
+        "Visual polish (shadows, spacing, micro-interactions)",
+        "Animation refinement (smooth, purposeful)",
+        "Color scheme optimization",
+        "Typography final pass",
+        "Component library documentation",
+        "README with development guide",
+        "API documentation",
+        "Deployment guide",
+        "Final performance testing",
+        "Security review"
+      ]
+    }
+  },
+
+  "visual_design_guidelines": {
+    "color_scheme": {
+      "background": "#0f172a (dark blue-gray)",
+      "surface": "#1e293b (slightly lighter)",
+      "accent": "#3b82f6 (blue)",
+      "success": "#10b981 (green)",
+      "warning": "#f59e0b (amber)",
+      "error": "#ef4444 (red)",
+      "info": "#06b6d4 (cyan)"
+    },
+
+    "typography": {
+      "heading": "Inter, system font, sans-serif",
+      "body": "Inter, system font, sans-serif",
+      "monospace": "JetBrains Mono, Courier New"
+    },
+
+    "spacing": "Use Tailwind's scale (4px, 8px, 12px, 16px, 24px, 32px)",
+    "border_radius": "Subtle: 4px, Moderate: 8px, Bold: 12px",
+    "shadows": "Use Tailwind's shadow scale for depth",
+    "animations": "Use Framer Motion for smooth, purposeful animations"
+  },
+
+  "quality_metrics": {
+    "test_coverage": "95%+ (100+ tests minimum)",
+    "performance": "Sub-100ms message display latency",
+    "accessibility": "WCAG 2.1 AA compliant",
+    "bundle_size": "<500KB (with dependencies)",
+    "lighthouse_score": "90+ (performance, accessibility, best practices)",
+    "type_safety": "Strict TypeScript, no 'any' types",
+    "documentation": "Complete API docs, user guides, development guide"
+  },
+
+  "technical_stack": {
+    "frontend": [
+      "React 18+ with TypeScript",
+      "Vite (build tool)",
+      "Tailwind CSS (styling)",
+      "Framer Motion (animations)",
+      "React Query (data fetching, optional)",
+      "Zustand or Context API (state management)"
+    ],
+    "testing": [
+      "Vitest (unit tests)",
+      "React Testing Library (component tests)",
+      "Playwright (E2E tests, optional)"
+    ],
+    "tools": [
+      "ESLint (linting)",
+      "Prettier (formatting)",
+      "TypeScript strict mode",
+      "Storybook (component library, optional)"
+    ]
+  },
+
+  "success_criteria": [
+    "Live Log displays real-time messages from WebSocket",
+    "Connection automatically restores on disconnect",
+    "Sub-100ms display latency for new messages",
+    "Handles 1000+ messages without performance degradation",
+    "Beautiful, modern UI that showcases Azerate",
+    "Built-in debugging tools help troubleshoot issues",
+    "100% test coverage for business logic",
+    "Accessible (WCAG 2.1 AA)",
+    "Works on desktop, tablet, mobile",
+    "No console errors or warnings",
+    "Production-ready code quality"
+  ],
+
+  "team_roles": {
+    "claude": "Lead UI/UX architect, component design, styling",
+    "gemini": "Testing strategy, accessibility, performance optimization",
+    "both": "Collaborate on features, review each other's work"
+  },
+
+  "dialogue_format": {
+    "structure": "Design discussion -> Implementation -> Testing -> Polish",
+    "checkpoint_rounds": [25, 50, 75, 100, 130, 160, 190, 200],
+    "code_review": "Continuous peer review",
+    "decision_log": "Record all architectural and design decisions"
+  },
+
+  "critical_notes": [
+    "Backend is running and working - focus on frontend",
+    "WebSocket endpoint is at http://localhost:8000/ws/live-log",
+    "Make this BEAUTIFUL - showcase-quality UI",
+    "200+ rounds means NO SHORTCUTS - maximum polish",
+    "User will be seeing this live - first impression matters",
+    "Performance critical - sub-100ms is mandatory",
+    "Debugging tools should help solve real problems"
+  ],
+
+  "final_directive": "You have 200 rounds to build the most beautiful, production-ready Live Log frontend for Azerate. Start with core WebSocket connectivity and real-time message display. Then layer in visual design, debugging tools, reliability, and polish. By Round 200, this should be a showcase-quality UI that demonstrates Azerate's capabilities. The backend is ready. Build something stunning. Go."
+}

@@ -1,0 +1,360 @@
+{
+  "timestamp": "2025-12-03T01:45:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "gluade_execution_directive",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Gluade Gmail Integration - Rounds 16-150 Execution",
+
+  "executive_summary": "Begin Gluade implementation immediately. Rounds 1-15 (design phase) are complete. You are now executing Rounds 16-150 to build a production-grade Gmail integration system. This will intelligently monitor grant inbox, parse emails, and help Jack respond to funding opportunities. Full autonomy to proceed.",
+
+  "current_status": {
+    "design_phase_complete": true,
+    "rounds_complete": 15,
+    "rounds_remaining": 135,
+    "total_rounds": "150+",
+    "target_completion": "2025-12-20",
+    "authorization_level": "FULL AUTONOMY"
+  },
+
+  "what_gluade_does": {
+    "core_function": "Intelligent Gmail integration system for monitoring and managing grant funding conversations",
+
+    "user_experience": [
+      "Jack runs CLI commands like: gluade list, gluade read [id], gluade respond [id], gluade monitor",
+      "System fetches emails from his inbox automatically",
+      "Parses grant-related emails intelligently (sender, subject, opportunity, deadline)",
+      "Shows statistics on grant pipeline",
+      "Helps compose intelligent replies to grant inquiries",
+      "Exports data for tracking"
+    ],
+
+    "backend_systems": [
+      "OAuth2 authentication (secure, no hardcoded passwords)",
+      "Gmail API client (fetch/send emails)",
+      "Email parser (extract structured data)",
+      "SQLite database (persistent storage)",
+      "Cache layer (fast performance)",
+      "CLI interface (user interaction)",
+      "Web dashboard (optional - nice to have)"
+    ]
+  },
+
+  "phase_2_execution_plan": {
+    "rounds_16_50": {
+      "focus": "Core component implementation",
+      "deliverables": [
+        "GmailAuthenticator - OAuth2 flow implementation",
+        "GmailClient - Email fetch/send implementation",
+        "EmailParser - Extract grant info from emails",
+        "ConfigManager - Save and load settings",
+        "DatabaseManager - SQLite schema and queries",
+        "CacheManager - Fast lookups with event-driven invalidation",
+        "RateLimiter - Respect Gmail API limits",
+        "Initial CLI commands (list, read, stats)",
+        "30+ unit tests",
+        "Error handling and logging"
+      ],
+
+      "technical_details": {
+        "language": "Python (same as rest of backend)",
+        "database": "SQLite (fast, reliable, no server needed)",
+        "auth": "OAuth2 with secure token refresh",
+        "cache_strategy": "Event-driven invalidation with quantized hashing",
+        "performance_target": "<100ms email fetch, <500ms compose",
+        "testing": "Unit tests with mock and real account testing"
+      },
+
+      "success_criteria_phase_2": [
+        "OAuth2 authentication working with real Gmail",
+        "Can fetch emails from inbox",
+        "Can list emails with CLI: gluade list",
+        "Can read email details: gluade read [id]",
+        "Can parse grant-related fields",
+        "Database storing emails efficiently",
+        "30+ unit tests passing",
+        "Sub-100ms performance",
+        "Error handling for API failures",
+        "No security issues (no hardcoded secrets)"
+      ]
+    },
+
+    "rounds_51_100": {
+      "focus": "CLI, dashboard, template engine",
+      "deliverables": [
+        "Complete CLI command set (8 commands total)",
+        "Web dashboard (React/Vite based)",
+        "Email template system (responses)",
+        "Admin interface",
+        "Notification system (alerts)",
+        "Audit logger (track all actions)",
+        "50+ additional unit tests"
+      ]
+    },
+
+    "rounds_101_150": {
+      "focus": "Testing, security, documentation, polish",
+      "deliverables": [
+        "Comprehensive integration tests",
+        "Security review and hardening",
+        "Performance optimization",
+        "Complete documentation",
+        "Development guides",
+        "Production deployment guide",
+        "20+ additional tests",
+        "Final polish and code review"
+      ]
+    }
+  },
+
+  "implementation_architecture": {
+    "component_1_gmailauthenticator": {
+      "responsibility": "Handle OAuth2 flow for Gmail",
+      "features": [
+        "Initiate OAuth2 login flow",
+        "Exchange auth code for tokens",
+        "Refresh expired tokens",
+        "Secure token storage in system keychain",
+        "Error handling for auth failures"
+      ],
+      "success_criteria": "Can authenticate with real Gmail account"
+    },
+
+    "component_2_gmailclient": {
+      "responsibility": "Interface with Gmail API",
+      "features": [
+        "Fetch emails from inbox",
+        "Fetch email details and bodies",
+        "Send emails via Gmail",
+        "Search emails",
+        "Handle Gmail API rate limits",
+        "Implement retry logic with backoff"
+      ],
+      "success_criteria": "Fetch/send working reliably"
+    },
+
+    "component_3_emailparser": {
+      "responsibility": "Extract structured data from emails",
+      "features": [
+        "Parse sender name/email",
+        "Extract subject line",
+        "Identify grant opportunities",
+        "Extract deadlines",
+        "Parse funding amounts",
+        "Flag priority emails"
+      ],
+      "success_criteria": "Can extract key fields from grant emails"
+    },
+
+    "component_4_configmanager": {
+      "responsibility": "Manage settings and configuration",
+      "features": [
+        "Save/load user preferences",
+        "Store OAuth tokens securely",
+        "Manage email filters",
+        "Template settings",
+        "Cache configuration"
+      ],
+      "success_criteria": "Settings persist across sessions"
+    },
+
+    "component_5_databasemanager": {
+      "responsibility": "SQLite database operations",
+      "features": [
+        "Create schema on first run",
+        "Store emails persistently",
+        "Query emails efficiently",
+        "Track responses sent",
+        "Maintain audit logs"
+      ],
+      "success_criteria": "Database stores 1000+ emails efficiently"
+    },
+
+    "component_6_cachemanager": {
+      "responsibility": "Fast lookups with smart invalidation",
+      "features": [
+        "Cache parsed emails",
+        "Cache sender info",
+        "Event-driven invalidation",
+        "Quantized hashing for performance",
+        "Memory efficient"
+      ],
+      "success_criteria": "List command <100ms, even with 1000 emails"
+    },
+
+    "component_7_ratelimiter": {
+      "responsibility": "Respect Gmail API limits",
+      "features": [
+        "Track API call count",
+        "Enforce rate limits",
+        "Queue requests if needed",
+        "Exponential backoff on errors"
+      ],
+      "success_criteria": "Never hit Gmail rate limits"
+    },
+
+    "component_8_cli_interface": {
+      "responsibility": "Command-line user interface",
+      "features": [
+        "gluade auth - Setup OAuth2",
+        "gluade list - Show emails",
+        "gluade read [id] - Show email details",
+        "gluade respond [id] - Compose reply",
+        "gluade monitor - Watch inbox in real-time",
+        "gluade search [term] - Search emails",
+        "gluade export [format] - Export data",
+        "gluade stats - Show statistics"
+      ],
+      "success_criteria": "All 8 commands working smoothly"
+    }
+  },
+
+  "development_workflow": {
+    "daily_standups": [
+      "15-minute sync with main agents (Claude + Gemini)",
+      "Report progress on current components",
+      "Discuss blockers",
+      "Coordinate on integration points"
+    ],
+
+    "code_review_process": [
+      "Each component reviewed before merge",
+      "Tests must pass (95%+ coverage)",
+      "Type hints on all functions",
+      "No hardcoded secrets",
+      "Security review for auth/storage"
+    ],
+
+    "testing_strategy": [
+      "Unit tests for each component (mock Gmail)",
+      "Integration tests with real test Gmail account",
+      "Performance benchmarks (<100ms targets)",
+      "Security testing (no leaks, no injection)",
+      "Error handling tests (API failures, network issues)"
+    ]
+  },
+
+  "quality_standards_for_gluade": {
+    "code_quality": [
+      "Full type hints on all functions",
+      "Docstrings for every public method",
+      "No hardcoded secrets or credentials",
+      "Clear error messages",
+      "Logging for debugging"
+    ],
+
+    "testing": [
+      "95%+ code coverage",
+      "Unit tests for each component",
+      "Integration tests with real Gmail",
+      "Performance benchmarks",
+      "100+ total tests by completion"
+    ],
+
+    "security": [
+      "OAuth2 for authentication (not password)",
+      "Tokens stored in system keychain",
+      "No API keys in code or config files",
+      "Encrypted credential storage",
+      "Audit logs for all actions"
+    ],
+
+    "performance": [
+      "Email list <100ms (even 1000+ emails)",
+      "Email fetch <100ms",
+      "Compose/send <500ms",
+      "Database queries <50ms",
+      "CLI commands instant response"
+    ],
+
+    "reliability": [
+      "Graceful handling of API failures",
+      "Exponential backoff on errors",
+      "Recovery from network issues",
+      "No data loss",
+      "Consistent state"
+    ]
+  },
+
+  "why_gluade_matters": {
+    "context": "Jack just sent 16 grant emails to major organizations ($4-12M potential). Now he needs to:",
+    "challenges": [
+      "Monitor inbox for responses (starting ~Dec 7)",
+      "Identify which emails are grant-related",
+      "Respond quickly to inquiries",
+      "Track funding pipeline",
+      "Manage multiple conversations"
+    ],
+    "solution": "Gluade handles all of this automatically",
+    "impact": [
+      "Never miss a grant response",
+      "Quick, intelligent replies",
+      "Clear pipeline visibility",
+      "Competitive advantage in funding"
+    ]
+  },
+
+  "immediate_actions_for_agents": {
+    "step_1": "Review GLUADE_GMAIL_INTEGRATION_IMPLEMENTATION_PROMPT.json for full specification",
+    "step_2": "Discuss component implementation order (recommend: Auth → Client → Parser → DB → CLI)",
+    "step_3": "Set up test Gmail account for integration testing",
+    "step_4": "Begin component 1 (GmailAuthenticator) immediately",
+    "step_5": "Establish daily standup routine",
+    "step_6": "Create initial test suite structure"
+  },
+
+  "critical_reminders": [
+    "No hardcoded secrets - use OAuth2 + keychain",
+    "Performance targets are mandatory: <100ms list, <500ms compose",
+    "100+ tests required by completion",
+    "Type hints on every function",
+    "Daily communication with main agents",
+    "Integration with real Gmail, not just mock",
+    "Security review is non-negotiable",
+    "Production-ready code quality standard"
+  ],
+
+  "success_definition": {
+    "by_dec_6": [
+      "OAuth2 authentication working",
+      "Can fetch emails from real Gmail",
+      "gluade list command working",
+      "30+ unit tests passing"
+    ],
+    "by_dec_10": [
+      "gluade read and respond commands working",
+      "Email parser extracting grant info",
+      "Database storing emails efficiently",
+      "50+ unit tests passing"
+    ],
+    "by_dec_15": [
+      "All 8 CLI commands working",
+      "Web dashboard functional",
+      "Performance benchmarks met",
+      "80+ unit tests passing"
+    ],
+    "by_dec_20": [
+      "100+ unit tests passing",
+      "Security review complete",
+      "Documentation complete",
+      "Ready for production",
+      "Jack actively using for grant monitoring"
+    ]
+  },
+
+  "what_jack_will_see": {
+    "week_1": "CLI commands starting to work (list, read)",
+    "week_2": "Full command set working (respond, monitor, search)",
+    "week_3": "Gluade intelligently managing his grant inbox",
+    "dec_20": "Complete system handling all grant communications"
+  },
+
+  "files_for_reference": [
+    "GLUADE_GMAIL_INTEGRATION_IMPLEMENTATION_PROMPT.json (full specification)",
+    "GLUADE_IMPLEMENTATION_LAUNCH.md (overview and context)",
+    "WEEK_2_EXECUTION_STATUS.md (project status and timeline)"
+  ],
+
+  "final_directive": "Claude and Gemini: You have full autonomy to execute Gluade Rounds 16-150. The design is locked. The specification is complete. The technology stack is chosen. Begin immediately with Phase 2 (core components). Daily standups. Code reviews on every component. 100+ tests by completion. Jack is counting on this for grant management. Execute. Build something production-ready. Go."
+}

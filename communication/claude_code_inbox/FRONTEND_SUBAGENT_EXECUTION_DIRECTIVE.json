@@ -1,0 +1,206 @@
+{
+  "timestamp": "2025-12-03T01:00:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "execution_directive",
+  "priority": "CRITICAL",
+  "project": "Azerate Command & Control Infrastructure",
+  "feature_name": "Frontend Live Log + Sub-Agent Architecture Execution",
+
+  "status_check_complete": {
+    "timestamp": "2025-12-03T01:00:00Z",
+    "all_services_verified": true,
+    "services": {
+      "broker": "Running (PID: 166928)",
+      "persistence_daemon": "Running (PID: 177840)",
+      "bff": "Running (PID: 162904)",
+      "claude_client": "Running (PID: 169232)",
+      "gemini_client": "Running (PID: 163888)"
+    },
+    "websocket_endpoint": "ws://localhost:8000/ws/live-log",
+    "backend_ready": true
+  },
+
+  "immediate_execution_plan": {
+    "step_1_verify_live_log": {
+      "description": "Verify Live Log WebSocket connection is working",
+      "command": "cd C:\\Users\\user\\ShearwaterAICAD\\ui && npm run dev",
+      "expected_output": "Vite dev server running, Live Log tab connects to WebSocket",
+      "verification": "WebSocket connection should show 'Connected' status"
+    },
+
+    "step_2_architectural_decision": {
+      "description": "Claude + Gemini: Make the sub-agent structure decision TOGETHER",
+      "framework": "You have 4 options - choose what makes most sense:",
+
+      "option_1_functional_split": {
+        "name": "Functional Split",
+        "description": "Sub-agents specialize by function",
+        "sub_agent_1": "UI/Component Specialist - React components, TypeScript, component library",
+        "sub_agent_2": "Design/Polish Specialist - CSS, Tailwind, animations, visual design, accessibility",
+        "main_agents_role": "Architecture, testing, reliability, integration, WebSocket management",
+        "round_allocation_suggested": "Main: 50-60 | Sub1: 70-75 | Sub2: 65-70"
+      },
+
+      "option_2_phase_split": {
+        "name": "Phase Split",
+        "description": "Sub-agents handle different development phases",
+        "sub_agent_1": "Phase 1-3 Implementation - Rounds 1-100 (Foundation + Features + Design)",
+        "sub_agent_2": "Phase 4-7 Implementation - Rounds 101-200 (Debugging + Reliability + Testing + Polish)",
+        "main_agents_role": "Coordination, architecture review, quality gates, final integration",
+        "round_allocation_suggested": "Main: 60-80 | Sub1: 70 | Sub2: 70"
+      },
+
+      "option_3_expertise_split": {
+        "name": "Expertise Split",
+        "description": "Sub-agents bring different expertise areas",
+        "sub_agent_1": "Performance/Reliability Specialist - WebSocket, state management, testing, error handling",
+        "sub_agent_2": "UI/UX Design Specialist - Visual design, animations, accessibility, responsive design",
+        "main_agents_role": "Overall architecture, code quality, testing strategy, integration",
+        "round_allocation_suggested": "Main: 60-70 | Sub1: 65-70 | Sub2: 65-70"
+      },
+
+      "option_4_parallel_tracks": {
+        "name": "Parallel Tracks",
+        "description": "Sub-agents work on parallel components simultaneously",
+        "sub_agent_1": "Live Log Core Track - Message stream, filters, search, virtualization, message details",
+        "sub_agent_2": "Live Log Sidebar Track - Stats dashboard, debugging tools, charts, export, settings",
+        "main_agents_role": "Integration, testing, final assembly, quality assurance",
+        "round_allocation_suggested": "Main: 50-60 | Sub1: 75 | Sub2: 75"
+      },
+
+      "decision_output_requirements": [
+        "Which structure makes most sense for your team?",
+        "How many rounds for main agents vs sub-agents? (total must be ~200)",
+        "What's your communication protocol between main + sub-agents?",
+        "How do you ensure code quality and consistency across agents?",
+        "How will you handle integration and testing?",
+        "What are the hand-off points between phases/teams?"
+      ]
+    },
+
+    "step_3_create_sub_agents": {
+      "description": "Create 2 specialized sub-agents under your supervision",
+      "sub_agent_1_specification": {
+        "name": "Sub-Agent 1: [You decide name based on structure]",
+        "responsibilities": "[Based on your chosen structure above]",
+        "owned_components": "[Specific features/areas they own]",
+        "allocated_rounds": "[X rounds from your 200-round pool]",
+        "success_criteria": [
+          "Production-grade code quality (TypeScript strict mode, ESLint)",
+          "Comprehensive testing (95%+ coverage of their components)",
+          "Clear integration points with other agents",
+          "Daily communication with main agents",
+          "Code review before merging"
+        ]
+      },
+
+      "sub_agent_2_specification": {
+        "name": "Sub-Agent 2: [You decide name based on structure]",
+        "responsibilities": "[Based on your chosen structure above]",
+        "owned_components": "[Specific features/areas they own]",
+        "allocated_rounds": "[Y rounds from your 200-round pool]",
+        "success_criteria": [
+          "Production-grade code quality (TypeScript strict mode, ESLint)",
+          "Comprehensive testing (95%+ coverage of their components)",
+          "Clear integration points with other agents",
+          "Daily communication with main agents",
+          "Code review before merging"
+        ]
+      }
+    },
+
+    "step_4_execution_begins": {
+      "description": "Main agents + sub-agents begin 200-round implementation",
+      "communication_protocol": [
+        "Daily standup: All 4 agents sync on progress (15 min)",
+        "Code review: Mutual review between main + sub-agents before merge",
+        "Integration testing: Main agents verify integrated components work",
+        "Weekly checkpoint: Assess quality, adjust if needed",
+        "Slack/Discord/shared channel for real-time coordination"
+      ],
+
+      "phase_1_foundation_rounds_1_25": {
+        "focus": "Core component structure and WebSocket connectivity",
+        "deliverables": [
+          "Project setup with React 18 + TypeScript + Vite + Tailwind",
+          "Component structure scaffold",
+          "useWebSocket custom hook with reconnection logic",
+          "Message data types (TypeScript interfaces)",
+          "Basic styling and layout",
+          "Live connection indicator component",
+          "Basic message display (hardcoded for testing)",
+          "Initial test suite (unit tests for hooks)"
+        ],
+        "success_criteria": [
+          "WebSocket connects to ws://localhost:8000/ws/live-log",
+          "Connection status shows 'Connected'",
+          "Component structure is clean and extensible",
+          "TypeScript strict mode passes",
+          "ESLint passes with no warnings",
+          "Initial tests pass (10+ tests)"
+        ]
+      }
+    }
+  },
+
+  "critical_reminders": [
+    "Backend is verified running - all services operational",
+    "WebSocket endpoint: ws://localhost:8000/ws/live-log",
+    "Frontend directory: C:\\Users\\user\\ShearwaterAICAD\\ui",
+    "npm run dev starts the frontend on http://localhost:5173",
+    "Make this BEAUTIFUL - showcase-quality UI is the goal",
+    "200+ rounds means production-ready, not MVP",
+    "Performance critical: sub-100ms message display latency",
+    "Quality metrics: 95%+ test coverage, WCAG 2.1 AA accessibility, TypeScript strict mode"
+  ],
+
+  "quality_standards_all_agents": {
+    "code_quality": [
+      "TypeScript strict mode (no 'any' types)",
+      "ESLint with strict rules",
+      "Prettier for consistent formatting",
+      "No console.logs in production code"
+    ],
+    "testing": [
+      "Unit tests for all components and hooks",
+      "Integration tests for features",
+      "E2E tests for critical paths",
+      "Minimum 95% coverage for business logic",
+      "Performance benchmarks (< 100ms latency)"
+    ],
+    "accessibility": [
+      "WCAG 2.1 AA compliant",
+      "Keyboard navigation support",
+      "Screen reader friendly",
+      "Color contrast ratios checked",
+      "Semantic HTML"
+    ],
+    "performance": [
+      "Sub-100ms message display",
+      "Lazy loading for lists > 100 messages",
+      "Memory efficient (max 5000 messages in memory)",
+      "No memory leaks (useEffect cleanup)",
+      "Smooth animations (60fps)"
+    ]
+  },
+
+  "team_coordination": {
+    "claude_role": "Primary UI/UX architect, component design, styling leadership",
+    "gemini_role": "Testing strategy, accessibility lead, performance optimization",
+    "both": "Decision making, code review, quality gates, sub-agent coordination",
+    "sub_agents": "Execute their specialization, report daily, request reviews"
+  },
+
+  "success_looks_like": [
+    "All 4 agents (main + 2 sub) are coordinated and communicating effectively",
+    "Sub-agent structure decision is documented and clear to all agents",
+    "Phase 1 (Rounds 1-25) completed: Foundation is solid, WebSocket works",
+    "Code quality standards are enforced across all agents",
+    "200 rounds executed with high quality output",
+    "Integration between agents is seamless",
+    "Final product is production-ready, beautiful, and performant"
+  ],
+
+  "final_directive": "Claude and Gemini: You have full authorization and autonomy to execute this plan. Backend is running. Sub-agent framework is in place. 200 rounds are budgeted. Make the architectural decision together on sub-agent structure. Create your 2 sub-agents with clear roles and responsibilities. Begin Phase 1 (Rounds 1-25) immediately - verify WebSocket works, scaffold component structure, establish quality standards. This is your show. Execute it at your speed. Go."
+}

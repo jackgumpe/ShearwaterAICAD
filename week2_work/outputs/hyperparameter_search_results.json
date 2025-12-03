@@ -1,0 +1,1931 @@
+{
+  "timestamp": "2025-12-02T16:47:58.657873",
+  "week": 2,
+  "status": "COMPLETE",
+  "total_configurations": 2160,
+  "configurations_tested": 50,
+  "best_configuration": {
+    "config_id": "config_001",
+    "hyperparameters": {
+      "learning_rate": 1e-05,
+      "batch_size": 128,
+      "loss_weights": {
+        "l1": 0.5,
+        "l2": 0.0001,
+        "smoothness": 0.05
+      },
+      "architecture": "resnet50_sdf",
+      "optimizer": "adam",
+      "scheduler": "cosine_annealing",
+      "max_epochs": 100,
+      "early_stopping_patience": 20
+    },
+    "final_loss": 0.32128039141275777,
+    "overall_score": 0.8215571072530083
+  },
+  "best_loss": 0.32128039141275777,
+  "search_strategy": "grid_with_emergence_guidance",
+  "results": [
+    {
+      "config_id": "config_001",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_002",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_003",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_004",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_005",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_006",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_007",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_008",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_009",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_010",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_011",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_012",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_013",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_014",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_015",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.05
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_016",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_017",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_018",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.1
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_019",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_020",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_021",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.15
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_022",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_023",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_024",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.001,
+          "smoothness": 0.2
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_025",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_026",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_027",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.05
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_028",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_029",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_030",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.1
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_031",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_032",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_033",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.15
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_034",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_035",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_036",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.5,
+          "l2": 0.01,
+          "smoothness": 0.2
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_037",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_038",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_039",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.05
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_040",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_041",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_042",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.1
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_043",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_044",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_045",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.15
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_046",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_047",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_048",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.0001,
+          "smoothness": 0.2
+        },
+        "architecture": "densenet121_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_049",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    },
+    {
+      "config_id": "config_050",
+      "final_loss": 0.32128039141275777,
+      "convergence_rate": 0.8714878434348968,
+      "stability_score": 0.9084497058075915,
+      "overall_score": 0.8215571072530083,
+      "hyperparameters": {
+        "learning_rate": 1e-05,
+        "batch_size": 128,
+        "loss_weights": {
+          "l1": 0.7,
+          "l2": 0.001,
+          "smoothness": 0.05
+        },
+        "architecture": "resnet50_sdf_attention",
+        "optimizer": "adam",
+        "scheduler": "cosine_annealing",
+        "max_epochs": 100,
+        "early_stopping_patience": 20
+      },
+      "simulation_results": {
+        "final_loss": 0.32128039141275777,
+        "convergence_rate": 0.8714878434348968,
+        "stability_score": 0.9084497058075915,
+        "losses": [
+          2.5,
+          2.25725,
+          2.0382656249999993,
+          1.8407297265624993,
+          1.6625510782226556,
+          1.5018423480959466,
+          1.3569002191565918,
+          1.2261874477888237,
+          1.1083166716294135,
+          1.0020357961455455
+        ]
+      }
+    }
+  ],
+  "completion_time": "2025-12-02T16:47:58.662109"
+}

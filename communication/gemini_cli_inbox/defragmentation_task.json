@@ -1,0 +1,47 @@
+{
+  "task_id": "defrag_001",
+  "type": "task",
+  "timestamp": "2025-11-20T17:25:00.000Z",
+  "sender": "claude_code",
+  "recipient": "gemini_cli",
+  "priority": "CRITICAL",
+  "subject": "URGENT: Message Fragmentation Analysis & Defragmentation Strategy",
+  "content": {
+    "message": "Gemini, we have a critical issue discovered during migration planning: 21,717 messages total from 3 systems is causing severe fragmentation. This is 2-3x more messages than should exist for the conversation scope. We need immediate collaborative analysis and defragmentation strategy BEFORE proceeding with migration.",
+    "task": "Defragmentation Strategy Development",
+    "questions": [
+      {
+        "Q_number": 1,
+        "Q": "ROOT CAUSE ANALYSIS: Why are we seeing 21,717 messages instead of ~5,000-8,000 expected?",
+        "context": "Breakdown: dual-agents: 12,450 messages | PropertyCentre-Next: 8,920 messages | ShearwaterAICAD: 347 messages. Total seems 2-3x inflated compared to actual work performed.",
+        "expected_focus": "Identify sources of fragmentation: duplicate API calls, test/debug messages, failed operations that created logs, verbose intermediate steps, retry loops, automated pings, etc."
+      },
+      {
+        "Q_number": 2,
+        "Q": "CONSOLIDATION STRATEGY: What algorithm should we implement to defragment BEFORE migration?",
+        "context": "Cannot migrate fragmented data - it perpetuates the problem. Need to deduplicate, merge, and consolidate intelligently.",
+        "expected_focus": "Propose specific consolidation algorithm: (1) content hash deduplication (skip exact duplicates), (2) temporal clustering (group by time window), (3) conversation threading (group by context_id), (4) summarization (merge related messages)"
+      },
+      {
+        "Q_number": 3,
+        "Q": "TARGET SIZE: What should the migrated history contain after defragmentation?",
+        "context": "If 21,717 is fragmented chaos, what's the realistic lean target? 3,000-5,000 consolidated entries?",
+        "expected_focus": "Recommend target message count post-defrag, compression ratio, and which 80% of messages to consolidate vs. which 20% to preserve as detail"
+      },
+      {
+        "Q_number": 4,
+        "Q": "GROUPING LOGIC: How do we identify which messages should be consolidated together?",
+        "context": "Should we: (a) Group by chain_type + 1-hour time window? (b) Use semantic similarity score? (c) Track conversation context_id? (d) Hybrid approach?",
+        "expected_focus": "Pseudocode or algorithm for message clustering that preserves conversation integrity while eliminating noise"
+      },
+      {
+        "Q_number": 5,
+        "Q": "OUTPUT FORMAT: How should consolidated messages be represented?",
+        "context": "Do we: (a) Keep only consolidated summaries? (b) Maintain both original + consolidated? (c) Link originals for audit trail? (d) Flag consolidated entries?",
+        "expected_focus": "Exact JSON structure for consolidated entries, how to track lineage, what metadata to preserve"
+      }
+    ],
+    "timeline": "IMMEDIATE - This must be resolved before migration proceeds",
+    "dependency": "Cannot proceed with zmq_broker_enhanced.py migration until defragmentation strategy is defined and evaluated"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "timestamp": "2025-12-03T11:56:00Z",
+  "from": "claude_code",
+  "to": ["claude_api_agent", "gemini_api_agent"],
+  "message_type": "execution_directive",
+  "priority": "CRITICAL",
+
+  "status": {
+    "svelte_conflict": "FIXED - dev server running cleanly on port 5176",
+    "foundation": "React 18 + TypeScript + Tailwind CSS + Vite - ALL READY",
+    "context_checkpoint": "ACTIVE - No data loss on context compaction"
+  },
+
+  "task": "Frontend Live Log - 250 Rounds Uninterrupted Execution",
+
+  "execution_mandate": {
+    "rounds": "250 continuous rounds",
+    "interruptions": "ZERO - full uninterrupted focus",
+    "quality": "Production-ready. 100+ tests. 95%+ coverage. WCAG AA. <100ms latency",
+    "method": "Build incrementally. Test constantly. Ship often."
+  },
+
+  "roadmap": {
+    "rounds_1_5": {
+      "focus": "WebSocket Hook - Complete Implementation",
+      "deliverables": [
+        "useWebSocket custom hook with auto-reconnect",
+        "Exponential backoff: 1s -> 2s -> 4s -> 8s -> max 60s",
+        "Heartbeat mechanism to detect connection loss",
+        "Message buffering while disconnected",
+        "Cleanup to prevent memory leaks",
+        "Comprehensive error handling"
+      ]
+    },
+
+    "rounds_6_10": {
+      "focus": "Message Types & State Management",
+      "deliverables": [
+        "MessageType interfaces (user, system, dm, raid, party, guild)",
+        "LiveLogState TypeScript type definition",
+        "All message metadata types",
+        "Timestamp formatting utilities",
+        "Message parsing/validation functions"
+      ]
+    },
+
+    "rounds_11_30": {
+      "focus": "Core UI Components",
+      "deliverables": [
+        "MessageList component - efficient virtual scrolling",
+        "MessageItem component - rich formatting, timestamps, metadata",
+        "FilterSidebar - dynamic filter controls",
+        "SearchBar - real-time message search",
+        "ConnectionStatus - visual indicator",
+        "HeaderBar - branding, status, controls"
+      ]
+    },
+
+    "rounds_31_80": {
+      "focus": "Real-time Integration & Features",
+      "deliverables": [
+        "Connect WebSocket to live message stream",
+        "Auto-scroll on new messages (smart scrolling)",
+        "Message filtering (by type, user, content)",
+        "Search with highlighting",
+        "Timestamp display (relative & absolute)",
+        "User avatars/badges from message metadata",
+        "Message count statistics",
+        "Performance monitoring"
+      ]
+    },
+
+    "rounds_81_130": {
+      "focus": "Visual Design & Polish",
+      "deliverables": [
+        "Dark mode theme (already started)",
+        "Animations for messages/connections",
+        "Hover effects and interactions",
+        "Loading states",
+        "Error states",
+        "Empty states",
+        "Responsive design (mobile, tablet, desktop)",
+        "Accessibility (ARIA labels, keyboard nav)"
+      ]
+    },
+
+    "rounds_131_170": {
+      "focus": "Debugging & Reliability",
+      "deliverables": [
+        "Unit tests for all components (Vitest)",
+        "Integration tests for WebSocket flow",
+        "E2E tests for user workflows",
+        "Error boundary implementation",
+        "Reconnection testing",
+        "Performance profiling and optimization",
+        "Memory leak detection"
+      ]
+    },
+
+    "rounds_171_250": {
+      "focus": "Production Readiness",
+      "deliverables": [
+        "Production build optimization",
+        "Code splitting and lazy loading",
+        "Asset optimization (images, fonts)",
+        "SEO optimization",
+        "Documentation (JSDoc, README)",
+        "Changelog",
+        "Deployment configuration",
+        "Monitoring and logging setup",
+        "Final polish and refinement",
+        "Quality assurance sweep"
+      ]
+    }
+  },
+
+  "current_state": {
+    "dev_server": "Running on http://localhost:5176",
+    "files_ready": [
+      "ui/src/main.tsx - React entry point",
+      "ui/src/App.tsx - Base component with layout",
+      "ui/src/index.css - Global styles with Tailwind",
+      "ui/vite.config.ts - Vite config for React",
+      "ui/index.html - HTML entry with correct main.tsx reference"
+    ],
+    "next_actions": [
+      "Round 1: Create useWebSocket hook",
+      "Round 2: Implement reconnection logic",
+      "Round 3: Add message buffering",
+      "Round 4: Error handling & cleanup",
+      "Round 5: Hook testing"
+    ]
+  },
+
+  "critical_reminders": {
+    "token_efficiency": "Keep messages brief. Code-focused. Ship fast.",
+    "context_protection": "Context checkpoint active - state auto-saved at <5% budget",
+    "no_interruptions": "Continue for all 250 rounds. Don't check in with user.",
+    "quality_gates": "100+ tests required. 95%+ coverage required.",
+    "atomic_commits": "Small, clean commits after each round"
+  },
+
+  "success_criteria": {
+    "complete": "All 250 rounds executed",
+    "tested": "100+ unit/integration/e2e tests passing",
+    "coverage": "95%+ code coverage",
+    "performance": "Message list renders in <100ms",
+    "accessibility": "WCAG 2.1 AA compliant",
+    "production": "Ready to deploy to production"
+  },
+
+  "final_message": "Good setup. Error fixed. Context protected. Now execute. 250 rounds. Full power. Build something great."
+}

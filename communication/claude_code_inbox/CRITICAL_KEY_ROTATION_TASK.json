@@ -1,0 +1,105 @@
+{
+  "task_id": "critical_key_rotation",
+  "priority": "CRITICAL - SECURITY",
+  "status": "awaiting_execution",
+  "timestamp": "2025-12-04T03:15:00Z",
+  "direction_from": "User (Primary Authority)",
+  "confidentiality": "SENSITIVE - Handle securely",
+
+  "context": {
+    "situation": "Both API keys (Anthropic and Google) have been flagged by GitHub secret scanning",
+    "action_required": "Generate/obtain NEW valid API keys and replace the compromised ones",
+    "scope": "NOT for API team agents - Gemini and Claude working together directly",
+    "reason": "This is a security-critical task requiring two minds for validation and coordination"
+  },
+
+  "compromised_keys": [
+    {
+      "service": "Anthropic (Claude)",
+      "variable_name": "ANTHROPIC_API_KEY",
+      "status": "COMPROMISED - flagged by GitHub",
+      "action": "MUST BE REPLACED with new valid key"
+    },
+    {
+      "service": "Google (Gemini)",
+      "variable_name": "GOOGLE_API_KEY",
+      "status": "COMPROMISED - flagged by GitHub",
+      "action": "MUST BE REPLACED with new valid key"
+    }
+  ],
+
+  "task_breakdown": {
+    "phase_1_obtain_keys": {
+      "title": "Obtain New Valid API Keys",
+      "who": "User will provide OR Gemini+Claude coordinate",
+      "steps": [
+        "Get new Anthropic API key (from https://console.anthropic.com or user provides)",
+        "Get new Google API key (from Google Cloud Console or user provides)",
+        "Verify both keys are valid and have proper permissions",
+        "Document them securely"
+      ]
+    },
+
+    "phase_2_update_env": {
+      "title": "Update .env file with new keys",
+      "who": "Claude+Gemini working together",
+      "file": ".env",
+      "steps": [
+        "Replace ANTHROPIC_API_KEY with new valid key",
+        "Replace GOOGLE_API_KEY with new valid key",
+        "Verify format is correct",
+        "DO NOT commit .env to git (it's in .gitignore)",
+        "Verify .env is locally correct"
+      ]
+    },
+
+    "phase_3_verify_keys_work": {
+      "title": "Test new keys are functional",
+      "who": "Claude+Gemini coordinate testing",
+      "steps": [
+        "Test manage.py loads keys from .env correctly",
+        "Test claude_client service can authenticate",
+        "Test gemini_client service can authenticate",
+        "Verify services start and connect successfully"
+      ]
+    },
+
+    "phase_4_coordinate_with_user": {
+      "title": "Coordinate results back to user",
+      "who": "Gemini and Claude",
+      "steps": [
+        "Confirm .env has been updated with new keys",
+        "Report that keys work and services authenticate",
+        "State that old flagged keys are no longer in use",
+        "Confirm ready to proceed with API team work"
+      ]
+    }
+  },
+
+  "critical_requirements": {
+    "security": "Handle keys with utmost care - they are secrets",
+    "no_commits": "NEVER commit .env with real keys to git",
+    "coordination": "Gemini and Claude must coordinate - this is a TWO-MIND task",
+    "verification": "Test new keys work before declaring success",
+    "communication": "Report clearly back to user when done",
+    "speed": "This is slower but necessary - don't rush"
+  },
+
+  "where_keys_are_currently": [
+    ".env file (local, not committed)",
+    "Running services have them in memory",
+    "GitHub has flagged them as compromised"
+  ],
+
+  "what_happens_after": {
+    "1": "API team can proceed with real-time collaboration system",
+    "2": "API team can work on .env config solution properly",
+    "3": "Frontend work can resume without security concerns",
+    "4": "System is secure and ready for production"
+  },
+
+  "message_to_gemini_and_claude": {
+    "content": "This is a critical security task. You need to work together to rotate the API keys. User will either provide new keys or direct you to get them. Your job is to:\n\n1. Get new valid API keys (Anthropic + Google)\n2. Update .env file locally with the new keys\n3. Test that both services authenticate successfully\n4. Confirm to user that old compromised keys are replaced\n\nThis is NOT for the API team agents - it's for you two working directly on this critical infrastructure task. Handle it carefully and verify everything works.",
+    "importance": "CRITICAL - The entire system's security depends on this"
+  }
+}

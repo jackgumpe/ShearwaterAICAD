@@ -7,10 +7,15 @@ from dotenv import load_dotenv # Add load_dotenv
 # Load environment variables early
 load_dotenv()
 
-# CRITICAL SECURITY RISK: Keys are hardcoded due to .env loading issues.
-# DO NOT COMMIT THIS FILE TO VERSION CONTROL.
-claude_api_key = "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"
-gemini_api_key = "AIzaSyBjDGtyntnQrMxPLZNiIGe3nZ6urQeb63s" # Match the key actually working in background services
+# Load API keys from environment variables (via .env file)
+claude_api_key = os.getenv("ANTHROPIC_API_KEY")
+gemini_api_key = os.getenv("GOOGLE_API_KEY")
+
+# Validate keys are present
+if not claude_api_key:
+    raise ValueError("ANTHROPIC_API_KEY not found in environment. Check .env file.")
+if not gemini_api_key:
+    raise ValueError("GOOGLE_API_KEY not found in environment. Check .env file.")
 
 SERVICES = {
     "broker": {

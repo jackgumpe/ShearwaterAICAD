@@ -1,0 +1,109 @@
+{
+  "task_id": "env_config_permanent_solution",
+  "priority": "HIGH",
+  "status": "awaiting_implementation",
+  "timestamp": "2025-12-04T03:00:00Z",
+  "direction_from": "User (Primary Authority)",
+
+  "context": {
+    "problem": "API keys are hardcoded in manage.py because .env loading wasn't working properly",
+    "current_state": ".env file exists with keys but manage.py doesn't read from it",
+    "root_cause": "manage.py has load_dotenv() but hardcodes keys instead of using os.getenv()",
+    "goal": "Implement proper .env handling across ALL services"
+  },
+
+  "issues_identified": [
+    {
+      "file": "manage.py",
+      "issue": "Hardcoded API keys instead of reading from environment",
+      "lines": "12-13",
+      "current": "claude_api_key = \"sk-ant-api03-...\"\ngemini_api_key = \"AIzaSy...\"",
+      "should_be": "claude_api_key = os.getenv('ANTHROPIC_API_KEY')\ngemini_api_key = os.getenv('GOOGLE_API_KEY')"
+    },
+    {
+      "file": ".env",
+      "issue": "Wrong variable name for Gemini key",
+      "current": "OPENAI_API_KEY=...",
+      "should_be": "GOOGLE_API_KEY=..."
+    },
+    {
+      "file": "All service files",
+      "issue": "Need to verify they all read from .env properly",
+      "check": "src/monitors/claude_client.py, src/monitors/gemini_client.py, src/brokers/pub_hub.py, etc."
+    }
+  ],
+
+  "implementation_plan": [
+    {
+      "step": 1,
+      "task": "Fix .env file format and variable names",
+      "details": [
+        "Ensure ANTHROPIC_API_KEY is set correctly",
+        "Rename OPENAI_API_KEY to GOOGLE_API_KEY",
+        "Verify .env is in .gitignore (it is)",
+        "Update .env.example with correct variable names"
+      ]
+    },
+    {
+      "step": 2,
+      "task": "Fix manage.py to read from .env",
+      "details": [
+        "Replace hardcoded keys with os.getenv() calls",
+        "Verify load_dotenv() is called BEFORE reading env vars",
+        "Add fallback error handling if keys are missing",
+        "Test that keys are loaded correctly"
+      ]
+    },
+    {
+      "step": 3,
+      "task": "Audit all service files for proper .env usage",
+      "details": [
+        "Check src/monitors/claude_client.py - how does it get API key?",
+        "Check src/monitors/gemini_client.py - how does it get API key?",
+        "Check all other services that need API keys",
+        "Ensure all use os.getenv() and load_dotenv()"
+      ]
+    },
+    {
+      "step": 4,
+      "task": "Test end-to-end",
+      "details": [
+        "Remove the hardcoded keys from manage.py completely",
+        "Start services from manage.py",
+        "Verify they connect and work properly with .env keys",
+        "Check that no keys appear in logs or error messages"
+      ]
+    },
+    {
+      "step": 5,
+      "task": "Document the solution",
+      "details": [
+        "Create setup guide for new developers",
+        "Document how to configure .env properly",
+        "List all environment variables needed",
+        "Add to README"
+      ]
+    }
+  ],
+
+  "critical_requirements": {
+    "no_hardcoding": "ZERO hardcoded API keys anywhere in code",
+    "env_first": ".env must be the source of truth for all credentials",
+    "gitignore": ".env must stay in .gitignore (never commit it)",
+    "fallbacks": "Graceful error if keys missing (don't crash silently)",
+    "consistency": "All services use same pattern for loading .env"
+  },
+
+  "deliverables": {
+    "1": "Fixed manage.py using os.getenv()",
+    "2": "Fixed .env with correct variable names",
+    "3": "Audit report of all service files",
+    "4": "Test results showing .env loading works",
+    "5": "Setup documentation"
+  },
+
+  "to_api_team": {
+    "message": "This is a permanent infrastructure solution, not a quick fix. We need this done properly so the handshake and all services can run purely from .env without any hardcoded secrets. When complete, the system will be:\n\n- Secure: No secrets in code\n- Flexible: Easy to change keys without code edits\n- Portable: Works for anyone who sets up .env\n- Maintainable: Consistent pattern across all services",
+    "importance": "CRITICAL - This blocks frontend work from being production-ready"
+  }
+}
